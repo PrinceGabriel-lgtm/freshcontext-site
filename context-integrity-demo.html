@@ -1,0 +1,970 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FreshContext Demo: Freshness-Aware Context Selection</title>
+  <meta name="description" content="A static FreshContext demo showing freshness-aware context selection for AI agents." />
+  <meta property="og:title" content="FreshContext Demo: Freshness-Aware Context Selection" />
+  <meta property="og:description" content="See how FreshContext ranks fresh, stale, unknown-date, and failed retrieval signals before they reach a model." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://freshcontext-site.pages.dev/context-integrity-demo" />
+  <link rel="canonical" href="https://freshcontext-site.pages.dev/context-integrity-demo" />
+  <meta name="theme-color" content="#f7f3ea" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23f7f3ea'/%3E%3Cpath d='M16 20h32M16 32h24M16 44h16' stroke='%231d1b17' stroke-width='4.5' stroke-linecap='round'/%3E%3Ccircle cx='48' cy='32' r='5' fill='%23b68a2d'/%3E%3C/svg%3E" />
+  <style>
+    :root {
+      --paper: #f7f3ea;
+      --paper-soft: #fbf8f1;
+      --surface: #fffdf7;
+      --surface-2: #f0eadf;
+      --ink: #1d1b17;
+      --ink-soft: #39352e;
+      --muted: #716b5f;
+      --faint: #9b9283;
+      --line: #dfd5c4;
+      --line-strong: #cbbda6;
+      --gold: #b68a2d;
+      --gold-soft: #ead8aa;
+      --green: #496f55;
+      --blue: #425f7a;
+      --red: #8e4b3f;
+      --shadow: 0 22px 70px rgba(63, 50, 28, 0.10);
+      --shadow-soft: 0 12px 36px rgba(63, 50, 28, 0.07);
+      --mono: "SF Mono", "Cascadia Code", Consolas, monospace;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--paper);
+      overflow-x: hidden;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, rgba(255, 253, 247, 0.94), rgba(247, 243, 234, 0.98) 36%, rgba(247, 243, 234, 1)),
+        var(--paper);
+      font-family: var(--sans);
+      font-size: 1rem;
+      line-height: 1.65;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:focus-visible {
+      outline: 3px solid rgba(182, 138, 45, 0.36);
+      outline-offset: 3px;
+      border-radius: 8px;
+    }
+
+    code,
+    pre {
+      font-family: var(--mono);
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(223, 213, 196, 0.82);
+      background: rgba(247, 243, 234, 0.88);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav-inner {
+      width: min(1160px, calc(100% - 32px));
+      min-height: 68px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 780;
+      letter-spacing: 0;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line-strong);
+      border-radius: 9px;
+      color: var(--ink);
+      background: linear-gradient(145deg, #fffaf0, #eee3d0);
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 0.89rem;
+      white-space: nowrap;
+    }
+
+    .nav-links a {
+      border-bottom: 1px solid transparent;
+      padding: 3px 0;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--ink);
+      border-bottom-color: var(--gold);
+    }
+
+    .container {
+      width: min(1160px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      padding: 100px 0 70px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 0.72fr);
+      gap: 56px;
+      align-items: center;
+    }
+
+    .eyebrow,
+    .section-label,
+    .kicker {
+      color: var(--gold);
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      font-weight: 760;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      color: var(--ink);
+      line-height: 1.12;
+      letter-spacing: 0;
+      overflow-wrap: anywhere;
+    }
+
+    h1 {
+      max-width: 920px;
+      margin-top: 18px;
+      font-size: clamp(2.35rem, 5vw, 4rem);
+      line-height: 1.05;
+      font-weight: 830;
+    }
+
+    h2 {
+      max-width: 820px;
+      font-size: clamp(1.7rem, 3vw, 2.5rem);
+      font-weight: 790;
+    }
+
+    h3 {
+      font-size: clamp(1.05rem, 1.4vw, 1.3rem);
+      font-weight: 760;
+    }
+
+    .lead {
+      max-width: 760px;
+      margin: 26px 0 0;
+      color: var(--ink-soft);
+      font-size: clamp(1rem, 1.3vw, 1.2rem);
+      line-height: 1.65;
+    }
+
+    .support-line {
+      max-width: 760px;
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .actions,
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .button {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      padding: 0 20px;
+      background: var(--ink);
+      color: var(--surface);
+      font-weight: 740;
+      cursor: pointer;
+      box-shadow: var(--shadow-soft);
+      transition:
+        transform 180ms ease,
+        box-shadow 180ms ease,
+        background 180ms ease,
+        border-color 180ms ease;
+    }
+
+    .button.secondary {
+      border-color: var(--line-strong);
+      background: rgba(255, 253, 247, 0.7);
+      color: var(--ink);
+      box-shadow: none;
+    }
+
+    .button.text {
+      min-height: 40px;
+      border-color: transparent;
+      background: transparent;
+      color: var(--muted);
+      box-shadow: none;
+      padding: 0 4px;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .button.secondary:hover,
+    .button.text:hover {
+      color: var(--ink);
+      border-color: var(--gold);
+      box-shadow: none;
+    }
+
+    .status-card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden;
+      background: rgba(255, 253, 247, 0.82);
+      box-shadow: var(--shadow);
+    }
+
+    .status-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.58), rgba(240, 234, 223, 0.56));
+    }
+
+    .status-title {
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border: 1px solid rgba(73, 111, 85, 0.24);
+      border-radius: 999px;
+      padding: 5px 10px;
+      color: var(--green);
+      background: rgba(73, 111, 85, 0.07);
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      white-space: nowrap;
+    }
+
+    .signal-list {
+      padding: 20px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .signal-row {
+      display: grid;
+      grid-template-columns: 112px 1fr;
+      gap: 16px;
+      align-items: baseline;
+      border-bottom: 1px solid rgba(223, 213, 196, 0.82);
+      padding: 0 0 12px;
+      font-family: var(--mono);
+      font-size: 0.82rem;
+    }
+
+    .signal-row:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .signal-row span:first-child {
+      color: var(--faint);
+    }
+
+    .signal-row span:last-child {
+      color: var(--ink);
+      overflow-wrap: anywhere;
+    }
+
+    .section {
+      padding: 88px 0;
+      border-bottom: 1px solid var(--line);
+      scroll-margin-top: 96px;
+    }
+
+    .section.compact {
+      padding: 70px 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 28px;
+      margin-bottom: 34px;
+    }
+
+    .section-lede {
+      max-width: 690px;
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 1.3vw, 1.16rem);
+      line-height: 1.65;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .card,
+    .comparison-panel {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 22px;
+      background: rgba(255, 253, 247, 0.72);
+      box-shadow: var(--shadow-soft);
+      min-width: 0;
+    }
+
+    .card p,
+    .comparison-panel p {
+      margin: 10px 0 0;
+      color: var(--muted);
+    }
+
+    .card dl {
+      margin: 16px 0 0;
+      display: grid;
+      gap: 9px;
+      font-size: 0.9rem;
+    }
+
+    .card div {
+      min-width: 0;
+    }
+
+    .card dt {
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+    }
+
+    .card dd {
+      margin: 2px 0 0;
+      color: var(--ink-soft);
+      overflow-wrap: anywhere;
+    }
+
+    .card.success {
+      border-top: 3px solid rgba(73, 111, 85, 0.72);
+    }
+
+    .card.warning {
+      border-top: 3px solid rgba(182, 138, 45, 0.72);
+    }
+
+    .card.unknown {
+      border-top: 3px solid rgba(66, 95, 122, 0.62);
+    }
+
+    .card.failed {
+      border-top: 3px solid rgba(142, 75, 63, 0.72);
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 9px;
+      color: var(--ink-soft);
+      background: rgba(255, 253, 247, 0.7);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      white-space: nowrap;
+    }
+
+    .tag.good {
+      border-color: rgba(73, 111, 85, 0.24);
+      color: var(--green);
+      background: rgba(73, 111, 85, 0.07);
+    }
+
+    .tag.warn {
+      border-color: rgba(182, 138, 45, 0.30);
+      color: #795b1d;
+      background: rgba(234, 216, 170, 0.28);
+    }
+
+    .tag.cold {
+      border-color: rgba(66, 95, 122, 0.22);
+      color: var(--blue);
+      background: rgba(66, 95, 122, 0.08);
+    }
+
+    .tag.bad {
+      border-color: rgba(142, 75, 63, 0.24);
+      color: var(--red);
+      background: rgba(142, 75, 63, 0.08);
+    }
+
+    .comparison {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .comparison-panel ul {
+      margin: 16px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .comparison-panel li {
+      margin: 8px 0;
+    }
+
+    .rank-table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255, 253, 247, 0.72);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .rank-table th,
+    .rank-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .rank-table th {
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .rank-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .rank-table td {
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    .rank-table td strong {
+      color: var(--ink);
+      font-weight: 760;
+    }
+
+    .code-block {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 18px;
+      overflow-x: auto;
+      background: #1f1d18;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .code-block pre {
+      margin: 0;
+      min-width: 0;
+      color: #f7f3ea;
+      font-size: 0.88rem;
+      line-height: 1.68;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .note {
+      margin-top: 24px;
+      border: 1px solid rgba(182, 138, 45, 0.30);
+      border-radius: 12px;
+      padding: 16px 18px;
+      color: #604817;
+      background: rgba(234, 216, 170, 0.24);
+      font-size: 0.95rem;
+    }
+
+    .note strong {
+      color: var(--ink);
+    }
+
+    .chip {
+      min-height: 30px;
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 10px;
+      color: var(--ink-soft);
+      background: rgba(255, 253, 247, 0.7);
+      font-size: 0.82rem;
+    }
+
+    .chip:hover {
+      border-color: var(--gold);
+      color: var(--ink);
+    }
+
+    .footer {
+      padding: 46px 0;
+      color: var(--muted);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 28px;
+      border-top: 1px solid var(--line);
+      padding-top: 26px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 14px;
+    }
+
+    .footer a {
+      color: var(--ink);
+      border-bottom: 1px solid rgba(182, 138, 45, 0.5);
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .section-head,
+      .grid,
+      .grid.two,
+      .comparison {
+        display: block;
+      }
+
+      .status-card,
+      .card,
+      .comparison-panel {
+        margin-top: 16px;
+      }
+
+      .rank-table,
+      .rank-table thead,
+      .rank-table tbody,
+      .rank-table tr,
+      .rank-table th,
+      .rank-table td {
+        display: block;
+      }
+
+      .rank-table thead {
+        display: none;
+      }
+
+      .rank-table tr {
+        border-bottom: 1px solid var(--line);
+      }
+
+      .rank-table tr:last-child {
+        border-bottom: 0;
+      }
+
+      .rank-table td {
+        border-bottom: 0;
+        padding: 10px 16px;
+      }
+
+      .rank-table td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 3px;
+        color: var(--faint);
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        text-transform: uppercase;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 14px 0;
+      }
+
+      .nav-links {
+        width: 100%;
+        min-width: 0;
+        gap: 14px;
+        overflow-x: auto;
+        padding-bottom: 2px;
+      }
+
+      .hero {
+        padding: 72px 0 54px;
+      }
+
+      .section {
+        padding: 66px 0;
+      }
+
+      h1 {
+        font-size: clamp(2.15rem, 7vw, 3.35rem);
+      }
+
+      .signal-row {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+
+      .footer-inner {
+        display: block;
+      }
+
+      .footer-links {
+        justify-content: flex-start;
+        margin-top: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="brand" aria-label="FreshContext home">
+        <span class="brand-mark">FC</span>
+        <span>FreshContext</span>
+      </a>
+      <div class="nav-links" aria-label="Primary navigation">
+        <a href="/">Home</a>
+        <a href="/context-integrity">Context integrity</a>
+        <a href="/context-integrity-demo" class="active">Demo</a>
+        <a href="/spec.html">Spec</a>
+        <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">GitHub</a>
+        <a href="https://www.npmjs.com/package/freshcontext-mcp">npm</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div>
+            <div class="eyebrow">Static buyer demo</div>
+            <h1>Freshness-aware context selection for AI agents</h1>
+            <p class="lead">A small static demo showing how FreshContext ranks fresh, stale, unknown-date, and failed retrieval signals before they reach a model.</p>
+            <p class="support-line">The example uses synthetic data and simplified envelopes to show the Core scoring, ranking, explanation, and provenance logic through the MCP/reference implementation.</p>
+            <div class="actions">
+              <a class="button" href="#freshcontext-pass">See FreshContext pass</a>
+              <a class="button secondary" href="/context-integrity">Context integrity</a>
+              <a class="button text" href="/spec.html">Read spec</a>
+            </div>
+          </div>
+
+          <aside class="status-card" aria-label="Demo scenario summary">
+            <div class="status-top">
+              <span class="status-title">Scenario</span>
+              <span class="status-pill">Synthetic</span>
+            </div>
+            <div class="signal-list">
+              <div class="signal-row"><span>query</span><span>&ldquo;What is the current status of Project Atlas?&rdquo;</span></div>
+              <div class="signal-row"><span>problem</span><span>four retrieved signals conflict or fail in different ways</span></div>
+              <div class="signal-row"><span>naive</span><span>passes every snippet forward as prompt context</span></div>
+              <div class="signal-row"><span>FreshContext</span><span>ranks, penalizes, explains, wraps, and excludes failed context</span></div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="scenario">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="section-label">Scenario</p>
+            <h2>One current-status query, four uneven signals.</h2>
+          </div>
+          <p class="section-lede">The demo query is fictional: &ldquo;What is the current status of Project Atlas?&rdquo; The raw snippets below are synthetic examples designed to show the context-quality problem.</p>
+        </div>
+        <div class="grid">
+          <article class="card success">
+            <span class="tag good">success</span>
+            <h3>Fresh source</h3>
+            <dl>
+              <div><dt>Source</dt><dd>Project Atlas status page</dd></div>
+              <div><dt>Published</dt><dd>recent demo update</dd></div>
+              <div><dt>Retrieved</dt><dd>now, during the demo run</dd></div>
+              <div><dt>Content</dt><dd>&ldquo;Project Atlas is operational after the May patch.&rdquo;</dd></div>
+            </dl>
+          </article>
+
+          <article class="card warning">
+            <span class="tag warn">success, stale</span>
+            <h3>Stale but authoritative</h3>
+            <dl>
+              <div><dt>Source</dt><dd>archived engineering memo</dd></div>
+              <div><dt>Published</dt><dd>14 months ago</dd></div>
+              <div><dt>Retrieved</dt><dd>now, during the demo run</dd></div>
+              <div><dt>Content</dt><dd>&ldquo;Project Atlas remains in limited beta.&rdquo;</dd></div>
+            </dl>
+          </article>
+
+          <article class="card unknown">
+            <span class="tag cold">partial</span>
+            <h3>Unknown-date source</h3>
+            <dl>
+              <div><dt>Source</dt><dd>copied internal note</dd></div>
+              <div><dt>Published</dt><dd>unknown</dd></div>
+              <div><dt>Retrieved</dt><dd>now, during the demo run</dd></div>
+              <div><dt>Content</dt><dd>&ldquo;Project Atlas is paused pending review.&rdquo;</dd></div>
+            </dl>
+          </article>
+
+          <article class="card failed">
+            <span class="tag bad">failed</span>
+            <h3>Failed source</h3>
+            <dl>
+              <div><dt>Source</dt><dd>dashboard API</dd></div>
+              <div><dt>Published</dt><dd>unavailable</dd></div>
+              <div><dt>Retrieved</dt><dd>now, during the demo run</dd></div>
+              <div><dt>Content</dt><dd>[ERROR] upstream timeout</dd></div>
+            </dl>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="naive-retrieval">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="section-label">Naive retrieval</p>
+            <h2>Similarity alone can pass bad context forward.</h2>
+          </div>
+          <p class="section-lede">A simple retriever can find all four snippets relevant to Project Atlas, then pass them into the model without enough context about age, confidence, or failure state.</p>
+        </div>
+        <div class="comparison">
+          <article class="comparison-panel">
+            <h3>What reaches the model</h3>
+            <ul>
+              <li>Fresh operational status page.</li>
+              <li>Old engineering memo that still looks official.</li>
+              <li>Copied note with no reliable publication date.</li>
+              <li>Dashboard timeout included as if it were useful evidence.</li>
+            </ul>
+          </article>
+          <article class="comparison-panel">
+            <h3>What gets lost</h3>
+            <ul>
+              <li>The stale memo is not separated from the current source.</li>
+              <li>The unknown-date note is not clearly down-ranked.</li>
+              <li>The failed dashboard response is not excluded from trusted context.</li>
+              <li>The model has to infer context quality after the prompt is already contaminated.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="freshcontext-pass">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="section-label">FreshContext pass</p>
+            <h2>Rank, penalize, explain, and wrap before generation.</h2>
+          </div>
+          <p class="section-lede">FreshContext Core logic evaluates each signal for source, timestamps, freshness, confidence, utility, status, and provenance metadata before an LLM or agent sees it.</p>
+        </div>
+
+        <table class="rank-table">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Source</th>
+              <th>Freshness</th>
+              <th>Confidence</th>
+              <th>Status</th>
+              <th>Reason</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Rank"><strong>1</strong></td>
+              <td data-label="Source"><strong>Project Atlas status page</strong></td>
+              <td data-label="Freshness">High</td>
+              <td data-label="Confidence">High</td>
+              <td data-label="Status"><span class="tag good">success</span></td>
+              <td data-label="Reason">Recent source with a clear publication signal and direct current-status language.</td>
+            </tr>
+            <tr>
+              <td data-label="Rank"><strong>2</strong></td>
+              <td data-label="Source"><strong>archived engineering memo</strong></td>
+              <td data-label="Freshness">Low</td>
+              <td data-label="Confidence">Medium</td>
+              <td data-label="Status"><span class="tag warn">success, stale</span></td>
+              <td data-label="Reason">Authoritative source, but the age conflicts with a current-status query.</td>
+            </tr>
+            <tr>
+              <td data-label="Rank"><strong>3</strong></td>
+              <td data-label="Source"><strong>copied internal note</strong></td>
+              <td data-label="Freshness">Unknown</td>
+              <td data-label="Confidence">Low</td>
+              <td data-label="Status"><span class="tag cold">unknown date</span></td>
+              <td data-label="Reason">Relevant content, but no reliable published timestamp or source provenance.</td>
+            </tr>
+            <tr>
+              <td data-label="Rank"><strong>4</strong></td>
+              <td data-label="Source"><strong>dashboard API</strong></td>
+              <td data-label="Freshness">Unavailable</td>
+              <td data-label="Confidence">None</td>
+              <td data-label="Status"><span class="tag bad">excluded</span></td>
+              <td data-label="Reason">Fetch failed; the result is marked as a failed signal and excluded from trusted context.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="envelope">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="section-label">Context envelope</p>
+            <h2>A compact audit trail travels with the selected context.</h2>
+          </div>
+          <p class="section-lede">This is a simplified demo envelope, not a claim that the block below is the exact production schema.</p>
+        </div>
+
+        <div class="code-block" aria-label="Simplified demo context envelope">
+<pre>{
+  "source": "Project Atlas status page",
+  "published_at": "recent-demo-update",
+  "retrieved_at": "demo-run-now",
+  "freshness_score": "high",
+  "confidence": "high",
+  "status": "success",
+  "reason": "Recent source with direct current-status language.",
+  "provenance": "audit metadata"
+}</pre>
+        </div>
+        <div class="note"><strong>Ha-Pri boundary:</strong> provenance here means audit metadata and traceability for context handling. It is audit metadata for context flow, not cryptographic protection.</div>
+      </div>
+    </section>
+
+    <section class="section compact" id="final-context">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="section-label">Final agent-facing context</p>
+            <h2>Cleaner context reaches the model.</h2>
+          </div>
+          <p class="section-lede">FreshContext would prefer the fresh status page, warn that the archived memo is stale, down-rank the unknown-date note, and exclude the failed dashboard API result from trusted context.</p>
+        </div>
+
+        <div class="comparison">
+          <article class="comparison-panel">
+            <h3>FreshContext-selected context</h3>
+            <p>Project Atlas is operational after the May patch.</p>
+            <p><strong>Attached warning:</strong> an older memo says limited beta, but it is stale relative to the query.</p>
+          </article>
+          <article class="comparison-panel">
+            <h3>Why this matters</h3>
+            <p>Better models do not remove context risk. They increase the importance of deciding what information reaches the model in the first place.</p>
+            <div class="links">
+              <a class="chip" href="/context-integrity">Context integrity page</a>
+              <a class="chip" href="/spec.html">FreshContext spec</a>
+              <a class="chip" href="/">Home</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>FreshContext</strong><br />
+        Context integrity infrastructure for AI systems.
+      </div>
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/context-integrity">Context integrity</a>
+        <a href="/context-integrity-demo">Demo</a>
+        <a href="/spec.html">Spec</a>
+        <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">GitHub</a>
+        <a href="https://www.npmjs.com/package/freshcontext-mcp">npm</a>
+        <a href="https://registry.modelcontextprotocol.io/">MCP Registry</a>
+        <a href="https://apify.com/prince_gabriel/fresh-hn-feed">HN Actor</a>
+        <a href="https://apify.com/prince_gabriel/fresh-jobs-feed">Jobs Actor</a>
+        <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-ops-pulse">Ops Pulse</a>
+        <a href="https://dev.to/immanuel_gabriel_341393bf">DEV.to</a>
+        <a href="https://www.linkedin.com/in/immanuel-gabriel-99375a292/">LinkedIn</a>
+        <a href="mailto:gimmanuel73@gmail.com">gimmanuel73@gmail.com</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
