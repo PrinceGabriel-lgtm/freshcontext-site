@@ -1,2 +1,0 @@
-# Cloudflare Pages serves clean URLs for root-level .html files.
-# /spec resolves to /spec.html and /context-integrity resolves to /context-integrity.html.
