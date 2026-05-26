@@ -83,7 +83,7 @@
     .spec-footer { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--dim); line-height: 1.9; }
     .spec-footer a { color: var(--muted); text-decoration: none; }
     .spec-footer a:hover { color: var(--text); }
-    @media (max-width: 768px) { .sidebar { display: none; } .content { padding: 2rem 1.5rem 4rem; } .conf-grid { grid-template-columns: 1fr; } nav { padding: 1rem 1.5rem; } .nav-links { gap: 1rem; } }
+    @media (max-width: 768px) { .page { display: block; } .sidebar { display: none; } .content { width: 100%; max-width: none; min-width: 0; padding: 2rem 1.5rem 4rem; } .spec-table { display: block; max-width: 100%; overflow-x: auto; } .conf-grid { grid-template-columns: 1fr; } nav { padding: 1rem 1.5rem; } .nav-links { gap: 1rem; } }
     .sidebar::-webkit-scrollbar { width: 3px; } .sidebar::-webkit-scrollbar-thumb { background: var(--border2); }
   </style>
 </head>
@@ -94,8 +94,8 @@
     <li><a href="/">Home</a></li>
     <li><a href="/context-integrity">Context</a></li>
     <li><a href="/spec.html" class="active">Spec v1.2</a></li>
-    <li><a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp" target="_blank">GitHub</a></li>
-    <li><a href="https://www.npmjs.com/package/freshcontext-mcp" target="_blank">npm</a></li>
+    <li><a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+    <li><a href="https://www.npmjs.com/package/freshcontext-mcp" target="_blank" rel="noopener noreferrer">npm</a></li>
   </ul>
 </nav>
 
@@ -283,7 +283,7 @@ Confidence: &lt;high|medium|low&gt;
       <h2>Why this matters for AI agents</h2>
       <p>Large language models have no internal clock. When an agent retrieves web data, it cannot distinguish between something published this morning and something published three years ago &mdash; unless that information is explicitly surfaced.</p>
       <p>The spec started from a concrete failure: the author asked an AI to help find a job. It returned listings. Three applications later &mdash; two roles no longer existed, one had closed two years prior. The AI presented everything with equal confidence.</p>
-      <p><strong>FreshContext is the fix.</strong> Every piece of retrieved data carries its own timestamp. The agent can reason about data age before acting. Users can see exactly how fresh their AI&rsquo;s information is.</p>
+      <p><strong>FreshContext addresses this.</strong> Retrieved data can carry timestamp, confidence, provenance, and freshness metadata. The agent can reason about data age before acting, and users can inspect how fresh the provided context appears to be.</p>
     </section>
 
     <section class="spec-section" id="changelog">
@@ -323,6 +323,7 @@ Confidence: &lt;high|medium|low&gt;
       <div>FreshContext Specification &mdash; <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp/blob/main/FRESHCONTEXT_SPEC.md">FRESHCONTEXT_SPEC.md</a></div>
       <div>JSON Schema &mdash; <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp/blob/main/freshcontext.schema.json">freshcontext.schema.json</a></div>
       <div>Validator &mdash; <a href="https://www.npmjs.com/package/freshcontext-validate">npx freshcontext-validate</a></div>
+      <div>Privacy &mdash; <a href="/privacy.html">FreshContext privacy notes</a></div>
       <div style="margin-top:0.75rem;color:rgba(200,168,75,0.5);font-style:italic">&ldquo;The work isn&rsquo;t gone. It&rsquo;s just waiting to be continued.&rdquo;</div>
       <div>&mdash; Prince Gabriel, Grootfontein, Namibia</div>
     </div>

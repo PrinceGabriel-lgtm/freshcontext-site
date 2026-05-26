@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FreshContext Privacy</title>
+  <meta name="description" content="FreshContext privacy and security notes for the public site, demo, MCP tools, and hosted Worker surfaces." />
+  <link rel="canonical" href="https://freshcontext-site.pages.dev/privacy" />
+  <style>
+    :root {
+      --bg: #f7f3ea;
+      --paper: #fffdf8;
+      --ink: #1d1b17;
+      --muted: #6f6658;
+      --line: rgba(29, 27, 23, 0.14);
+      --accent: #2f6f5e;
+      --gold: #9a7430;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+    }
+    .nav {
+      border-bottom: 1px solid var(--line);
+      background: rgba(247, 243, 234, 0.94);
+      backdrop-filter: blur(14px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .brand {
+      color: var(--ink);
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      font-size: 0.92rem;
+    }
+    a { color: var(--accent); }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 64px 24px 80px;
+    }
+    .eyebrow {
+      color: var(--gold);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    h1 {
+      font-size: clamp(2.2rem, 6vw, 4.6rem);
+      line-height: 0.98;
+      letter-spacing: -0.035em;
+      margin: 0 0 20px;
+    }
+    .lede {
+      color: var(--muted);
+      font-size: 1.12rem;
+      max-width: 720px;
+      margin-bottom: 34px;
+    }
+    section {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 26px;
+      margin: 18px 0;
+    }
+    h2 {
+      margin: 0 0 12px;
+      font-size: 1.2rem;
+      letter-spacing: -0.01em;
+    }
+    p { color: var(--muted); margin: 0 0 12px; }
+    ul { margin: 0; padding-left: 20px; color: var(--muted); }
+    li { margin: 8px 0; }
+    .note {
+      border-left: 3px solid var(--accent);
+      padding: 12px 16px;
+      background: rgba(47, 111, 94, 0.08);
+      color: var(--ink);
+      margin-top: 16px;
+    }
+    footer {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px 48px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    @media (max-width: 640px) {
+      .nav-inner { align-items: flex-start; flex-direction: column; }
+      main { padding-top: 42px; }
+      section { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="/">FreshContext</a>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/context-integrity">Context integrity</a>
+        <a href="/context-integrity-demo">Demo</a>
+        <a href="/spec.html">Spec</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="eyebrow">Privacy and security notes</div>
+    <h1>FreshContext Privacy</h1>
+    <p class="lede">This page explains the public FreshContext site, demo, MCP tools, hosted Worker surfaces, data sources, metadata, and contact expectations.</p>
+
+    <section>
+      <h2>Scope</h2>
+      <p>The FreshContext public site and demo are informational. They explain a freshness-aware context integrity layer for AI systems and show illustrative examples.</p>
+      <p>FreshContext provides context freshness, confidence, utility, and provenance metadata. It does not determine truth, provide professional advice, or replace domain review.</p>
+      <div class="note">FreshContext is not legal, medical, tax, or financial advice.</div>
+    </section>
+
+    <section>
+      <h2>Data Sources</h2>
+      <p>FreshContext MCP tools and reference adapters may contact third-party public data sources depending on the tool used. Examples include public web pages, package registries, public APIs, and market or research data sources documented by the relevant adapter or page.</p>
+      <p>Users should review the source, timestamp, retrieved time, confidence, freshness score, and provenance fields before relying on any result.</p>
+    </section>
+
+    <section>
+      <h2>Hosted Worker And Cloudflare</h2>
+      <p>Hosted FreshContext Worker routes may be processed by Cloudflare infrastructure. Cloudflare logs or observability systems may contain request metadata such as route, timing, status, source network metadata, user agent, or error details.</p>
+      <p>Where implemented, KV, D1, or cache layers may store adapter results, feed records, cache metadata, operational metadata, or historical signal data.</p>
+    </section>
+
+    <section>
+      <h2>Metadata FreshContext Emits</h2>
+      <p>FreshContext may emit metadata such as source URL, published time, retrieved time, freshness confidence, freshness score, utility values, status, provenance fields, and adapter details where applicable.</p>
+      <p>Ha-Pri v1 should be treated as a provenance stamp and audit reference. It is not hard tamper enforcement.</p>
+    </section>
+
+    <section>
+      <h2>Local MCP And Core Usage</h2>
+      <p>Local MCP/Core usage may run on your machine depending on setup. In local configurations, your own environment, MCP client, terminal, logs, and selected adapters determine what is fetched, displayed, or stored locally.</p>
+      <p>Do not paste secrets, tokens, private logs, customer data, or account credentials into public chats, GitHub issues, demos, screenshots, or logs.</p>
+    </section>
+
+    <section>
+      <h2>User Data And Telemetry</h2>
+      <p>FreshContext does not currently sell user data.</p>
+      <p>The public site does not include a payment flow. If telemetry, accounts, billing, or hosted product features are added later, this page should be updated before release.</p>
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <p>For privacy or security questions, contact <a href="mailto:gimmanuel73@gmail.com">gimmanuel73@gmail.com</a>.</p>
+      <p>Please do not include secrets, tokens, private logs, customer data, or exploit payloads in public issues.</p>
+    </section>
+  </main>
+
+  <footer>
+    <a href="/">Home</a> · <a href="/context-integrity">Context integrity</a> · <a href="/context-integrity-demo">Demo</a> · <a href="/spec.html">Spec</a>
+  </footer>
+</body>
+</html>
