@@ -12,7 +12,7 @@
     :root {
       --void: #09090b; --surface: #111113; --surface2: #18181b; --surface3: #1e1e22;
       --border: rgba(255,255,255,0.07); --border2: rgba(255,255,255,0.12);
-      --text: #e4e4e7; --muted: rgba(228,228,231,0.5); --dim: rgba(228,228,231,0.22);
+      --text: #e4e4e7; --muted: rgba(228,228,231,0.74); --dim: rgba(228,228,231,0.62);
       --green: #4ade80; --green-dim: rgba(74,222,128,0.07);
       --gold: #c8a84b; --gold-dim: rgba(200,168,75,0.08);
       --blue: #7dd3fc; --amber: #fbbf24; --red: #f87171;
@@ -21,10 +21,13 @@
     html { scroll-behavior: smooth; }
     body { background: var(--void); color: var(--text); font-family: 'Outfit', sans-serif; font-weight: 300; min-height: 100vh; }
     body::after { content: ''; position: fixed; width: 700px; height: 500px; background: radial-gradient(ellipse, rgba(200,168,75,0.025) 0%, transparent 65%); top: -100px; left: 50%; transform: translateX(-50%); pointer-events: none; z-index: 0; }
+    a:focus-visible { outline: 3px solid rgba(200,168,75,0.55); outline-offset: 3px; border-radius: 6px; }
+    .skip-link { position: absolute; left: 16px; top: 12px; z-index: 200; transform: translateY(-160%); background: var(--text); color: var(--void); padding: 10px 14px; border-radius: 8px; text-decoration: none; font-family: 'DM Mono', monospace; font-size: 0.8rem; }
+    .skip-link:focus { transform: translateY(0); }
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.2rem 3rem; display: flex; justify-content: space-between; align-items: center; background: rgba(9,9,11,0.94); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
     .logo { font-family: 'DM Mono', monospace; font-size: 0.85rem; color: var(--text); text-decoration: none; }
     .logo span { color: var(--green); }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links { display: flex; gap: 1.25rem; list-style: none; flex-wrap: wrap; justify-content: flex-end; }
     .nav-links a { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.25s; }
     .nav-links a:hover { color: var(--text); }
     .nav-links a.active { color: var(--gold); }
@@ -72,7 +75,7 @@
     .impl-badge { font-family: 'DM Mono', monospace; font-size: 0.6rem; padding: 3px 10px; border-radius: 20px; flex-shrink: 0; letter-spacing: 0.08em; text-transform: uppercase; }
     .impl-badge.reference { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(200,168,75,0.2); }
     .impl-add { background: var(--surface3); border: 1px dashed var(--border2); border-radius: 8px; padding: 1rem 1.25rem; text-align: center; font-size: 0.82rem; color: var(--dim); }
-    .impl-add a { color: var(--green); text-decoration: none; }
+    .impl-add a { color: var(--green); text-decoration: underline; text-underline-offset: 3px; }
     .changelog-item { border-left: 2px solid var(--border2); padding-left: 1.25rem; margin-bottom: 1.5rem; }
     .changelog-ver { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--gold); margin-bottom: 4px; }
     .changelog-date { font-size: 0.75rem; color: var(--dim); margin-bottom: 0.5rem; }
@@ -80,29 +83,33 @@
     .changelog-item li { font-size: 0.83rem; color: var(--muted); padding: 3px 0; line-height: 1.6; }
     .changelog-item li::before { content: '+ '; color: var(--green); font-family: 'DM Mono', monospace; }
     hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
-    .spec-footer { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--dim); line-height: 1.9; }
+    .spec-footer { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted); line-height: 1.9; }
     .spec-footer a { color: var(--muted); text-decoration: none; }
     .spec-footer a:hover { color: var(--text); }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; } }
     @media (max-width: 768px) { .page { display: block; } .sidebar { display: none; } .content { width: 100%; max-width: none; min-width: 0; padding: 2rem 1.5rem 4rem; } .spec-table { display: block; max-width: 100%; overflow-x: auto; } .conf-grid { grid-template-columns: 1fr; } nav { padding: 1rem 1.5rem; } .nav-links { gap: 1rem; } }
     .sidebar::-webkit-scrollbar { width: 3px; } .sidebar::-webkit-scrollbar-thumb { background: var(--border2); }
   </style>
 </head>
 <body>
-<nav>
+<a class="skip-link" href="#main">Skip to main content</a>
+<nav aria-label="Primary navigation">
   <a href="/" class="logo">fresh<span>context</span></a>
   <ul class="nav-links">
     <li><a href="/">Home</a></li>
     <li><a href="/context-integrity">Context</a></li>
-    <li><a href="/spec.html" class="active">Spec v1.2</a></li>
+    <li><a href="/spec.html" class="active" aria-current="page">Spec v1.2</a></li>
+    <li><a href="/privacy.html">Privacy</a></li>
+    <li><a href="/accessibility.html">Accessibility</a></li>
     <li><a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp" target="_blank" rel="noopener noreferrer">GitHub</a></li>
     <li><a href="https://www.npmjs.com/package/freshcontext-mcp" target="_blank" rel="noopener noreferrer">npm</a></li>
   </ul>
 </nav>
 
 <div class="page">
-  <aside class="sidebar">
+  <aside class="sidebar" aria-label="Specification sections">
     <div class="sidebar-section">Overview</div>
-    <a href="#what-this-is" class="active">What this is</a>
+    <a href="#what-this-is" class="active" aria-current="true">What this is</a>
     <a href="#envelope">The envelope</a>
     <a href="#confidence">Confidence levels</a>
     <div class="sidebar-section">Schema</div>
@@ -121,7 +128,7 @@
     <a href="#changelog">Changelog</a>
   </aside>
 
-  <main class="content">
+  <main class="content" id="main">
     <div class="spec-badge">Version 1.2 &mdash; May 2026</div>
     <h1 class="spec-title">The FreshContext<br><em>Specification</em></h1>
     <div class="spec-meta"><span>MIT License</span><span>&middot;</span><span>Immanuel Gabriel (Prince Gabriel)</span><span>&middot;</span><span>Grootfontein, Namibia</span></div>
@@ -156,7 +163,7 @@ Confidence: &lt;high|medium|low&gt;
       <h2>Confidence levels</h2>
       <div class="conf-grid">
         <div class="conf-card high"><div class="conf-label">High</div><div class="conf-desc">Date from a structured, machine-readable field &mdash; API response, HTML metadata, RSS, or official timestamp. Examples: GitHub pushed_at, arXiv submission date, HN created_at.</div></div>
-        <div class="conf-card medium"><div class="conf-label">Medium</div><div class="conf-desc">Date inferred from page signals &mdash; visible date strings, URL patterns, or content heuristics. Likely correct but not guaranteed.</div></div>
+        <div class="conf-card medium"><div class="conf-label">Medium</div><div class="conf-desc">Date inferred from page signals &mdash; visible date strings, URL patterns, or content heuristics. Verify before acting.</div></div>
         <div class="conf-card low"><div class="conf-label">Low</div><div class="conf-desc">No reliable date signal found. Date is an estimate based on indirect signals or entirely unknown.</div></div>
       </div>
     </section>
@@ -324,7 +331,8 @@ Confidence: &lt;high|medium|low&gt;
       <div>JSON Schema &mdash; <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp/blob/main/freshcontext.schema.json">freshcontext.schema.json</a></div>
       <div>Validator &mdash; <a href="https://www.npmjs.com/package/freshcontext-validate">npx freshcontext-validate</a></div>
       <div>Privacy &mdash; <a href="/privacy.html">FreshContext privacy notes</a></div>
-      <div style="margin-top:0.75rem;color:rgba(200,168,75,0.5);font-style:italic">&ldquo;The work isn&rsquo;t gone. It&rsquo;s just waiting to be continued.&rdquo;</div>
+      <div>Accessibility &mdash; <a href="/accessibility.html">FreshContext accessibility notes</a></div>
+      <div style="margin-top:0.75rem;color:var(--gold);font-style:italic">&ldquo;The work isn&rsquo;t gone. It&rsquo;s just waiting to be continued.&rdquo;</div>
       <div>&mdash; Prince Gabriel, Grootfontein, Namibia</div>
     </div>
   </main>
@@ -336,9 +344,15 @@ Confidence: &lt;high|medium|low&gt;
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
-        links.forEach(l => l.classList.remove('active'));
+        links.forEach(l => {
+          l.classList.remove('active');
+          l.removeAttribute('aria-current');
+        });
         const a = document.querySelector('.sidebar a[href="#' + e.target.id + '"]');
-        if (a) a.classList.add('active');
+        if (a) {
+          a.classList.add('active');
+          a.setAttribute('aria-current', 'true');
+        }
       }
     });
   }, { rootMargin: '-20% 0px -70% 0px' });
