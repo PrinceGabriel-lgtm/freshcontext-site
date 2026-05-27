@@ -68,6 +68,23 @@
       border-radius: 8px;
     }
 
+    .skip-link {
+      position: absolute;
+      left: 16px;
+      top: 12px;
+      z-index: 40;
+      transform: translateY(-160%);
+      background: var(--ink);
+      color: var(--surface);
+      padding: 10px 14px;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
     code,
     pre {
       font-family: var(--mono);
@@ -775,7 +792,7 @@
 
     @keyframes fadeUp {
       from {
-        opacity: 0;
+        opacity: 1;
         transform: translateY(14px);
       }
       to {
@@ -939,13 +956,14 @@
   </style>
 </head>
 <body>
-  <nav class="nav">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <nav class="nav" aria-label="Primary navigation">
     <div class="nav-inner">
       <a href="#hero" class="brand" aria-label="FreshContext home">
         <span class="brand-mark">FC</span>
         <span>FreshContext</span>
       </a>
-      <div class="nav-links" aria-label="Primary navigation">
+      <div class="nav-links">
         <a href="#platform">Core</a>
         <a href="#products">Ecosystem</a>
         <a href="#how">Freshness</a>
@@ -955,11 +973,12 @@
         <a href="/context-integrity">Context integrity</a>
         <a href="/context-integrity-demo">Demo</a>
         <a href="/spec.html">Spec</a>
+        <a href="/accessibility.html">Accessibility</a>
       </div>
     </div>
   </nav>
 
-  <main>
+  <main id="main">
     <section class="hero" id="hero">
       <div class="container">
         <div class="hero-grid">
@@ -968,7 +987,7 @@
             <h1>FreshContext is temporal intelligence infrastructure for AI systems.</h1>
             <p class="lead">Rank live signals by freshness, provenance, and temporal relevance before they reach an agent, feed, or retrieval workflow.</p>
             <p class="support-line">Use FreshContext through MCP, APIs, feeds, and freshness-aware infrastructure tools.</p>
-            <div class="badge-row" aria-label="FreshContext status">
+            <div class="badge-row">
               <span class="badge">v0.3.17</span>
               <span class="badge">21 tools live</span>
               <span class="badge">MCP + APIs + feeds</span>
@@ -980,7 +999,7 @@
             </div>
           </div>
 
-          <aside class="system-card" aria-label="FreshContext signal flow">
+          <div class="system-card">
             <div class="system-top">
               <span class="system-title">Temporal signal envelope</span>
               <span class="status live">Live</span>
@@ -991,10 +1010,10 @@
               <div class="signal-row"><span>stamp</span><span>content_date + retrieved_at + source</span></div>
               <div class="signal-row"><span>deliver</span><span>MCP text envelope + structured JSON</span></div>
             </div>
-          </aside>
+          </div>
         </div>
 
-        <div class="stats" aria-label="FreshContext system summary">
+        <div class="stats">
           <div class="stat"><strong>21</strong><span>freshness-aware MCP tools</span></div>
           <div class="stat"><strong>3</strong><span>live product API surfaces</span></div>
           <div class="stat"><strong>DAR</strong><span>decay-aware ranking model</span></div>
@@ -1183,9 +1202,9 @@ Fresh, source-grounded content...
 
         <div class="wizard">
           <div class="tabs" role="tablist" aria-label="Install options">
-            <button class="tab active" id="tab-cloud" onclick="switchOS('cloud')" type="button">Cloud endpoint</button>
-            <button class="tab" id="tab-mac" onclick="switchOS('mac')" type="button">Mac / Linux</button>
-            <button class="tab" id="tab-win" onclick="switchOS('win')" type="button">Windows</button>
+            <button class="tab active" id="tab-cloud" role="tab" aria-selected="true" aria-controls="os-cloud" onclick="switchOS('cloud')" type="button">Cloud endpoint</button>
+            <button class="tab" id="tab-mac" role="tab" aria-selected="false" aria-controls="os-mac" onclick="switchOS('mac')" type="button">Mac / Linux</button>
+            <button class="tab" id="tab-win" role="tab" aria-selected="false" aria-controls="os-win" onclick="switchOS('win')" type="button">Windows</button>
           </div>
 
           <div class="os-panel active" id="os-cloud" role="tabpanel" aria-labelledby="tab-cloud">
@@ -1228,7 +1247,7 @@ Fresh, source-grounded content...
             </div>
           </div>
 
-          <div class="os-panel" id="os-mac" role="tabpanel" aria-labelledby="tab-mac">
+          <div class="os-panel" id="os-mac" role="tabpanel" aria-labelledby="tab-mac" hidden>
             <div class="steps">
               <div class="step">
                 <div class="step-num">1</div>
@@ -1260,7 +1279,7 @@ Fresh, source-grounded content...
             </div>
           </div>
 
-          <div class="os-panel" id="os-win" role="tabpanel" aria-labelledby="tab-win">
+          <div class="os-panel" id="os-win" role="tabpanel" aria-labelledby="tab-win" hidden>
             <div class="steps">
               <div class="step">
                 <div class="step-num">1</div>
@@ -1337,7 +1356,7 @@ Fresh, source-grounded content...
               <h3>Fresh HN Feed</h3>
               <span class="status live">API</span>
             </div>
-            <div class="code"><button class="copy-btn" onclick="copyText('curl &quot;https://fresh-hn-feed.gimmanuel73.workers.dev/v1/hn/feed?limit=10&quot;')" type="button">Copy</button><pre>curl "https://fresh-hn-feed.gimmanuel73.workers.dev/v1/hn/feed?limit=10"</pre></div>
+            <div class="code"><button class="copy-btn" onclick="copyText('curl &quot;https://fresh-hn-feed.gimmanuel73.workers.dev/v1/hn/feed?limit=10&quot;')" type="button">Copy</button><pre tabindex="0">curl "https://fresh-hn-feed.gimmanuel73.workers.dev/v1/hn/feed?limit=10"</pre></div>
           </article>
 
           <article class="card">
@@ -1345,7 +1364,7 @@ Fresh, source-grounded content...
               <h3>Fresh Jobs Feed</h3>
               <span class="status live">API</span>
             </div>
-            <div class="code"><button class="copy-btn" onclick="copyText('curl &quot;https://fresh-jobs-feed.gimmanuel73.workers.dev/v1/jobs/feed?category=ai&amp;limit=10&quot;')" type="button">Copy</button><pre>curl "https://fresh-jobs-feed.gimmanuel73.workers.dev/v1/jobs/feed?category=ai&amp;limit=10"</pre></div>
+            <div class="code"><button class="copy-btn" onclick="copyText('curl &quot;https://fresh-jobs-feed.gimmanuel73.workers.dev/v1/jobs/feed?category=ai&amp;limit=10&quot;')" type="button">Copy</button><pre tabindex="0">curl "https://fresh-jobs-feed.gimmanuel73.workers.dev/v1/jobs/feed?category=ai&amp;limit=10"</pre></div>
           </article>
 
           <article class="card">
@@ -1353,7 +1372,7 @@ Fresh, source-grounded content...
               <h3>MCP Health</h3>
               <span class="status live">Endpoint</span>
             </div>
-            <div class="code"><button class="copy-btn" onclick="copyText('curl &quot;https://freshcontext-mcp.gimmanuel73.workers.dev/health&quot;')" type="button">Copy</button><pre>curl "https://freshcontext-mcp.gimmanuel73.workers.dev/health"</pre></div>
+            <div class="code"><button class="copy-btn" onclick="copyText('curl &quot;https://freshcontext-mcp.gimmanuel73.workers.dev/health&quot;')" type="button">Copy</button><pre tabindex="0">curl "https://freshcontext-mcp.gimmanuel73.workers.dev/health"</pre></div>
           </article>
         </div>
       </div>
@@ -1419,6 +1438,7 @@ Fresh, source-grounded content...
         <a href="/context-integrity-demo">Demo</a>
         <a href="/spec.html">Spec</a>
         <a href="/privacy.html">Privacy</a>
+        <a href="/accessibility.html">Accessibility</a>
         <a href="https://registry.modelcontextprotocol.io/">MCP Registry</a>
         <a href="https://agenticmarket.dev/princegabriel73">Agentic Market Profile</a>
         <a href="https://agenticmarket.dev/princegabriel73/server">Agentic Market Server</a>
@@ -1437,10 +1457,18 @@ Fresh, source-grounded content...
 
   <script>
     function switchOS(os) {
-      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.os-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab').forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      document.querySelectorAll('.os-panel').forEach(p => {
+        p.classList.remove('active');
+        p.hidden = true;
+      });
       document.getElementById('tab-' + os).classList.add('active');
+      document.getElementById('tab-' + os).setAttribute('aria-selected', 'true');
       document.getElementById('os-' + os).classList.add('active');
+      document.getElementById('os-' + os).hidden = false;
     }
 
     function copyText(text) {
