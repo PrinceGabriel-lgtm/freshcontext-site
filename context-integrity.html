@@ -619,7 +619,7 @@
             <div class="eyebrow">FreshContext Strategic Surface</div>
             <h1>Context integrity infrastructure for AI systems</h1>
             <p class="lead">FreshContext turns raw retrieval and tool signals into timestamped, source-aware, freshness-ranked context before they reach an LLM or agent.</p>
-            <p class="support-line">Current framing: integrated MCP/Core IP package. Core-led architecture. MCP-backed reference evidence.</p>
+            <p class="support-line">FreshContext is the judgment layer. Core is active inside the current package; MCP is one reference interface over it.</p>
             <div class="actions">
               <a class="button" href="#approach">See approach</a>
               <a class="button secondary" href="/context-integrity-demo">View demo</a>
@@ -630,12 +630,12 @@
 
           <div class="status-card">
             <div class="status-top">
-              <span class="status-title">Current package</span>
-              <span class="status">v0.3.18</span>
+              <span class="status-title">Current shape</span>
+              <span class="status">live proof</span>
             </div>
             <div class="signal-list">
               <div class="signal-row"><span>core</span><span>freshness, confidence, utility, ranking, envelopes</span></div>
-              <div class="signal-row"><span>interface</span><span>MCP reference implementation with 21 tools</span></div>
+              <div class="signal-row"><span>interface</span><span>MCP/npm reference package with named adapters</span></div>
               <div class="signal-row"><span>runtime</span><span>Cloudflare Worker reference deployment</span></div>
               <div class="signal-row"><span>boundary</span><span>Ha-Pri v1 provenance stamp; v2 is design-only</span></div>
             </div>
@@ -707,9 +707,9 @@
         <div class="section-head">
           <div>
             <p class="section-label">Architecture</p>
-            <h2>Integrated MCP/Core IP package.</h2>
+            <h2>Core-led package, MCP-backed proof.</h2>
           </div>
-          <p class="section-lede">FreshContext Core and MCP are conceptually separating, but today they are part of the same primary package and reference surface.</p>
+          <p class="section-lede">Core is the active judgment layer inside the current package. MCP is the public reference interface, not the product identity.</p>
         </div>
 
         <div class="grid two">
@@ -719,20 +719,20 @@
           </article>
           <article class="card">
             <h3>MCP-backed reference</h3>
-            <p>MCP is the main reference/interface implementation. The 21 tools are reference adapters and compatibility examples showing how different source classes can become FreshContext-compatible.</p>
+            <p>MCP is the main reference/interface implementation today. The named adapters are compatibility examples showing how different source classes can become FreshContext-compatible.</p>
           </article>
         </div>
 
         <div class="grid four" style="margin-top: 18px;">
           <article class="card">
             <span class="kicker">Adapters</span>
-            <h3>21 tools</h3>
-            <p>Read-only reference adapters across developer, market, research, feed, procurement, and composite sources.</p>
+            <h3>Named source boundaries</h3>
+            <p>Read-only reference adapters across developer, market, research, feed, procurement, and composite sources. Their names matter more than the count.</p>
           </article>
           <article class="card">
             <span class="kicker">Worker</span>
             <h3>Edge reference</h3>
-            <p>Cloudflare Worker deployment demonstrates live MCP/API behavior and public health/demo surfaces.</p>
+            <p>Cloudflare deployment demonstrates public health and demo surfaces while API expansion remains roadmap-scoped.</p>
           </article>
           <article class="card">
             <span class="kicker">Docs</span>
@@ -784,8 +784,8 @@
           <article class="proof-item">
             <h3>Technical evidence</h3>
             <ul>
-              <li><code>freshcontext-mcp@0.3.18</code></li>
-              <li>21 MCP tools/reference adapters</li>
+              <li>npm package <code>freshcontext-mcp@0.3.18</code></li>
+              <li>named MCP reference adapters</li>
               <li>tests and stdio smoke validation</li>
               <li>Cloudflare Worker reference deployment</li>
               <li>public spec and methodology</li>
