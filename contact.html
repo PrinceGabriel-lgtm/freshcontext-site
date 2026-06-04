@@ -9,14 +9,16 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23141614'/%3E%3Cpath d='M15 20h34M15 32h22M15 44h30' stroke='%23f6f2e8' stroke-width='4.5' stroke-linecap='round'/%3E%3Ccircle cx='43' cy='32' r='5' fill='%231c8f6a'/%3E%3C/svg%3E" />
   <style>
     :root {
-      --ink: #141614;
-      --paper: #f8f6ef;
-      --muted: #626960;
-      --line: #d9d8ce;
-      --panel: #ffffff;
-      --green: #147a5c;
+      --ink: #17140f;
+      --paper: #f7f2e6;
+      --muted: #6d685d;
+      --line: #dfd4bd;
+      --panel: #fffaf0;
+      --green: #0f6e55;
       --blue: #285d8f;
-      --dark: #101210;
+      --gold: #d1a54b;
+      --gold-soft: #f1d891;
+      --dark: #090b09;
       --radius: 8px;
       --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
       --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -26,7 +28,7 @@
     body {
       margin: 0;
       color: var(--ink);
-      background: var(--paper);
+      background: linear-gradient(180deg, var(--paper), #efe6d4 100%);
       font-family: var(--sans);
       line-height: 1.5;
     }
@@ -47,7 +49,7 @@
       position: sticky;
       top: 0;
       z-index: 10;
-      background: rgba(248, 246, 239, 0.94);
+      background: rgba(247, 242, 230, 0.93);
       border-bottom: 1px solid var(--line);
       backdrop-filter: blur(16px);
     }
@@ -76,6 +78,7 @@
       place-items: center;
       color: #fff;
       background: var(--dark);
+      border: 1px solid rgba(209, 165, 75, 0.38);
       border-radius: var(--radius);
       font-family: var(--mono);
       font-size: 0.74rem;
@@ -98,23 +101,27 @@
     .nav-links a:hover,
     .nav-links a[aria-current="page"] {
       color: var(--ink);
-      background: #ece9df;
+      background: #eee5d3;
+    }
+    .nav-links .external {
+      color: #fff;
+      background: var(--green);
     }
     .container {
       width: min(1080px, calc(100% - 32px));
       margin: 0 auto;
     }
-    main { padding: 70px 0 0; }
+    main { padding: 62px 0 0; }
     .hero {
       display: grid;
       grid-template-columns: minmax(0, 0.9fr) minmax(320px, 0.55fr);
       gap: 26px;
       align-items: stretch;
-      padding-bottom: 72px;
+      padding-bottom: 58px;
     }
     .eyebrow {
       margin-bottom: 14px;
-      color: var(--green);
+      color: #9a6e19;
       font-family: var(--mono);
       font-size: 0.78rem;
       font-weight: 700;
@@ -124,8 +131,8 @@
     h1, h2, h3, p, a { overflow-wrap: anywhere; }
     h1 {
       margin-bottom: 20px;
-      font-size: clamp(3rem, 7vw, 5.9rem);
-      line-height: 0.95;
+      font-size: clamp(2.7rem, 5vw, 4.6rem);
+      line-height: 1;
       letter-spacing: 0;
     }
     .lead {
@@ -136,16 +143,18 @@
     .card {
       min-width: 0;
       padding: 24px;
-      background: var(--panel);
+      background: rgba(255, 250, 240, 0.92);
       border: 1px solid var(--line);
       border-radius: var(--radius);
     }
     .contact-card {
       color: #fff;
-      background: var(--dark);
-      border-color: var(--dark);
+      background:
+        linear-gradient(135deg, rgba(209, 165, 75, 0.18), transparent 38%),
+        #0d0f0c;
+      border-color: rgba(209, 165, 75, 0.25);
     }
-    .contact-card p { color: #dce7df; }
+    .contact-card p { color: #e9e0c9; }
     .button-row,
     .link-list {
       display: flex;
@@ -186,14 +195,14 @@
     .note {
       padding: 16px;
       color: #3f433d;
-      background: #ece9df;
+      background: #efe4cf;
       border: 1px solid var(--line);
       border-radius: var(--radius);
     }
     .footer {
       padding: 34px 0;
-      color: #dce7df;
-      background: var(--dark);
+      color: #e9e0c9;
+      background: #0d0f0c;
     }
     .footer-inner {
       display: flex;
@@ -218,7 +227,7 @@
     @media (max-width: 520px) {
       .container,
       .nav-inner { width: min(100% - 24px, 1080px); }
-      h1 { font-size: clamp(2.35rem, 14vw, 3rem); }
+      h1 { font-size: clamp(2.35rem, 12vw, 3rem); }
       .nav-links a { padding: 7px 8px; font-size: 0.84rem; }
     }
   </style>
@@ -233,10 +242,11 @@
       </a>
       <div class="nav-links">
         <a href="/">Product</a>
+        <a href="/#install">Use</a>
         <a href="/context-integrity-demo">Demo</a>
-        <a href="/#install">Install</a>
         <a href="/spec.html">Docs</a>
         <a href="/contact.html" aria-current="page">Contact</a>
+        <a class="external" href="https://www.npmjs.com/package/freshcontext-mcp">npm</a>
       </div>
     </div>
   </nav>
