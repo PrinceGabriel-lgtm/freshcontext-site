@@ -10,6 +10,7 @@ const pages = [
   "/spec.html",
   "/context-integrity",
   "/context-integrity-demo",
+  "/contact.html",
   "/privacy.html",
   "/accessibility.html",
 ];
