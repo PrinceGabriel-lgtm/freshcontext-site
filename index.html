@@ -302,6 +302,12 @@
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 14px;
     }
+    .path-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 26px;
+    }
     .flow-step,
     .card {
       min-width: 0;
@@ -310,6 +316,16 @@
       border: 1px solid var(--line);
       border-radius: var(--radius);
       box-shadow: 0 1px 0 rgba(20, 22, 20, 0.04);
+    }
+    .card,
+    .flow-step {
+      transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+    }
+    .card:hover,
+    .flow-step:hover {
+      transform: translateY(-2px);
+      border-color: #c6c9bd;
+      box-shadow: var(--shadow);
     }
     .flow-step .num {
       display: inline-grid;
@@ -408,6 +424,11 @@
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 14px;
     }
+    .interface-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
     .card-top {
       display: flex;
       justify-content: space-between;
@@ -429,6 +450,14 @@
       font-family: var(--mono);
       font-size: 0.72rem;
       white-space: nowrap;
+    }
+    .status.soon {
+      color: #624414;
+      background: #f4e5c8;
+    }
+    .status.local {
+      color: var(--blue);
+      background: #e4eef8;
     }
     .link-list {
       display: flex;
@@ -461,6 +490,24 @@
       border: 1px solid var(--line);
       border-radius: var(--radius);
     }
+    @keyframes rise-in {
+      from { transform: translateY(12px); }
+      to { transform: translateY(0); }
+    }
+    .hero h1,
+    .hero .lead,
+    .signal-board,
+    .flow-step,
+    .card {
+      animation: rise-in 520ms ease both;
+    }
+    .signal-board { animation-delay: 80ms; }
+    .flow-step:nth-child(2),
+    .card:nth-child(2) { animation-delay: 60ms; }
+    .flow-step:nth-child(3),
+    .card:nth-child(3) { animation-delay: 120ms; }
+    .flow-step:nth-child(4),
+    .card:nth-child(4) { animation-delay: 180ms; }
     .footer {
       padding: 42px 0;
       color: #dce7df;
@@ -503,7 +550,9 @@
       .hero-layout { min-height: auto; padding-top: 62px; }
       .signal-board { border-left: 0; border-top: 1px solid var(--light-line); padding-left: 0; }
       .flow,
+      .path-grid,
       .grid,
+      .interface-grid,
       .footer-links { grid-template-columns: 1fr 1fr; }
     }
 
@@ -516,7 +565,9 @@
       .signal-row { grid-template-columns: 1fr; gap: 4px; }
       .signal-row .decision { justify-self: start; }
       .flow,
+      .path-grid,
       .grid,
+      .interface-grid,
       .footer-links { grid-template-columns: 1fr; }
       .decision-table,
       .decision-table thead,
@@ -537,6 +588,16 @@
         text-transform: uppercase;
       }
     }
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -549,6 +610,7 @@
       </a>
       <div class="nav-links">
         <a href="#product">Product</a>
+        <a href="#interfaces">Interfaces</a>
         <a href="/context-integrity-demo">Demo</a>
         <a href="#install">Install</a>
         <a href="/spec.html">Docs</a>
@@ -634,6 +696,45 @@
             <p>Return useful actions: use first, cite, refresh, verify, watch, background, or exclude.</p>
           </article>
         </div>
+
+        <div class="path-grid">
+          <article class="card">
+            <div class="card-top">
+              <span class="kicker">New user</span>
+              <span class="status">start here</span>
+            </div>
+            <h3>Install it, then ask better context questions.</h3>
+            <p>Use the npm package with an MCP client, then open the demo runbook to see how FreshContext explains source quality.</p>
+            <div class="link-list">
+              <a class="chip" href="#install">Install path</a>
+              <a class="chip" href="/context-integrity-demo">Demo</a>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card-top">
+              <span class="kicker">Builder / buyer</span>
+              <span class="status local">integrate</span>
+            </div>
+            <h3>Put FreshContext before your model.</h3>
+            <p>Use the public MCP surface now, inspect the Core API docs, and track the REST/SDK/Operator surfaces as they mature.</p>
+            <div class="link-list">
+              <a class="chip" href="/spec.html">Spec</a>
+              <a class="chip" href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp/blob/main/docs/CORE_API.md">Core API</a>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card-top">
+              <span class="kicker">Investor / partner</span>
+              <span class="status">proof</span>
+            </div>
+            <h3>Look for the standard layer.</h3>
+            <p>The asset is a repeatable context judgment layer: standard inputs, source profiles, decisions, audit trails, and host interfaces.</p>
+            <div class="link-list">
+              <a class="chip" href="#proof">Current proof</a>
+              <a class="chip" href="/contact.html">Contact</a>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -691,6 +792,67 @@
               <a class="chip" href="/context-integrity">Context integrity</a>
               <a class="chip" href="/spec.html">Spec</a>
               <a class="chip" href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">GitHub</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="interfaces">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="section-label">Interfaces</p>
+            <h2>Use what is live. See what is next.</h2>
+          </div>
+          <p class="section-lede">FreshContext is host-agnostic by design. MCP is live today; local demos and docs prove the Core pipeline; REST, SDK, CLI, and Operator mode are staged deliberately instead of overclaimed.</p>
+        </div>
+
+        <div class="interface-grid">
+          <article class="card">
+            <div class="card-top">
+              <span class="kicker">MCP</span>
+              <span class="status">live</span>
+            </div>
+            <h3>Agent interface</h3>
+            <p>Install `freshcontext-mcp` and expose 21 read-only tools through MCP stdio clients.</p>
+            <div class="link-list">
+              <a class="chip" href="https://www.npmjs.com/package/freshcontext-mcp">npm</a>
+              <a class="chip" href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">GitHub</a>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card-top">
+              <span class="kicker">Core</span>
+              <span class="status local">local</span>
+            </div>
+            <h3>Evaluation engine</h3>
+            <p>Core owns evaluation, source profiles, ranking, explanations, and decision meaning.</p>
+            <div class="link-list">
+              <a class="chip" href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp/blob/main/docs/CORE_API.md">Core API</a>
+              <a class="chip" href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp/blob/main/docs/SOURCE_PROFILES.md">Profiles</a>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card-top">
+              <span class="kicker">REST</span>
+              <span class="status local">local primitive</span>
+            </div>
+            <h3>HTTP host shape</h3>
+            <p>A local Fetch-style handler exists as a host primitive. A public REST product is still roadmap.</p>
+            <div class="link-list">
+              <a class="chip" href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp/blob/main/docs/API_DESIGN.md">API design</a>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card-top">
+              <span class="kicker">SDK / CLI / Operator</span>
+              <span class="status soon">coming soon</span>
+            </div>
+            <h3>Workflow layer</h3>
+            <p>Future surfaces will make retrieval orchestration and local workflows easier without blurring what is live today.</p>
+            <div class="link-list">
+              <a class="chip" href="/contact.html">Discuss roadmap</a>
             </div>
           </article>
         </div>
