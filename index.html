@@ -61,6 +61,7 @@
       z-index: 10;
       background: rgba(247, 242, 230, 0.93);
       border-bottom: 1px solid var(--line);
+      -webkit-backdrop-filter: blur(16px);
       backdrop-filter: blur(16px);
     }
     .nav-inner {
@@ -756,7 +757,7 @@
             <h3>Try the source demos</h3>
             <p>Clone the repo for bring-your-own-context demos, arXiv signal proof, Trust Scanner, and release integrity checks.</p>
             <div class="link-list">
-              <a class="chip" href="https://www.npmjs.com/package/freshcontext-mcp">npm package 0.3.19</a>
+              <a class="chip" href="https://www.npmjs.com/package/freshcontext-mcp">npm package 0.3.20</a>
               <a class="chip" href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">GitHub repo</a>
               <a class="chip" href="/context-integrity-demo">Decision demo</a>
             </div>
@@ -785,7 +786,7 @@
             <h3>Agent interface</h3>
             <p>Run <code>freshcontext-mcp@latest</code> and use <code>evaluate_context</code> as the generic front door for caller-provided candidate context. The 21 named adapters remain read-only reference tools.</p>
             <div class="link-list">
-              <a class="chip" href="https://www.npmjs.com/package/freshcontext-mcp">npm 0.3.19</a>
+              <a class="chip" href="https://www.npmjs.com/package/freshcontext-mcp">npm 0.3.20</a>
               <a class="chip" href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">GitHub</a>
               <a class="chip" href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp/blob/main/docs/CLIENT_SETUP.md">Client setup</a>
             </div>
@@ -796,7 +797,7 @@
               <span class="status local">local</span>
             </div>
             <h3>Evaluation and decisions</h3>
-            <p>Source Profiles, BYOC JSON demos, <code>evaluate_context</code>, and the arXiv signal path prove caller-provided or adapter output can reach Core decisions.</p>
+            <p>Source Profiles, BYOC JSON demos, <code>evaluate_context</code>, and the arXiv signal path prove caller-provided or adapter output can reach Core decisions. Readable output turns those decisions into plain labels and actions, so users can see why context was used, supported, questioned, or excluded.</p>
             <div class="link-list">
               <a class="chip" href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp/blob/main/docs/CORE_API.md">Core API</a>
               <a class="chip" href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp/blob/main/docs/SOURCE_PROFILES.md">Profiles</a>

@@ -27,6 +27,7 @@
     .nav {
       border-bottom: 1px solid var(--line);
       background: rgba(247, 243, 234, 0.94);
+      -webkit-backdrop-filter: blur(14px);
       backdrop-filter: blur(14px);
       position: sticky;
       top: 0;
@@ -193,7 +194,7 @@
     <section>
       <h2>Metadata FreshContext Emits</h2>
       <p>FreshContext may emit metadata such as source URL, published time, retrieved time, freshness confidence, freshness score, utility values, status, provenance fields, and adapter details where applicable.</p>
-      <p>Ha-Pri v1 should be treated as a provenance stamp and audit reference. It is not hard tamper enforcement.</p>
+      <p>Ha-Pri v1 should be treated as a provenance stamp and audit reference. It is not hard enforcement against alteration.</p>
     </section>
 
     <section>

@@ -24,7 +24,7 @@
     a:focus-visible { outline: 3px solid rgba(200,168,75,0.55); outline-offset: 3px; border-radius: 6px; }
     .skip-link { position: absolute; left: 16px; top: 12px; z-index: 200; transform: translateY(-160%); background: var(--text); color: var(--void); padding: 10px 14px; border-radius: 8px; text-decoration: none; font-family: 'DM Mono', monospace; font-size: 0.8rem; }
     .skip-link:focus { transform: translateY(0); }
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.2rem 3rem; display: flex; justify-content: space-between; align-items: center; background: rgba(9,9,11,0.94); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.2rem 3rem; display: flex; justify-content: space-between; align-items: center; background: rgba(9,9,11,0.94); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
     .logo { font-family: 'DM Mono', monospace; font-size: 0.85rem; color: var(--text); text-decoration: none; }
     .logo span { color: var(--green); }
     .nav-links { display: flex; gap: 1.25rem; list-style: none; flex-wrap: wrap; justify-content: flex-end; }
@@ -276,7 +276,7 @@ Confidence: &lt;high|medium|low&gt;
       <div class="impl-card">
         <div class="impl-body">
           <div class="impl-name">freshcontext-mcp</div>
-          <div class="impl-desc">The canonical reference implementation: freshcontext-mcp@0.3.19 with <code>evaluate_context</code> for caller-provided candidate context plus named read-only MCP reference adapters covering GitHub, HN, arXiv, Reddit, YC, Product Hunt, Stooq finance, jobs, US federal contracts, SEC filings, GDELT global news, Singapore GeBIZ, and composite landscape tools. The npm package is live; hosted Worker and feed surfaces remain separate deployment concerns.</div>
+          <div class="impl-desc">The canonical reference implementation: freshcontext-mcp@0.3.20 with <code>evaluate_context</code> for caller-provided candidate context, additive readable output for each structured result, and named read-only MCP reference adapters covering GitHub, HN, arXiv, Reddit, YC, Product Hunt, Stooq finance, jobs, US federal contracts, SEC filings, GDELT global news, Singapore GeBIZ, and composite landscape tools. The npm package is live; hosted Worker and feed surfaces remain separate deployment concerns.</div>
           <div style="margin-top:8px;display:flex;gap:12px;flex-wrap:wrap">
             <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp" style="font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--green);text-decoration:none">GitHub &rarr;</a>
             <a href="https://www.npmjs.com/package/freshcontext-mcp" style="font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--muted);text-decoration:none">npm &rarr;</a>
@@ -304,7 +304,7 @@ Confidence: &lt;high|medium|low&gt;
           <li>Added failure-honesty requirements for adapter output</li>
           <li>Added Core-backed envelope/scoring implementation status</li>
           <li>Clarified MCP as one interface over the FreshContext methodology</li>
-          <li>Updated reference implementation language for freshcontext-mcp@0.3.19, <code>evaluate_context</code>, and named read-only MCP reference adapters</li>
+          <li>Updated reference implementation language for freshcontext-mcp@0.3.20, <code>evaluate_context</code>, readable output, and named read-only MCP reference adapters</li>
         </ul>
       </div>
       <div class="changelog-item">

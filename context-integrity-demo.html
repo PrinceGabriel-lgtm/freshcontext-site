@@ -95,6 +95,7 @@
       z-index: 20;
       border-bottom: 1px solid rgba(223, 213, 196, 0.82);
       background: rgba(247, 243, 234, 0.88);
+      -webkit-backdrop-filter: blur(18px);
       backdrop-filter: blur(18px);
     }
 
@@ -913,6 +914,31 @@
             </tr>
           </tbody>
         </table>
+      </div>
+    </section>
+
+    <section class="section compact" id="readable-output">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="section-label">Readable decision output</p>
+            <h2>The same judgment, explained plainly.</h2>
+          </div>
+          <p class="section-lede">FreshContext now returns a readable layer beside the structured result, so a person or another agent can see how the context should be treated.</p>
+        </div>
+
+        <div class="comparison">
+          <article class="comparison-panel">
+            <h3>Primary source</h3>
+            <p>This source is strong enough to use as main evidence.</p>
+            <p><strong>Why:</strong> Strong semantic match and current freshness. Source profile supports lenient academic date policy. Intent profile selected citation checking.</p>
+          </article>
+          <article class="comparison-panel">
+            <h3>Action</h3>
+            <p>Use this as main evidence while preserving citation and provenance.</p>
+            <p><strong>Boundary:</strong> FreshContext does not determine truth. It records why context was used, supported, questioned, refreshed, watched, or excluded before it reaches a model.</p>
+          </article>
+        </div>
       </div>
     </section>
 

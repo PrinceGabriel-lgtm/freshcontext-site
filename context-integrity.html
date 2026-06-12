@@ -94,6 +94,7 @@
       z-index: 20;
       border-bottom: 1px solid rgba(223, 213, 196, 0.82);
       background: rgba(247, 243, 234, 0.88);
+      -webkit-backdrop-filter: blur(18px);
       backdrop-filter: blur(18px);
     }
 
@@ -721,6 +722,10 @@
             <h3>MCP-backed reference</h3>
             <p>MCP is the main reference/interface implementation today. The named adapters are compatibility examples showing how different source classes can become FreshContext-compatible.</p>
           </article>
+          <article class="card">
+            <h3>Readable decisions</h3>
+            <p>Core now translates decisions into plain-language output: Primary source, Supporting source, Needs verification, Needs refresh, Watch only, or Excluded. Readable output explains why context was treated a certain way; it does not determine truth.</p>
+          </article>
         </div>
 
         <div class="grid four" style="margin-top: 18px;">
@@ -784,7 +789,7 @@
           <article class="proof-item">
             <h3>Technical evidence</h3>
             <ul>
-              <li>npm package <code>freshcontext-mcp@0.3.19</code></li>
+              <li>npm package <code>freshcontext-mcp@0.3.20</code></li>
               <li><code>evaluate_context</code> for caller-provided candidate context</li>
               <li>named MCP reference adapters</li>
               <li>tests and stdio smoke validation</li>
