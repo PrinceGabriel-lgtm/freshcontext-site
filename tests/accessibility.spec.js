@@ -7,12 +7,12 @@ const { extname, isAbsolute, join, normalize, relative } = require("node:path");
 const root = join(__dirname, "..");
 const pages = [
   "/",
-  "/spec.html",
+  "/spec",
   "/context-integrity",
   "/context-integrity-demo",
-  "/contact.html",
-  "/privacy.html",
-  "/accessibility.html",
+  "/contact",
+  "/privacy",
+  "/accessibility",
 ];
 
 let server;

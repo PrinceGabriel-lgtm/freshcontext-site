@@ -7,7 +7,7 @@ https://freshcontext-site.pages.dev/
 
 Key pages:
 - /
-- /contact.html
+- /contact
 - /spec
 - /context-integrity
 

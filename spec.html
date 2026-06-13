@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FreshContext Specification v1.2</title>
   <meta name="description" content="The FreshContext Specification — an open standard for freshness-aware AI retrieval. Version 1.2, MIT licensed." />
+  <link rel="canonical" href="https://freshcontext-site.pages.dev/spec" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet" />
@@ -96,13 +97,11 @@
 <nav aria-label="Primary navigation">
   <a href="/" class="logo">fresh<span>context</span></a>
   <ul class="nav-links">
-    <li><a href="/">Home</a></li>
-    <li><a href="/context-integrity">Context</a></li>
-    <li><a href="/spec.html" class="active" aria-current="page">Spec v1.2</a></li>
-    <li><a href="/contact.html">Contact</a></li>
-    <li><a href="/privacy.html">Privacy</a></li>
-    <li><a href="/accessibility.html">Accessibility</a></li>
-    <li><a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+    <li><a href="/">Product</a></li>
+    <li><a href="/#install">Use</a></li>
+    <li><a href="/context-integrity-demo">Demo</a></li>
+    <li><a href="/spec" class="active" aria-current="page">Docs</a></li>
+    <li><a href="/contact">Contact</a></li>
     <li><a href="https://www.npmjs.com/package/freshcontext-mcp" target="_blank" rel="noopener noreferrer">npm</a></li>
   </ul>
 </nav>
@@ -276,7 +275,7 @@ Confidence: &lt;high|medium|low&gt;
       <div class="impl-card">
         <div class="impl-body">
           <div class="impl-name">freshcontext-mcp</div>
-          <div class="impl-desc">The canonical reference implementation: freshcontext-mcp@0.3.20 with <code>evaluate_context</code> for caller-provided candidate context, additive readable output for each structured result, and named read-only MCP reference adapters covering GitHub, HN, arXiv, Reddit, YC, Product Hunt, Stooq finance, jobs, US federal contracts, SEC filings, GDELT global news, Singapore GeBIZ, and composite landscape tools. The npm package is live; hosted Worker and feed surfaces remain separate deployment concerns.</div>
+          <div class="impl-desc">The canonical reference implementation: freshcontext-mcp@0.3.21 with <code>evaluate_context</code> for caller-provided candidate context, additive readable output for each structured result, and named read-only MCP reference adapters covering GitHub, HN, arXiv, Reddit, YC, Product Hunt, Stooq finance, jobs, US federal contracts, SEC filings, GDELT global news, Singapore GeBIZ, and composite landscape tools. The npm package is live; hosted Worker and feed surfaces remain separate deployment concerns.</div>
           <div style="margin-top:8px;display:flex;gap:12px;flex-wrap:wrap">
             <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp" style="font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--green);text-decoration:none">GitHub &rarr;</a>
             <a href="https://www.npmjs.com/package/freshcontext-mcp" style="font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--muted);text-decoration:none">npm &rarr;</a>
@@ -304,7 +303,7 @@ Confidence: &lt;high|medium|low&gt;
           <li>Added failure-honesty requirements for adapter output</li>
           <li>Added Core-backed envelope/scoring implementation status</li>
           <li>Clarified MCP as one interface over the FreshContext methodology</li>
-          <li>Updated reference implementation language for freshcontext-mcp@0.3.20, <code>evaluate_context</code>, readable output, and named read-only MCP reference adapters</li>
+          <li>Updated reference implementation language for freshcontext-mcp@0.3.21, <code>evaluate_context</code>, readable output, and named read-only MCP reference adapters</li>
         </ul>
       </div>
       <div class="changelog-item">
@@ -315,7 +314,7 @@ Confidence: &lt;high|medium|low&gt;
           <li>Added <code style="color:var(--green);background:var(--green-dim);padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace">decay_rate</code> field to JSON form</li>
           <li>Formalised three compatibility levels: FreshContext-scored, compatible, aware</li>
           <li>Added JSON Schema (<code style="color:var(--green);background:var(--green-dim);padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace">freshcontext.schema.json</code>) and CLI validator (<code style="color:var(--green);background:var(--green-dim);padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace">npx freshcontext-validate</code>)</li>
-          <li>Published spec site at freshcontext-site.pages.dev/spec.html</li>
+          <li>Published spec site at freshcontext-site.pages.dev/spec</li>
         </ul>
       </div>
       <div class="changelog-item">
@@ -331,8 +330,8 @@ Confidence: &lt;high|medium|low&gt;
       <div>FreshContext Specification &mdash; <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp/blob/main/FRESHCONTEXT_SPEC.md">FRESHCONTEXT_SPEC.md</a></div>
       <div>JSON Schema &mdash; <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp/blob/main/freshcontext.schema.json">freshcontext.schema.json</a></div>
       <div>Validator &mdash; <a href="https://www.npmjs.com/package/freshcontext-validate">npx freshcontext-validate</a></div>
-      <div>Privacy &mdash; <a href="/privacy.html">FreshContext privacy notes</a></div>
-      <div>Accessibility &mdash; <a href="/accessibility.html">FreshContext accessibility notes</a></div>
+      <div>Privacy &mdash; <a href="/privacy">FreshContext privacy notes</a></div>
+      <div>Accessibility &mdash; <a href="/accessibility">FreshContext accessibility notes</a></div>
       <div style="margin-top:0.75rem;color:var(--gold);font-style:italic">&ldquo;The work isn&rsquo;t gone. It&rsquo;s just waiting to be continued.&rdquo;</div>
       <div>&mdash; Prince Gabriel, Grootfontein, Namibia</div>
     </div>
