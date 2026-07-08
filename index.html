@@ -757,11 +757,11 @@
             <h3>Try the source demos</h3>
             <p>Clone the repo for bring-your-own-context demos, arXiv signal proof, Trust Scanner, and release integrity checks.</p>
             <div class="link-list">
-              <a class="chip" href="https://www.npmjs.com/package/freshcontext-mcp">npm package 0.3.21</a>
+              <a class="chip" href="https://www.npmjs.com/package/freshcontext-mcp">npm package <span data-npm-version>latest</span></a>
               <a class="chip" href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">GitHub repo</a>
               <a class="chip" href="/context-integrity-demo">Decision demo</a>
             </div>
-            <div class="note" style="margin-top: 18px;">The local REST handler, Operator mode, retrieval orchestration, browser crawling, dashboards, billing, and webhooks are not presented here as deployed product surfaces.</div>
+            <div class="note" style="margin-top: 18px;">A public /v1/verify endpoint is deployed; Operator mode, retrieval orchestration, browser crawling, dashboards, billing, and webhooks are not presented here as deployed product surfaces.</div>
           </article>
         </div>
       </div>
@@ -786,7 +786,7 @@
             <h3>Agent interface</h3>
             <p>Run <code>freshcontext-mcp@latest</code> and use <code>evaluate_context</code> as the generic front door for caller-provided candidate context. The 21 named adapters remain read-only reference tools.</p>
             <div class="link-list">
-              <a class="chip" href="https://www.npmjs.com/package/freshcontext-mcp">npm 0.3.21</a>
+              <a class="chip" href="https://www.npmjs.com/package/freshcontext-mcp">npm <span data-npm-version>latest</span></a>
               <a class="chip" href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">GitHub</a>
               <a class="chip" href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp/blob/main/docs/CLIENT_SETUP.md">Client setup</a>
             </div>
@@ -809,7 +809,7 @@
               <span class="status soon">planned</span>
             </div>
             <h3>REST, SDK, CLI, Operator</h3>
-            <p>A local REST handler exists in source. Public REST, retrieval orchestration, crawling, dashboards, billing, and webhooks are not live product claims.</p>
+            <p>A public /v1/verify endpoint (HMAC-signed, ledger-backed verdict verification) is live. The public REST evaluate API, retrieval orchestration, crawling, dashboards, billing, SDK, and Operator mode are not live product claims.</p>
             <div class="link-list">
               <a class="chip" href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp/blob/main/docs/API_DESIGN.md">API design</a>
               <a class="chip" href="/contact">Discuss roadmap</a>
@@ -901,5 +901,6 @@
       navigator.clipboard.writeText(text);
     }
   </script>
+<script src="/version.js" defer></script>
 </body>
 </html>
