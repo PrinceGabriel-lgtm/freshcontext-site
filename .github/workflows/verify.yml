@@ -1,0 +1,69 @@
+name: Verify
+
+# The site is deployed by hand with `npx wrangler deploy` from the repository root.
+# Nothing gated that: a malformed page or a regressed accessibility check reached
+# freshcontext.dev and stayed there until somebody happened to notice. package.json
+# has carried `check:html` and `check:a11y` for a while, but nothing ran them except
+# a person remembering to.
+#
+# So these run on every push and pull request. The gate now exists before the deploy
+# rather than after it.
+#
+# This workflow deliberately does NOT deploy. That would need CLOUDFLARE_API_TOKEN in
+# this repository's secrets and a rollback story of its own, and it is a separate
+# decision from having checks at all.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verify-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: HTML and accessibility
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Playwright's bundled Chromium, whose version is pinned by @playwright/test in
+      # package-lock.json. The config used to pin `channel: "chrome"`, which binds the
+      # suite to whatever Google Chrome happens to be installed on the machine — a
+      # different build on every laptop, and absent entirely from most containers.
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Validate HTML
+        run: npm run check:html
+
+      # Serves the site from a node http server inside the spec file, so there is no
+      # separate server to start and nothing to wait for.
+      - name: Accessibility (axe + mobile overflow)
+        run: npm run check:a11y
+
+      - name: Upload the report when something fails
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
+          if-no-files-found: ignore
