@@ -3,1010 +3,466 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FreshContext - Context Gateway For Agents</title>
-  <meta name="description" content="FreshContext decides what context deserves to reach the model by turning raw retrieval results into freshness-ranked, explained, decision-ready context." />
-  <meta property="og:title" content="FreshContext" />
-  <meta property="og:description" content="A context gateway for agents and apps: raw retrieval results become freshness-ranked, explained, decision-ready context." />
+  <title>FreshContext — Context Integrity Infrastructure for AI Agents</title>
+  <meta name="description" content="FreshContext evaluates whether context entering an AI system is fresh, attributable and coherent enough to rely on, and returns a signed, ledger-backed verdict anyone can verify offline." />
+  <link rel="canonical" href="https://freshcontext.dev/" />
+  <meta name="theme-color" content="#12140f" />
+  <meta property="og:site_name" content="FreshContext" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://freshcontext.dev/" />
-  <link rel="canonical" href="https://freshcontext.dev/" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23141614'/%3E%3Cpath d='M15 20h34M15 32h22M15 44h30' stroke='%23f6f2e8' stroke-width='4.5' stroke-linecap='round'/%3E%3Ccircle cx='43' cy='32' r='5' fill='%231c8f6a'/%3E%3C/svg%3E" />
-  <style>
-    :root {
-      --ink: #17140f;
-      --paper: #f7f2e6;
-      --muted: #6d685d;
-      --line: #dfd4bd;
-      --panel: #fffaf0;
-      --green: #0f6e55;
-      --blue: #285d8f;
-      --amber: #c7932b;
-      --gold: #d1a54b;
-      --gold-soft: #f1d891;
-      --red: #b54b42;
-      --dark: #090b09;
-      --dark-soft: #151912;
-      --light-line: rgba(255, 255, 255, 0.18);
-      --shadow: 0 18px 42px rgba(23, 20, 15, 0.12);
-      --radius: 8px;
-      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
-      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      color: var(--ink);
-      background: linear-gradient(180deg, var(--paper), #efe6d4 100%);
-      font-family: var(--sans);
-      line-height: 1.5;
-    }
-    a { color: inherit; }
-    .skip-link {
-      position: absolute;
-      left: 16px;
-      top: -80px;
-      z-index: 20;
-      padding: 10px 12px;
-      color: #fff;
-      background: var(--dark);
-      text-decoration: none;
-      border-radius: var(--radius);
-    }
-    .skip-link:focus { top: 16px; }
-    .nav {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background: rgba(247, 242, 230, 0.93);
-      border-bottom: 1px solid var(--line);
-      -webkit-backdrop-filter: blur(16px);
-      backdrop-filter: blur(16px);
-    }
-    .nav-inner {
-      width: min(1160px, calc(100% - 32px));
-      min-height: 68px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--ink);
-      font-weight: 760;
-      text-decoration: none;
-      letter-spacing: 0;
-      white-space: nowrap;
-    }
-    .brand-mark {
-      display: grid;
-      width: 34px;
-      height: 34px;
-      place-items: center;
-      color: #fff;
-      background: var(--dark);
-      border: 1px solid rgba(209, 165, 75, 0.38);
-      border-radius: var(--radius);
-      font-family: var(--mono);
-      font-size: 0.74rem;
-      letter-spacing: 0;
-    }
-    .nav-links {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-    .nav-links a {
-      padding: 8px 10px;
-      color: var(--muted);
-      font-size: 0.91rem;
-      font-weight: 650;
-      text-decoration: none;
-      border-radius: var(--radius);
-    }
-    .nav-links a:hover,
-    .nav-links a[aria-current="page"] {
-      color: var(--ink);
-      background: #eee5d3;
-    }
-    .nav-links .external {
-      color: #fff;
-      background: var(--green);
-    }
-    .container {
-      width: min(1160px, calc(100% - 32px));
-      margin: 0 auto;
-    }
-    .hero {
-      position: relative;
-      min-height: 560px;
-      color: #fff;
-      background:
-        linear-gradient(135deg, rgba(209, 165, 75, 0.16), transparent 34%),
-        linear-gradient(180deg, #090b09 0%, #12150f 100%);
-      overflow: hidden;
-    }
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(rgba(241, 216, 145, 0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(241, 216, 145, 0.045) 1px, transparent 1px),
-        linear-gradient(122deg, transparent 0 46%, rgba(241, 216, 145, 0.09) 47%, transparent 48% 100%);
-      background-size: 56px 56px, 56px 56px, 340px 340px;
-      opacity: 0.72;
-    }
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: auto 0 0 0;
-      height: 42%;
-      background: linear-gradient(to top, rgba(9, 11, 9, 0.98), rgba(9, 11, 9, 0));
-    }
-    .hero-layout {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: minmax(0, 0.86fr) minmax(360px, 0.74fr);
-      gap: 40px;
-      align-items: center;
-      min-height: 560px;
-      padding: 60px 0 56px;
-    }
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      color: #e8dcae;
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0;
-    }
-    .eyebrow::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      background: #46c894;
-      border-radius: 999px;
-    }
-    h1, h2, h3, p { margin-top: 0; }
-    h1 {
-      max-width: 720px;
-      margin: 16px 0 18px;
-      font-size: clamp(2.75rem, 4.7vw, 4.55rem);
-      line-height: 0.98;
-      letter-spacing: 0;
-    }
-    .hero .lead {
-      max-width: 660px;
-      color: #e7eee8;
-      font-size: clamp(1.04rem, 1.55vw, 1.2rem);
-      line-height: 1.45;
-    }
-    .hero-actions,
-    .button-row {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 28px;
-    }
-    .button {
-      display: inline-flex;
-      min-height: 44px;
-      align-items: center;
-      justify-content: center;
-      padding: 11px 16px;
-      border: 1px solid transparent;
-      border-radius: var(--radius);
-      color: #fff;
-      background: var(--green);
-      font-weight: 760;
-      text-decoration: none;
-    }
-    .button.secondary {
-      color: #fff;
-      background: transparent;
-      border-color: var(--light-line);
-    }
-    .button.light {
-      color: var(--ink);
-      background: #fff;
-      border-color: var(--line);
-    }
-    .release-strip {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 24px;
-    }
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      min-height: 32px;
-      padding: 6px 10px;
-      border: 1px solid var(--light-line);
-      border-radius: 999px;
-      color: #efe6c8;
-      background: rgba(255, 255, 255, 0.055);
-      font-family: var(--mono);
-      font-size: 0.78rem;
-    }
-    .signal-board {
-      align-self: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 12px;
-      padding: 16px;
-      background: rgba(255, 250, 240, 0.045);
-      border: 1px solid rgba(241, 216, 145, 0.18);
-      border-radius: var(--radius);
-      box-shadow: 0 28px 80px rgba(0, 0, 0, 0.34);
-    }
-    .board-header {
-      display: flex;
-      justify-content: space-between;
-      gap: 14px;
-      align-items: baseline;
-      padding-bottom: 12px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-      font-family: var(--mono);
-      font-size: 0.74rem;
-      color: #e8dcae;
-      text-transform: uppercase;
-    }
-    .board-header span:last-child {
-      color: #9fb3a6;
-      text-transform: none;
-    }
-    .signal-row {
-      display: grid;
-      grid-template-columns: 82px minmax(0, 1fr) 108px;
-      gap: 10px;
-      align-items: center;
-      padding: 13px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-      font-family: var(--mono);
-      font-size: 0.78rem;
-    }
-    .signal-row:last-child { border-bottom: 0; }
-    .signal-row span { min-width: 0; }
-    .signal-row .kind { color: #d8c687; text-transform: uppercase; }
-    .signal-row .source { color: #fff; }
-    .signal-row .decision {
-      justify-self: end;
-      padding: 4px 7px;
-      color: #fff;
-      border-radius: 999px;
-      background: var(--blue);
-      white-space: nowrap;
-    }
-    .signal-row .decision.warn { background: var(--gold); color: #1e1508; }
-    .signal-row .decision.stop { background: var(--red); }
-    .section {
-      padding: 66px 0;
-      border-bottom: 1px solid var(--line);
-    }
-    .section.alt { background: #fffaf0; }
-    .section-head {
-      display: grid;
-      grid-template-columns: minmax(0, 0.86fr) minmax(280px, 0.44fr);
-      gap: 32px;
-      align-items: end;
-      margin-bottom: 30px;
-    }
-    .section-label {
-      margin-bottom: 10px;
-      color: var(--green);
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0;
-    }
-    h2 {
-      margin-bottom: 0;
-      font-size: clamp(2rem, 3.5vw, 3.3rem);
-      line-height: 1.04;
-      letter-spacing: 0;
-    }
-    .section-lede {
-      color: var(--muted);
-      font-size: 1.04rem;
-    }
-    .flow {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 14px;
-    }
-    .path-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 26px;
-    }
-    .flow-step,
-    .card {
-      min-width: 0;
-      padding: 22px;
-      background: rgba(255, 250, 240, 0.9);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: 0 1px 0 rgba(20, 22, 20, 0.04);
-    }
-    .card,
-    .flow-step {
-      transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
-    }
-    .card:hover,
-    .flow-step:hover {
-      transform: translateY(-2px);
-      border-color: #cdbb87;
-      box-shadow: var(--shadow);
-    }
-    .flow-step .num {
-      display: inline-grid;
-      width: 32px;
-      height: 32px;
-      place-items: center;
-      margin-bottom: 18px;
-      color: #17140f;
-      background: linear-gradient(180deg, var(--gold-soft), var(--gold));
-      border-radius: var(--radius);
-      font-family: var(--mono);
-      font-size: 0.78rem;
-    }
-    .flow-step h3,
-    .card h3 {
-      margin-bottom: 10px;
-      font-size: 1.12rem;
-      letter-spacing: 0;
-    }
-    .flow-step p,
-    .card p {
-      color: var(--muted);
-      margin-bottom: 0;
-    }
-    .proof-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 0.95fr) minmax(300px, 0.55fr);
-      gap: 18px;
-      align-items: stretch;
-    }
-    .decision-table {
-      width: 100%;
-      border-collapse: collapse;
-      overflow: hidden;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-    }
-    .decision-table th,
-    .decision-table td {
-      padding: 14px;
-      text-align: left;
-      border-bottom: 1px solid var(--line);
-      vertical-align: top;
-    }
-    .decision-table th {
-      color: var(--muted);
-      font-family: var(--mono);
-      font-size: 0.76rem;
-      text-transform: uppercase;
-      letter-spacing: 0;
-    }
-    .decision-table tr:last-child td { border-bottom: 0; }
-    .tag {
-      display: inline-flex;
-      padding: 4px 8px;
-      border-radius: 999px;
-      color: #fff;
-      background: var(--green);
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      white-space: nowrap;
-    }
-    .tag.warn { color: #1f1609; background: #e4bd67; }
-    .tag.stop { background: var(--red); }
-    .code {
-      position: relative;
-      margin-top: 16px;
-      padding: 16px;
-      color: #edf4ee;
-      background: #0d0f0c;
-      border-radius: var(--radius);
-      overflow: auto;
-    }
-    pre {
-      margin: 0;
-      white-space: pre-wrap;
-      overflow-wrap: anywhere;
-      font-family: var(--mono);
-      font-size: 0.88rem;
-      line-height: 1.5;
-    }
-    .copy-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      padding: 6px 8px;
-      color: #fff;
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: var(--radius);
-      cursor: pointer;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-    }
-    .interface-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-    }
-    .card-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-    .kicker {
-      color: var(--green);
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      text-transform: uppercase;
-    }
-    .status {
-      padding: 4px 8px;
-      border-radius: 999px;
-      color: var(--green);
-      background: #e4f3eb;
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      white-space: nowrap;
-    }
-    .status.soon {
-      color: #624414;
-      background: #f4e5c8;
-    }
-    .status.local {
-      color: var(--blue);
-      background: #e4eef8;
-    }
-    .link-list {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-top: 16px;
-    }
-    .chip {
-      display: inline-flex;
-      min-height: 34px;
-      align-items: center;
-      padding: 6px 10px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      color: var(--ink);
-      background: #fff;
-      font-weight: 650;
-      text-decoration: none;
-    }
-    .split {
-      display: grid;
-      grid-template-columns: minmax(0, 0.8fr) minmax(320px, 0.58fr);
-      gap: 18px;
-      align-items: stretch;
-    }
-    .note {
-      padding: 16px;
-      color: #3f433d;
-      background: #efe4cf;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-    }
-    @keyframes rise-in {
-      from { transform: translateY(12px); }
-      to { transform: translateY(0); }
-    }
-    .hero h1,
-    .hero .lead,
-    .signal-board,
-    .flow-step,
-    .card {
-      animation: rise-in 520ms ease both;
-    }
-    .signal-board { animation-delay: 80ms; }
-    .flow-step:nth-child(2),
-    .card:nth-child(2) { animation-delay: 60ms; }
-    .flow-step:nth-child(3),
-    .card:nth-child(3) { animation-delay: 120ms; }
-    .flow-step:nth-child(4),
-    .card:nth-child(4) { animation-delay: 180ms; }
-    .footer {
-      padding: 42px 0;
-      color: #e9e0c9;
-      background: #0d0f0c;
-    }
-    .footer-inner {
-      display: grid;
-      grid-template-columns: minmax(220px, 0.7fr) minmax(0, 1fr);
-      gap: 32px;
-    }
-    .footer-links {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 22px;
-    }
-    .footer-links h3 {
-      margin: 0 0 10px;
-      color: #fff;
-      font-size: 0.9rem;
-    }
-    .footer-links a {
-      display: block;
-      margin: 7px 0;
-      color: #b9c7bd;
-      text-decoration: none;
-    }
-    .footer-links a:hover { color: #fff; }
-
-    @media (max-width: 920px) {
-      .nav-inner { align-items: flex-start; flex-direction: column; padding: 12px 0; }
-      .nav-links { justify-content: flex-start; }
-      .hero-layout,
-      .section-head,
-      .proof-grid,
-      .split,
-      .footer-inner {
-        grid-template-columns: 1fr;
+  <meta property="og:title" content="FreshContext — Context Integrity Infrastructure for AI Agents" />
+  <meta property="og:description" content="Signed, ledger-backed verdicts on the context your agents act on. Independently verifiable with no FreshContext account." />
+  <meta property="og:image" content="https://freshcontext.dev/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="FreshContext — context integrity infrastructure for AI agents" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="FreshContext — Context Integrity Infrastructure for AI Agents" />
+  <meta name="twitter:description" content="Signed, ledger-backed verdicts on the context your agents act on. Independently verifiable with no FreshContext account." />
+  <meta name="twitter:image" content="https://freshcontext.dev/og.png" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2312140f'/%3E%3Cpath d='M15 20h34M15 32h22M15 44h30' stroke='%23f4efe2' stroke-width='4.5' stroke-linecap='round'/%3E%3Ccircle cx='43' cy='32' r='5' fill='%230f6e55'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="/site.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://freshcontext.dev/#website",
+        "url": "https://freshcontext.dev/",
+        "name": "FreshContext",
+        "description": "Context integrity infrastructure for AI systems and agents.",
+        "publisher": { "@id": "https://freshcontext.dev/#org" },
+        "inLanguage": "en"
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://freshcontext.dev/#org",
+        "name": "FreshContext",
+        "url": "https://freshcontext.dev/",
+        "email": "hello@freshcontext.dev",
+        "founder": { "@type": "Person", "name": "Immanuel Gabriel" }
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "name": "freshcontext-mcp",
+        "description": "Context integrity engine and Model Context Protocol server. Evaluates candidate context and returns signed, ledger-backed verdicts verifiable offline with Ed25519.",
+        "codeRepository": "https://github.com/PrinceGabriel-lgtm/freshcontext-mcp",
+        "programmingLanguage": "TypeScript",
+        "license": "https://opensource.org/licenses/MIT",
+        "author": { "@id": "https://freshcontext.dev/#org" }
       }
-      .hero { min-height: auto; }
-      .hero-layout { min-height: auto; padding-top: 62px; }
-      .signal-board { border-left: 0; border-top: 1px solid var(--light-line); padding-left: 0; }
-      .flow,
-      .path-grid,
-      .grid,
-      .interface-grid,
-      .footer-links { grid-template-columns: 1fr 1fr; }
-    }
-
-    @media (max-width: 560px) {
-      .container,
-      .nav-inner { width: min(100% - 24px, 1160px); }
-      .nav-links a { padding: 7px 8px; font-size: 0.84rem; }
-      h1 { font-size: clamp(2.35rem, 12vw, 3.05rem); }
-      .hero .lead { font-size: 1.04rem; }
-      .signal-row { grid-template-columns: 1fr; gap: 4px; }
-      .signal-row .decision { justify-self: start; }
-      .flow,
-      .path-grid,
-      .grid,
-      .interface-grid,
-      .footer-links { grid-template-columns: 1fr; }
-      .decision-table,
-      .decision-table thead,
-      .decision-table tbody,
-      .decision-table tr,
-      .decision-table th,
-      .decision-table td { display: block; }
-      .decision-table thead { display: none; }
-      .decision-table td { border-bottom: 0; padding: 10px 14px; }
-      .decision-table tr { border-bottom: 1px solid var(--line); padding: 8px 0; }
-      .decision-table td::before {
-        content: attr(data-label);
-        display: block;
-        margin-bottom: 4px;
-        color: var(--muted);
-        font-family: var(--mono);
-        font-size: 0.72rem;
-        text-transform: uppercase;
-      }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        animation-duration: 0.001ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
-        transition-duration: 0.001ms !important;
-      }
-    }
-  </style>
+    ]
+  }
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
-  <nav class="nav" aria-label="Primary navigation">
+
+  <nav class="nav" aria-label="Primary">
     <div class="nav-inner">
       <a href="/" class="brand" aria-label="FreshContext home">
-        <span class="brand-mark">FC</span>
+        <span class="brand-mark" aria-hidden="true">FC</span>
         <span>FreshContext</span>
       </a>
       <div class="nav-links">
-        <a href="#product">Product</a>
-        <a href="#install">Use</a>
-        <a href="#deploy">Deploy</a>
+        <a href="/" aria-current="page">Product</a>
+        <a href="/context-integrity">Context integrity</a>
         <a href="/context-integrity-demo">Demo</a>
-        <a href="/spec">Docs</a>
+        <a href="/spec">Spec</a>
         <a href="/contact">Contact</a>
-        <a class="external" href="https://www.npmjs.com/package/freshcontext-mcp">npm</a>
+        <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">GitHub</a>
       </div>
     </div>
   </nav>
 
   <main id="main">
-    <section class="hero" id="hero">
-      <div class="container hero-layout">
-        <div>
-          <div class="eyebrow">Context integrity infrastructure</div>
-          <h1>Context that earns its place.</h1>
-          <p class="lead">AI systems increasingly act on external context that changed after it was retrieved. FreshContext sits between context acquisition and agent action and decides whether what is arriving is still fresh, attributable and coherent enough to rely on &mdash; returning a signed, ledger-backed verdict rather than a ranked list.</p>
-          <div class="hero-actions">
-            <a class="button" href="#install">Use FreshContext</a>
-            <a class="button secondary" href="/context-integrity-demo">See the demo</a>
+
+    <!-- ── hero ─────────────────────────────────────────────────────────── -->
+    <section class="band band--dark">
+      <div class="wrap">
+        <div class="head">
+          <div>
+            <p class="eyebrow">Context integrity infrastructure</p>
+            <h1>Context that earns its place.</h1>
+            <p class="lede">
+              AI systems increasingly act on external context that changed after it was
+              retrieved. FreshContext sits between context acquisition and agent action and
+              evaluates whether what is arriving is still fresh, attributable and coherent
+              enough to rely on &mdash; returning a signed, ledger-backed verdict rather than
+              a ranked list.
+            </p>
+            <div class="actions mt-l">
+              <a class="btn" href="#proof">Inspect the proof</a>
+              <a class="btn btn--ghost" href="#use">Use FreshContext</a>
+            </div>
           </div>
-          <div class="release-strip">
-            <span class="pill">signed verdicts</span>
-            <span class="pill">ledger-backed verification</span>
-            <span class="pill">source profiles</span>
-            <span class="pill">decision layer</span>
+
+          <div class="spec">
+            <div class="spec-hd">
+              <b>Verdict record</b>
+              <span class="state state--live">verified offline</span>
+            </div>
+            <dl>
+              <div><dt>status</dt><dd>valid</dd></div>
+              <div><dt>verdict_id</dt><dd>8fd9ead8&hellip;2fa5584b</dd></div>
+              <div><dt>engine_version</dt><dd>0.5.1</dd></div>
+              <div><dt>signature_version</dt><dd>FRESHCONTEXT_HA_PRI_V4</dd></div>
+              <div><dt>key_id</dt><dd>fc-2026-09-ceced1ab</dd></div>
+              <div><dt>verification_method</dt><dd>ed25519</dd></div>
+              <div><dt>reasons</dt><dd>[]</dd></div>
+            </dl>
           </div>
         </div>
+        <p class="small sub mt-s">
+          A real record from the live ledger, checked by the verifiers that ship in the npm
+          package rather than by us.
+        </p>
+      </div>
+    </section>
 
-        <div class="signal-board">
-          <div class="board-header">
-            <span>Decision pass</span>
-            <span>raw signals -> model-ready context</span>
+    <!-- ── architecture ─────────────────────────────────────────────────── -->
+    <section class="band" id="architecture">
+      <div class="wrap">
+        <div class="head">
+          <div>
+            <p class="eyebrow">Where it sits</p>
+            <h2>Between acquisition and action.</h2>
           </div>
-          <div class="signal-row">
-            <span class="kind">raw</span>
-            <span class="source">fresh arXiv paper with clear date</span>
-            <span class="decision">cite primary</span>
+          <p class="sub">
+            FreshContext does not fetch for you and does not replace the model. It judges
+            candidate context on the way in, and leaves evidence behind that someone else can
+            check.
+          </p>
+        </div>
+
+        <div class="tablewrap">
+          <table>
+            <caption class="visually-hidden">The path a candidate signal takes through FreshContext</caption>
+            <thead>
+              <tr><th scope="col">Stage</th><th scope="col">Component</th><th scope="col">What it produces</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Candidate context</strong></td>
+                <td><code>evaluate_context</code>, adapters, your own payload</td>
+                <td>Signals with a source, a timestamp and a claim</td>
+              </tr>
+              <tr>
+                <td><strong>Evaluation</strong></td>
+                <td>Core, Source Profiles, decay-adjusted relevancy</td>
+                <td>Freshness, confidence, provenance, failure honesty</td>
+              </tr>
+              <tr>
+                <td><strong>Verdict</strong></td>
+                <td>Decision layer</td>
+                <td>Use, cite, refresh, verify, background, watch or exclude</td>
+              </tr>
+              <tr>
+                <td><strong>Attestation</strong></td>
+                <td>Ha-Pri v4 signing, D1 verdict ledger</td>
+                <td>An Ed25519-signed record with a <code>verdict_id</code></td>
+              </tr>
+              <tr>
+                <td><strong>Verification</strong></td>
+                <td><code>/v1/verify</code>, published key document, offline verifiers</td>
+                <td>A third party&rsquo;s own yes or no</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="note mt-m">
+          <strong>Exclusion is not enforcement.</strong> A signal the engine judges unusable is
+          excluded from the trusted context it returns, and the reason is recorded. That is a
+          judgment the caller is free to act on. It is not a policy firewall standing in front
+          of your agent &mdash; see <a href="#open">open surfaces</a>.
+        </div>
+      </div>
+    </section>
+
+    <!-- ── proof ────────────────────────────────────────────────────────── -->
+    <section class="band band--tint" id="proof">
+      <div class="wrap">
+        <div class="head">
+          <div>
+            <p class="eyebrow">Proof, not promises</p>
+            <h2>Check it without asking us.</h2>
           </div>
-          <div class="signal-row">
-            <span class="kind">rank</span>
-            <span class="source">older source, still useful foundation</span>
-            <span class="decision">supporting</span>
+          <p class="sub">
+            Every verdict written to the ledger is signed with Ed25519. The public half of the
+            key is published, and both verifiers ship inside the npm package &mdash; so
+            verification needs no account, no API key and no call to FreshContext.
+          </p>
+        </div>
+
+        <div class="rows">
+          <div class="row">
+            <h3>Published signing key</h3>
+            <p>
+              <a href="https://api.freshcontext.dev/.well-known/freshcontext-signing-keys.json"><code>/.well-known/freshcontext-signing-keys.json</code></a>
+              serves the active key and every retired one. Keys are append-only, so a rotation
+              never invalidates a verdict signed under an older key.
+            </p>
           </div>
-          <div class="signal-row">
-            <span class="kind">warn</span>
-            <span class="source">missing publication date</span>
-            <span class="decision warn">verify</span>
+          <div class="row">
+            <h3>Offline verifiers</h3>
+            <p>
+              <code>scripts/verify-offline.mjs</code> (Node, standard library) and
+              <code>scripts/verify_offline.py</code> (Python, no dependencies at all) are both
+              in the published tarball. Method and worked examples in
+              <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp/blob/main/docs/VERIFYING.md">VERIFYING.md</a>.
+            </p>
           </div>
-          <div class="signal-row">
-            <span class="kind">guard</span>
-            <span class="source">blocked/error response</span>
-            <span class="decision stop">exclude</span>
+          <div class="row">
+            <h3>Ledger lookup</h3>
+            <p>
+              <code>POST /v1/verify</code> resolves a <code>verdict_id</code> against the stored
+              record and reports which method answered it. Legacy records verify through the
+              HMAC path and say so; new records are Ed25519 and independently checkable.
+            </p>
+          </div>
+          <div class="row">
+            <h3>Specification and schema</h3>
+            <p>
+              The <a href="/spec">FreshContext Specification</a> is MIT-licensed, and
+              <a href="/freshcontext.schema.json"><code>freshcontext.schema.json</code></a> is
+              served at the identifier it declares.
+            </p>
+          </div>
+          <div class="row">
+            <h3>Source and package</h3>
+            <p>
+              <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">GitHub</a> and
+              <a href="https://www.npmjs.com/package/freshcontext-mcp">npm</a>, currently
+              <code data-npm-version>latest</code>. The engine, the adapters, the tests and the
+              verifiers are the same tree.
+            </p>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="product">
-      <div class="container">
-        <div class="section-head">
+    <!-- ── live ─────────────────────────────────────────────────────────── -->
+    <section class="band" id="live">
+      <div class="wrap">
+        <div class="head">
           <div>
-            <p class="section-label">What it does</p>
-            <h2>The context gateway before reasoning.</h2>
+            <p class="eyebrow">State of the system</p>
+            <h2>What runs today.</h2>
           </div>
-          <p class="section-lede">FreshContext sits between retrieval and reasoning. It does not replace the model; it turns candidate context into decisions about what should be used, cited, refreshed, verified, backgrounded, watched, or excluded.</p>
+          <p class="sub">
+            One list, with the evidence attached. Anything not on it is on the
+            <a href="#open">open surfaces</a> list instead.
+          </p>
         </div>
 
-        <div class="flow">
-          <article class="flow-step">
-            <span class="num">1</span>
-            <h3>Context Gateway</h3>
-            <p>Accept candidate context from MCP tools, app code, local demos, or future adapters.</p>
-          </article>
-          <article class="flow-step">
-            <span class="num">2</span>
-            <h3>Core Evaluation</h3>
-            <p>Normalize signals, score freshness, preserve confidence, and explain uncertainty.</p>
-          </article>
-          <article class="flow-step">
-            <span class="num">3</span>
-            <h3>Source Profiles</h3>
-            <p>Apply source-aware aging policy for docs, code, research, finance, jobs, social, and local context.</p>
-          </article>
-          <article class="flow-step">
-            <span class="num">4</span>
-            <h3>Decision Layer</h3>
-            <p>Return useful actions: use first, cite, refresh, verify, watch, background, or exclude.</p>
-          </article>
+        <div class="tablewrap">
+          <table>
+            <thead>
+              <tr><th scope="col">Surface</th><th scope="col">State</th><th scope="col">Evidence</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Context evaluation</strong><br /><span class="small sub"><code>evaluate_context</code> over caller-provided context</span></td>
+                <td><span class="state state--live">live</span></td>
+                <td><a href="https://www.npmjs.com/package/freshcontext-mcp">npm package</a>, <a href="/context-integrity-demo">demo</a></td>
+              </tr>
+              <tr>
+                <td><strong>MCP interface</strong><br /><span class="small sub">22 registered tools; 21 read-only reference adapters</span></td>
+                <td><span class="state state--live">live</span></td>
+                <td><a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp/blob/main/docs/CLIENT_SETUP.md">Client setup</a></td>
+              </tr>
+              <tr>
+                <td><strong>Ed25519 attestation</strong><br /><span class="small sub">every new ledger record signed <code>HA_PRI_V4</code></span></td>
+                <td><span class="state state--live">live</span></td>
+                <td><a href="https://api.freshcontext.dev/.well-known/freshcontext-signing-keys.json">Key document</a></td>
+              </tr>
+              <tr>
+                <td><strong>Verdict ledger and lookup</strong><br /><span class="small sub"><code>/v1/verify</code>, D1-backed</span></td>
+                <td><span class="state state--live">live</span></td>
+                <td><a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp/blob/main/docs/VERIFYING.md">VERIFYING.md</a></td>
+              </tr>
+              <tr>
+                <td><strong>Edge deployment</strong><br /><span class="small sub">Cloudflare Workers, KV cache, atomic rate limiting, 6-hour cron</span></td>
+                <td><span class="state state--live">live</span></td>
+                <td><code>api.freshcontext.dev</code></td>
+              </tr>
+              <tr>
+                <td><strong>Open specification</strong><br /><span class="small sub">envelope format, decay model, adapter contract</span></td>
+                <td><span class="state state--live">live</span></td>
+                <td><a href="/spec">Specification</a>, <a href="/freshcontext.schema.json">JSON Schema</a></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
 
-    <section class="section" id="install">
-      <div class="container">
-        <div class="section-head">
+    <!-- ── use ──────────────────────────────────────────────────────────── -->
+    <section class="band band--tint" id="use">
+      <div class="wrap">
+        <div class="head">
           <div>
-            <p class="section-label">Use it now</p>
-            <h2>Run the published package when you need an MCP interface.</h2>
+            <p class="eyebrow">Use it</p>
+            <h2>Run it through MCP, or call the engine directly.</h2>
           </div>
-          <p class="section-lede">FreshContext is the context judgment layer. The current public npm package is the easiest way to run that layer through an MCP stdio client.</p>
+          <p class="sub">
+            The published package is the shortest path. Core does not depend on being reached
+            through MCP &mdash; that is the seam that keeps this a primitive rather than a
+            single-integration tool.
+          </p>
         </div>
 
-        <div class="split">
-          <article class="card">
-            <h3>Run with npx</h3>
-            <p>Use this when configuring Claude Desktop, Codex, or another MCP stdio client without a global install.</p>
-            <div class="code">
-              <button class="copy-btn" onclick="copyText('npx -y freshcontext-mcp@latest')" type="button">Copy</button>
+        <div class="cols cols--2">
+          <div class="stack">
+            <div class="cmd">
+              <div class="cmd-bar">
+                <span>stdio client</span>
+                <button class="copy" type="button">Copy</button>
+              </div>
               <pre>npx -y freshcontext-mcp@latest</pre>
             </div>
-            <p>Prefer global? Run <code>npm install -g freshcontext-mcp@latest</code>, then start <code>freshcontext-mcp</code>.</p>
-            <div class="code">
-              <button class="copy-btn" onclick="copyText('freshcontext-mcp')" type="button">Copy</button>
-              <pre>freshcontext-mcp</pre>
+            <p class="small sub">
+              For Claude Desktop, Codex, or any MCP stdio client. Prefer a global install?
+              <code>npm install -g freshcontext-mcp@latest</code>.
+            </p>
+            <div class="cmd">
+              <div class="cmd-bar">
+                <span>remote endpoint</span>
+                <button class="copy" type="button">Copy</button>
+              </div>
+              <pre>https://api.freshcontext.dev/mcp</pre>
             </div>
-          </article>
-
-          <article class="card">
-            <h3>Try the source demos</h3>
-            <p>Clone the repo for bring-your-own-context demos, arXiv signal proof, Trust Scanner, and release integrity checks.</p>
-            <div class="link-list">
-              <a class="chip" href="https://www.npmjs.com/package/freshcontext-mcp">npm package <span data-npm-version>latest</span></a>
-              <a class="chip" href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">GitHub repo</a>
-              <a class="chip" href="/context-integrity-demo">Decision demo</a>
-            </div>
-            <div class="note" style="margin-top: 18px;">A public /v1/verify endpoint is deployed; Operator mode, retrieval orchestration, browser crawling, dashboards, billing, and webhooks are not presented here as deployed product surfaces.</div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="interfaces">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <p class="section-label">Interfaces</p>
-            <h2>Live today. Staged honestly.</h2>
           </div>
-          <p class="section-lede">This section is where implementation surfaces belong. FreshContext itself is the judgment layer; MCP/npm are current ways to run it, while broader hosted and orchestration surfaces remain roadmap.</p>
-        </div>
 
-        <div class="interface-grid">
-          <article class="card">
-            <div class="card-top">
-              <span class="kicker">MCP</span>
-              <span class="status">live</span>
+          <div class="rows flush-top">
+            <div class="row">
+              <h3>Standalone</h3>
+              <p><span class="state state--live">live</span> Its own context-integrity service, which is how it runs at <code>api.freshcontext.dev</code>.</p>
             </div>
-            <h3>Agent interface</h3>
-            <p>Run <code>freshcontext-mcp@latest</code> and use <code>evaluate_context</code> as the generic front door for caller-provided candidate context. The 21 named adapters remain read-only reference tools.</p>
-            <div class="link-list">
-              <a class="chip" href="https://www.npmjs.com/package/freshcontext-mcp">npm <span data-npm-version>latest</span></a>
-              <a class="chip" href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">GitHub</a>
-              <a class="chip" href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp/blob/main/docs/CLIENT_SETUP.md">Client setup</a>
+            <div class="row">
+              <h3>MCP layer</h3>
+              <p><span class="state state--live">live</span> Evaluating and governing context around MCP-enabled workflows. The path in this repository.</p>
             </div>
-          </article>
-          <article class="card">
-            <div class="card-top">
-              <span class="kicker">Core evaluation</span>
-              <span class="status local">local</span>
+            <div class="row">
+              <h3>SDK and API</h3>
+              <p><span class="state state--seam">seam</span> Integrity primitives consumed programmatically, with no MCP in the path. The Core import boundary supports it.</p>
             </div>
-            <h3>Evaluation and decisions</h3>
-            <p>Source Profiles, BYOC JSON demos, <code>evaluate_context</code>, and the arXiv signal path prove caller-provided or adapter output can reach Core decisions. Readable output turns those decisions into plain labels and actions, so users can see why context was used, supported, questioned, or excluded.</p>
-            <div class="link-list">
-              <a class="chip" href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp/blob/main/docs/CORE_API.md">Core API</a>
-              <a class="chip" href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp/blob/main/docs/SOURCE_PROFILES.md">Profiles</a>
+            <div class="row">
+              <h3>Embedded or white-label</h3>
+              <p><span class="state state--seam">seam</span> Core as a subsystem of another platform, under its branding. Nothing in Core assumes the FreshContext name.</p>
             </div>
-          </article>
-          <article class="card">
-            <div class="card-top">
-              <span class="kicker">Roadmap</span>
-              <span class="status soon">planned</span>
-            </div>
-            <h3>REST, SDK, CLI, Operator</h3>
-            <p>A public /v1/verify endpoint (HMAC-signed, ledger-backed verdict verification) is live. The public REST evaluate API, retrieval orchestration, crawling, dashboards, billing, SDK, and Operator mode are not live product claims.</p>
-            <div class="link-list">
-              <a class="chip" href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp/blob/main/docs/API_DESIGN.md">API design</a>
-              <a class="chip" href="/contact">Discuss roadmap</a>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section alt" id="deploy">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <p class="section-label">Deployment modes</p>
-            <h2>The engine is separable from the interface.</h2>
           </div>
-          <p class="section-lede">Core does not depend on being reached through MCP. The same engine runs in each of these without a rewrite, which is what keeps FreshContext a primitive rather than a single-integration tool.</p>
         </div>
 
-        <div class="interface-grid">
-          <article class="card">
-            <div class="card-top">
-              <span class="kicker">Standalone</span>
-              <span class="status">live</span>
-            </div>
-            <h3>Its own service</h3>
-            <p>FreshContext runs as a context-integrity service in its own right, which is how it runs today at <code>api.freshcontext.dev</code>.</p>
-          </article>
-          <article class="card">
-            <div class="card-top">
-              <span class="kicker">MCP layer</span>
-              <span class="status">live</span>
-            </div>
-            <h3>Around agent workflows</h3>
-            <p>Core evaluates and governs context flowing through MCP-enabled workflows. The live path in this repository.</p>
-          </article>
-          <article class="card">
-            <div class="card-top">
-              <span class="kicker">SDK / API</span>
-              <span class="status soon">seam</span>
-            </div>
-            <h3>Called directly</h3>
-            <p>Integrity primitives consumed programmatically, with no MCP in the path. The Core import boundary already supports this.</p>
-          </article>
-          <article class="card">
-            <div class="card-top">
-              <span class="kicker">Embedded</span>
-              <span class="status soon">seam</span>
-            </div>
-            <h3>Inside another platform</h3>
-            <p>Core runs as a subsystem of an existing AI, data or security platform, invisible to that platform&rsquo;s users.</p>
-          </article>
-          <article class="card">
-            <div class="card-top">
-              <span class="kicker">Gateway</span>
-              <span class="status soon">seam</span>
-            </div>
-            <h3>At the policy boundary</h3>
-            <p>Core sits where context is admitted into agent execution, rather than alongside it. Depends on the safety harness below.</p>
-          </article>
-          <article class="card">
-            <div class="card-top">
-              <span class="kicker">White-label</span>
-              <span class="status soon">seam</span>
-            </div>
-            <h3>Under other branding</h3>
-            <p>The engine surfaced through another product&rsquo;s API and UI. Nothing in Core assumes the FreshContext name.</p>
-          </article>
-        </div>
-        <p class="section-lede" style="margin-top:22px">Only the standalone and MCP modes are exercised in production. The rest are integration seams the architecture supports &mdash; not shipped configurations, and not claims.</p>
+        <p class="small sub mt-m">
+          Only standalone and MCP are exercised in production. The rest are integration seams
+          the architecture supports &mdash; not shipped configurations, and not claims.
+        </p>
       </div>
     </section>
 
-    <section class="section" id="expansion">
-      <div class="container">
-        <div class="section-head">
+    <!-- ── open surfaces ────────────────────────────────────────────────── -->
+    <section class="band" id="open">
+      <div class="wrap">
+        <div class="head">
           <div>
-            <p class="section-label">Expansion surfaces</p>
-            <h2>What is deliberately not built yet.</h2>
+            <p class="eyebrow">Open surfaces</p>
+            <h2>Built substrate, unbuilt interface.</h2>
           </div>
-          <p class="section-lede">Stated in future tense because none of it ships today. The distinction matters: a defect in the core is a liability, an unbuilt surface is a choice. These are choices.</p>
+          <p class="sub">
+            Stated in future tense because none of it ships today. A defect in the core is a
+            liability; an unbuilt surface is a choice. These are choices, and each one already
+            has something under it.
+          </p>
         </div>
 
-        <div class="interface-grid">
-          <article class="card">
-            <div class="card-top">
-              <span class="kicker">Roadmap</span>
-              <span class="status soon">not built</span>
-            </div>
-            <h3>Context safety harness</h3>
-            <p>Policy enforcement before context reaches an agent &mdash; pass, warn, refresh, quarantine or block, with evidence attached to each decision. Today <code>evaluate_context</code> emits decisions and warnings; the enforcement state machine does not exist. <code>quarantine</code> and <code>block</code> appear nowhere in the codebase.</p>
-          </article>
-          <article class="card">
-            <div class="card-top">
-              <span class="kicker">Roadmap</span>
-              <span class="status soon">not built</span>
-            </div>
-            <h3>Control plane</h3>
-            <p>A dashboard over source health, trust score, context drift and provenance lineage. The verdict ledger is the data contract it would read from, and that ledger exists &mdash; the interface over it does not.</p>
-          </article>
-          <article class="card">
-            <div class="card-top">
-              <span class="kicker">Roadmap</span>
-              <span class="status soon">not built</span>
-            </div>
-            <h3>Integrity telemetry</h3>
-            <p>Historical integrity state, incidents, upstream degradation and remediation history, so a team can see when their context became unreliable rather than discovering it downstream.</p>
-          </article>
+        <div class="tablewrap">
+          <table>
+            <thead>
+              <tr><th scope="col">Surface</th><th scope="col">Existing substrate</th><th scope="col">Remaining work</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Safety harness</strong></td>
+                <td>Decisions and warnings already emitted per signal, with reasons</td>
+                <td>The pass / warn / refresh / quarantine / block state machine. <code>quarantine</code> and <code>block</code> appear nowhere in the codebase.</td>
+              </tr>
+              <tr>
+                <td><strong>Control plane</strong></td>
+                <td>The verdict ledger is the data contract it would read from</td>
+                <td>The interface over it. There is no dashboard.</td>
+              </tr>
+              <tr>
+                <td><strong>Integrity telemetry</strong></td>
+                <td>Per-verdict evaluation records with timestamps</td>
+                <td>Historical state, incident history, upstream degradation tracking</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <p class="section-lede" style="margin-top:22px">Tracked in full in the <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp#roadmap">repository roadmap</a>, split into production core, expansion surfaces and research frontier.</p>
+
+        <p class="small sub mt-s">
+          Tracked in full in the
+          <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp#roadmap">repository roadmap</a>,
+          split into production core, expansion surfaces and research frontier.
+        </p>
       </div>
     </section>
 
-    <section class="section alt" id="demo">
-      <div class="container">
-        <div class="section-head">
+    <!-- ── contact ──────────────────────────────────────────────────────── -->
+    <section class="band band--dark" id="contact">
+      <div class="wrap">
+        <div class="head">
           <div>
-            <p class="section-label">Demo path</p>
-            <h2>Show the decision layer, not a pile of links.</h2>
+            <p class="eyebrow">Get in touch</p>
+            <h2>Technical walkthrough, integration, or architecture review.</h2>
           </div>
-          <p class="section-lede">For a live talk, each scroll has one job: explain the judgment layer, show the current npm/MCP path, separate live surfaces from roadmap, then offer contact.</p>
+          <p class="sub">
+            Questions about the evaluation model, the attestation path, or how FreshContext
+            would sit in an existing stack are welcome.
+          </p>
         </div>
-
-        <div class="grid">
-          <article class="card">
-            <div class="card-top">
-              <span class="kicker">Demo</span>
-              <span class="status">static</span>
-            </div>
-            <h3>Console proof</h3>
-            <p>Shows candidate context moving through scoring, readable output, provenance readiness, and handoff safety before model use.</p>
-            <div class="link-list"><a class="chip" href="/context-integrity-demo#console-proof">Open console proof</a></div>
-          </article>
-          <article class="card">
-            <div class="card-top">
-              <span class="kicker">Docs</span>
-              <span class="status">source</span>
-            </div>
-            <h3>Source proof</h3>
-            <p>Use the public repo for implementation evidence, release notes, Core docs, and source-profile boundaries. Private demo material stays private.</p>
-            <div class="link-list"><a class="chip" href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">Open GitHub</a></div>
-          </article>
-          <article class="card">
-            <div class="card-top">
-              <span class="kicker">Contact</span>
-              <span class="status">founder</span>
-            </div>
-            <h3>Talk, demo, or integration</h3>
-            <p>Use the contact page for outreach. A dedicated FreshContext email is planned.</p>
-            <div class="link-list"><a class="chip" href="/contact">Contact FreshContext</a></div>
-          </article>
+        <div class="actions">
+          <a class="btn" href="mailto:hello@freshcontext.dev">hello@freshcontext.dev</a>
+          <a class="btn btn--ghost" href="/contact">Contact page</a>
         </div>
+        <p class="small sub mt-s">
+          Strategic partnership and acquisition discussions:
+          <a href="mailto:corpdev@freshcontext.dev">corpdev@freshcontext.dev</a>.
+          Vulnerability reports: <a href="mailto:security@freshcontext.dev">security@freshcontext.dev</a>.
+        </p>
       </div>
     </section>
+
   </main>
 
   <footer class="footer">
-    <div class="container footer-inner">
-      <div>
-        <strong>FreshContext</strong><br />
-        <span>Context judgment infrastructure for agents and apps.</span>
-      </div>
-      <div class="footer-links">
+    <div class="wrap">
+      <div class="footer-inner">
         <div>
-          <h3>Product</h3>
-          <a href="/">Home</a>
+          <b>FreshContext</b>
+          <span class="sub">Context integrity infrastructure for AI systems and agents.</span>
+        </div>
+        <nav aria-label="Footer">
           <a href="/context-integrity">Context integrity</a>
+          <a href="/spec">Specification</a>
           <a href="/context-integrity-demo">Demo</a>
-        </div>
-        <div>
-          <h3>Docs</h3>
-          <a href="/spec">Spec</a>
-          <a href="/privacy">Privacy</a>
-          <a href="/accessibility">Accessibility</a>
-        </div>
-        <div>
-          <h3>Code</h3>
           <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">GitHub</a>
           <a href="https://www.npmjs.com/package/freshcontext-mcp">npm</a>
-        </div>
-        <div>
-          <h3>Contact</h3>
-          <a href="/contact">Contact page</a>
-          <a href="mailto:hello@freshcontext.dev">hello@freshcontext.dev</a>
-          <a href="https://www.linkedin.com/in/immanuel-gabriel-99375a292/">LinkedIn</a>
-        </div>
+          <a href="mailto:security@freshcontext.dev">Security</a>
+          <a href="/privacy">Privacy</a>
+          <a href="/accessibility">Accessibility</a>
+          <a href="/contact">Contact</a>
+        </nav>
       </div>
+      <p class="footer-legal">
+        MIT licensed. Built by Immanuel Gabriel.
+      </p>
     </div>
   </footer>
 
-  <script>
-    function copyText(text) {
-      if (!navigator.clipboard) return;
-      navigator.clipboard.writeText(text);
-    }
-  </script>
-<script src="/version.js" defer></script>
+  <script src="/site.js"></script>
 </body>
 </html>

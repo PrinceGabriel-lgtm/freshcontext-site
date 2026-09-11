@@ -1,0 +1,11 @@
+# https://freshcontext.dev/robots.txt
+#
+# The whole site is public and meant to be indexed. The only disallowed paths
+# are ones that exist to be fetched by a program, not read by a person: a search
+# result pointing at a raw JSON schema helps nobody.
+
+User-agent: *
+Allow: /
+Disallow: /freshcontext.schema.json
+
+Sitemap: https://freshcontext.dev/sitemap.xml

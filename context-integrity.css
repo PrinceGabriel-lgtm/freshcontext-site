@@ -1,0 +1,262 @@
+/* Removed with the shared shell: page-local restyles of chrome this sheet does
+ * not own. `.nav-links a:hover` added a gold underline no other page had, and
+ * `.footer a` did the same to every footer link, so the nav and footer looked
+ * different depending on which page you were standing on. Both now come from
+ * site.css, like they do everywhere else. */
+/* Page-specific styles for /context-integrity.
+ * The chrome — tokens, nav, footer, type scale, buttons, tables, code —
+ * comes from site.css. Only components unique to this page live here.
+ */
+
+/* Tokens this page's components still use that the shared system does not
+ * define. Recovered verbatim from the page's original :root so the
+ * rendering is unchanged by the split. */
+:root {
+  --faint: #6f6a5e;  /* 4.82:1 on paper — #9b9283 was 2.75 */
+  --ink-soft: #39352e;
+  --shadow: 0 22px 70px rgba(63, 50, 28, 0.10);
+  --shadow-soft: 0 12px 36px rgba(63, 50, 28, 0.07);
+}
+
+code,
+    pre {
+      font-family: var(--mono);
+    }
+.hero {
+      padding: 104px 0 72px;
+      border-bottom: 1px solid var(--line);
+    }
+.hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 0.72fr);
+      gap: 56px;
+      align-items: center;
+    }
+.eyebrow,
+    .section-label,
+    .kicker {
+      color: var(--gold);
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      font-weight: 760;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+.support-line {
+      max-width: 760px;
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+.actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin-top: 32px;
+    }
+.status-card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden;
+      background: rgba(255, 253, 247, 0.82);
+      box-shadow: var(--shadow);
+    }
+.status-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.58), rgba(240, 234, 223, 0.56));
+    }
+.status-title {
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+    }
+.status {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border: 1px solid rgba(73, 111, 85, 0.24);
+      border-radius: 999px;
+      padding: 5px 10px;
+      color: var(--green);
+      background: rgba(73, 111, 85, 0.07);
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      white-space: nowrap;
+    }
+.signal-list {
+      padding: 20px;
+      display: grid;
+      gap: 12px;
+    }
+.signal-row {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 16px;
+      align-items: baseline;
+      border-bottom: 1px solid rgba(223, 213, 196, 0.82);
+      padding: 0 0 12px;
+      font-family: var(--mono);
+      font-size: 0.82rem;
+    }
+.signal-row:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+.signal-row span:first-child {
+      color: var(--faint);
+    }
+.signal-row span:last-child {
+      color: var(--ink);
+      overflow-wrap: anywhere;
+    }
+.section.compact {
+      padding: 72px 0;
+    }
+.grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+.grid.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+.grid.four {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+.card,
+    .flow-step,
+    .proof-item {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 22px;
+      background: rgba(255, 253, 247, 0.72);
+      box-shadow: var(--shadow-soft);
+    }
+.card p,
+    .flow-step p,
+    .proof-item p {
+      margin: 10px 0 0;
+      color: var(--muted);
+    }
+.card ul,
+    .proof-item ul {
+      margin: 14px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+.card li,
+    .proof-item li {
+      margin: 6px 0;
+    }
+.pipeline {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 34px;
+    }
+.flow-step {
+      min-height: 100%;
+    }
+.step-num {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(182, 138, 45, 0.36);
+      border-radius: 999px;
+      color: #795b1d;
+      background: rgba(234, 216, 170, 0.32);
+      font-family: var(--mono);
+      font-weight: 780;
+      margin-bottom: 14px;
+    }
+.note strong {
+      color: var(--ink);
+    }
+.links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 16px;
+    }
+.chip:hover {
+      border-color: var(--gold);
+      color: var(--ink);
+    }
+.quote-band {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 28px;
+      background: linear-gradient(180deg, rgba(255, 252, 242, 0.92), rgba(238, 226, 199, 0.54));
+    }
+.quote-band p {
+      margin: 0;
+      max-width: 860px;
+      color: var(--ink-soft);
+      font-size: clamp(1.05rem, 1.5vw, 1.28rem);
+      line-height: 1.62;
+    }
+@media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+@media (max-width: 980px) {
+      .hero-grid,
+      .section-head,
+      .grid,
+      .grid.two,
+      .grid.four,
+      .pipeline {
+        display: block;
+      }
+
+      .status-card,
+      .card,
+      .flow-step,
+      .proof-item {
+        margin-top: 16px;
+      }
+    }
+@media (max-width: 760px) {
+      .nav-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 14px 0;
+      }
+
+      .nav-links {
+        width: 100%;
+        min-width: 0;
+        gap: 14px;
+        overflow-x: auto;
+        padding-bottom: 2px;
+      }
+
+      .hero {
+        padding: 72px 0 56px;
+      }
+
+      h1 {
+        font-size: clamp(2.2rem, 7vw, 3.4rem);
+      }
+
+      .signal-row {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+
+      .footer-inner {
+        display: block;
+      }
+    }
