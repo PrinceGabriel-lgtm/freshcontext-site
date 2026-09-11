@@ -3,315 +3,163 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Contact FreshContext</title>
-  <meta name="description" content="Contact FreshContext for demos, integrations, product questions, and collaboration." />
+  <title>Contact | FreshContext</title>
+  <meta name="description" content="Technical walkthroughs, architecture reviews, integration questions and strategic conversations about FreshContext context integrity infrastructure." />
   <link rel="canonical" href="https://freshcontext.dev/contact" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23141614'/%3E%3Cpath d='M15 20h34M15 32h22M15 44h30' stroke='%23f6f2e8' stroke-width='4.5' stroke-linecap='round'/%3E%3Ccircle cx='43' cy='32' r='5' fill='%231c8f6a'/%3E%3C/svg%3E" />
-  <style>
-    :root {
-      --ink: #17140f;
-      --paper: #f7f2e6;
-      --muted: #6d685d;
-      --line: #dfd4bd;
-      --panel: #fffaf0;
-      --green: #0f6e55;
-      --blue: #285d8f;
-      --gold: #d1a54b;
-      --gold-soft: #f1d891;
-      --dark: #090b09;
-      --radius: 8px;
-      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
-      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      color: var(--ink);
-      background: linear-gradient(180deg, var(--paper), #efe6d4 100%);
-      font-family: var(--sans);
-      line-height: 1.5;
-    }
-    a { color: inherit; }
-    .skip-link {
-      position: absolute;
-      left: 16px;
-      top: -80px;
-      z-index: 20;
-      padding: 10px 12px;
-      color: #fff;
-      background: var(--dark);
-      text-decoration: none;
-      border-radius: var(--radius);
-    }
-    .skip-link:focus { top: 16px; }
-    .nav {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background: rgba(247, 242, 230, 0.93);
-      border-bottom: 1px solid var(--line);
-      -webkit-backdrop-filter: blur(16px);
-      backdrop-filter: blur(16px);
-    }
-    .nav-inner {
-      width: min(1080px, calc(100% - 32px));
-      min-height: 68px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--ink);
-      font-weight: 760;
-      text-decoration: none;
-      white-space: nowrap;
-    }
-    .brand-mark {
-      display: grid;
-      width: 34px;
-      height: 34px;
-      place-items: center;
-      color: #fff;
-      background: var(--dark);
-      border: 1px solid rgba(209, 165, 75, 0.38);
-      border-radius: var(--radius);
-      font-family: var(--mono);
-      font-size: 0.74rem;
-    }
-    .nav-links {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-    .nav-links a {
-      padding: 8px 10px;
-      color: var(--muted);
-      font-size: 0.91rem;
-      font-weight: 650;
-      text-decoration: none;
-      border-radius: var(--radius);
-    }
-    .nav-links a:hover,
-    .nav-links a[aria-current="page"] {
-      color: var(--ink);
-      background: #eee5d3;
-    }
-    .nav-links .external {
-      color: #fff;
-      background: var(--green);
-    }
-    .container {
-      width: min(1080px, calc(100% - 32px));
-      margin: 0 auto;
-    }
-    main { padding: 62px 0 0; }
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 0.9fr) minmax(320px, 0.55fr);
-      gap: 26px;
-      align-items: stretch;
-      padding-bottom: 58px;
-    }
-    .eyebrow {
-      margin-bottom: 14px;
-      color: #9a6e19;
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-    h1, h2, h3, p { margin-top: 0; }
-    h1, h2, h3, p, a { overflow-wrap: anywhere; }
-    h1 {
-      margin-bottom: 20px;
-      font-size: clamp(2.7rem, 5vw, 4.6rem);
-      line-height: 1;
-      letter-spacing: 0;
-    }
-    .lead {
-      max-width: 660px;
-      color: var(--muted);
-      font-size: clamp(1.1rem, 2vw, 1.35rem);
-    }
-    .card {
-      min-width: 0;
-      padding: 24px;
-      background: rgba(255, 250, 240, 0.92);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-    }
-    .contact-card {
-      color: #fff;
-      background:
-        linear-gradient(135deg, rgba(209, 165, 75, 0.18), transparent 38%),
-        #0d0f0c;
-      border-color: rgba(209, 165, 75, 0.25);
-    }
-    .contact-card p { color: #e9e0c9; }
-    .button-row,
-    .link-list {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 20px;
-    }
-    .button,
-    .chip {
-      display: inline-flex;
-      min-height: 42px;
-      align-items: center;
-      justify-content: center;
-      padding: 9px 12px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      color: var(--ink);
-      background: #fff;
-      font-weight: 700;
-      text-decoration: none;
-    }
-    .button.primary {
-      color: #fff;
-      background: var(--green);
-      border-color: var(--green);
-    }
-    .contact-card .chip {
-      color: #fff;
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.2);
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      margin-bottom: 72px;
-    }
-    .note {
-      padding: 16px;
-      color: #3f433d;
-      background: #efe4cf;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-    }
-    .footer {
-      padding: 34px 0;
-      color: #e9e0c9;
-      background: #0d0f0c;
-    }
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-    .footer a {
-      color: #b9c7bd;
-      margin-right: 14px;
-      text-decoration: none;
-    }
-    .footer a:hover { color: #fff; }
-
-    @media (max-width: 820px) {
-      .nav-inner { align-items: flex-start; flex-direction: column; padding: 12px 0; }
-      .nav-links { justify-content: flex-start; }
-      .hero,
-      .grid { grid-template-columns: 1fr; }
-    }
-
-    @media (max-width: 520px) {
-      .container,
-      .nav-inner { width: min(100% - 24px, 1080px); }
-      h1 { font-size: clamp(2.35rem, 12vw, 3rem); }
-      .nav-links a { padding: 7px 8px; font-size: 0.84rem; }
-    }
-  </style>
+  <meta name="theme-color" content="#12140f" />
+  <meta property="og:site_name" content="FreshContext" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://freshcontext.dev/contact" />
+  <meta property="og:title" content="Contact | FreshContext" />
+  <meta property="og:description" content="Technical walkthroughs, architecture reviews, integration questions and strategic conversations about FreshContext context integrity infrastructure." />
+  <meta property="og:image" content="https://freshcontext.dev/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="FreshContext — context integrity infrastructure for AI agents" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Contact | FreshContext" />
+  <meta name="twitter:description" content="Technical walkthroughs, architecture reviews, integration questions and strategic conversations about FreshContext context integrity infrastructure." />
+  <meta name="twitter:image" content="https://freshcontext.dev/og.png" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2312140f'/%3E%3Cpath d='M15 20h34M15 32h22M15 44h30' stroke='%23f4efe2' stroke-width='4.5' stroke-linecap='round'/%3E%3Ccircle cx='43' cy='32' r='5' fill='%230f6e55'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="/site.css" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
-  <nav class="nav" aria-label="Primary navigation">
+
+  <nav class="nav" aria-label="Primary">
     <div class="nav-inner">
       <a href="/" class="brand" aria-label="FreshContext home">
-        <span class="brand-mark">FC</span>
+        <span class="brand-mark" aria-hidden="true">FC</span>
         <span>FreshContext</span>
       </a>
       <div class="nav-links">
         <a href="/">Product</a>
-        <a href="/#install">Use</a>
+        <a href="/context-integrity">Context integrity</a>
         <a href="/context-integrity-demo">Demo</a>
-        <a href="/spec">Docs</a>
+        <a href="/spec">Spec</a>
         <a href="/contact" aria-current="page">Contact</a>
-        <a class="external" href="https://www.npmjs.com/package/freshcontext-mcp">npm</a>
+        <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">GitHub</a>
       </div>
     </div>
   </nav>
 
   <main id="main">
-    <div class="container hero">
-      <div>
-        <p class="eyebrow">Contact</p>
-        <h1>Talk to FreshContext.</h1>
-        <p class="lead">For demos, integrations, screen-share walkthroughs, investor conversations, or product questions, email the founder directly.</p>
-        <div class="button-row">
-          <a class="button primary" href="mailto:immanuel@freshcontext.dev">Email founder</a>
-          <a class="button" href="https://www.linkedin.com/in/immanuel-gabriel-99375a292/">LinkedIn</a>
+    <section class="band">
+      <div class="wrap">
+        <div class="head">
+          <div>
+            <p class="eyebrow">Contact</p>
+            <h1>Talk to FreshContext.</h1>
+            <p class="lede">
+              Technical walkthroughs, architecture reviews, integration questions, and
+              strategic conversations. Mail reaches a person, not a queue.
+            </p>
+          </div>
+
+          <div class="spec">
+            <div class="spec-hd"><b>Addresses</b></div>
+            <dl>
+              <div><dt>hello@</dt><dd>General enquiries</dd></div>
+              <div><dt>immanuel@</dt><dd>Founder, direct</dd></div>
+              <div><dt>corpdev@</dt><dd>Strategic and partnership</dd></div>
+              <div><dt>security@</dt><dd>Vulnerability reports</dd></div>
+            </dl>
+          </div>
+        </div>
+
+        <div class="actions mt-m">
+          <a class="btn" href="mailto:hello@freshcontext.dev">hello@freshcontext.dev</a>
+          <a class="btn btn--ghost" href="https://www.linkedin.com/in/immanuel-gabriel-99375a292/">LinkedIn</a>
         </div>
       </div>
+    </section>
 
-      <aside class="card contact-card" aria-label="Current contact details">
-        <h2>Current contact</h2>
-        <p><strong>General:</strong> <a href="mailto:hello@freshcontext.dev">hello@freshcontext.dev</a></p>
-        <p><strong>Founder:</strong> <a href="mailto:immanuel@freshcontext.dev">immanuel@freshcontext.dev</a></p>
-        <p><strong>Strategic and partnership:</strong> <a href="mailto:corpdev@freshcontext.dev">corpdev@freshcontext.dev</a></p>
-        <p><strong>Security:</strong> <a href="mailto:security@freshcontext.dev">security@freshcontext.dev</a> for vulnerability reports.</p>
-        <p><strong>Status:</strong> direct founder inbox — no ticket queue in front of it.</p>
-        <div class="link-list">
-          <a class="chip" href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">GitHub</a>
-          <a class="chip" href="https://www.npmjs.com/package/freshcontext-mcp">npm</a>
-          <a class="chip" href="/context-integrity-demo">Demo</a>
+    <section class="band band--tint">
+      <div class="wrap">
+        <div class="head">
+          <div>
+            <p class="eyebrow">What to ask about</p>
+            <h2>Useful things to open with.</h2>
+          </div>
+          <p class="sub">
+            The fastest conversations start from something specific in the repository or the
+            specification.
+          </p>
         </div>
-      </aside>
-    </div>
 
-    <section class="container">
-      <div class="grid">
-        <article class="card">
-          <h2>For agent builders</h2>
-          <p>Ask about using FreshContext as a context gateway before model reasoning.</p>
-        </article>
-        <article class="card">
-          <h2>For demos</h2>
-          <p>Use the context-integrity demo and public GitHub repo for a screen-share walkthrough. Private demo material stays private.</p>
-        </article>
-        <article class="card">
-          <h2>For integrations</h2>
-          <p>The current public package is <code>freshcontext-mcp@<span data-npm-version>latest</span></code> with <code>evaluate_context</code> plus 20+ read-only reference adapters. A public <code>/v1/verify</code> endpoint (HMAC-signed, ledger-backed verdict verification) is live; the full REST evaluate API, SDK, and Operator surfaces remain roadmap.</p>
-        </article>
-      </div>
+        <div class="rows">
+          <div class="row">
+            <h3>Building on it</h3>
+            <p>
+              How <code>evaluate_context</code> handles caller-provided context, what the
+              Source Profiles do to a decay curve, and where the Core import boundary sits if
+              you would rather not go through MCP.
+            </p>
+          </div>
+          <div class="row">
+            <h3>Verifying it</h3>
+            <p>
+              How to check a verdict yourself with the offline verifiers, what the published
+              key document contains, and what changes when a key is rotated. Method in
+              <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp/blob/main/docs/VERIFYING.md">VERIFYING.md</a>.
+            </p>
+          </div>
+          <div class="row">
+            <h3>Integration review</h3>
+            <p>
+              Where FreshContext would sit in an existing retrieval, agent or governance
+              stack, and which of the deployment seams that implies. Start from the
+              <a href="/context-integrity-demo">demo</a> and the
+              <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">repository</a>.
+            </p>
+          </div>
+          <div class="row">
+            <h3>Strategic conversations</h3>
+            <p>
+              Licensing, partnership, and acquisition discussions go to
+              <a href="mailto:corpdev@freshcontext.dev">corpdev@freshcontext.dev</a>.
+            </p>
+          </div>
+        </div>
 
-      <div class="note">
-        FreshContext does not currently offer account flows, billing, hosted dashboards, production Operator mode, or a dedicated product inbox on this site.
+        <div class="note mt-m">
+          <strong>What this site does not do.</strong> There are no account flows, no billing,
+          no hosted dashboard, and no authenticated product surface here. The public
+          package is <code>freshcontext-mcp@<span data-npm-version>latest</span></code>:
+          <code>evaluate_context</code> plus 21 read-only reference adapters, with
+          <code>/v1/verify</code> live for ledger-backed verdict verification. The REST
+          evaluate API, SDK and control plane remain
+          <a href="/#open">open surfaces</a>.
+        </div>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <div class="container footer-inner">
-      <div><strong>FreshContext</strong><br />Context judgment infrastructure for agents and apps.</div>
-      <div>
-        <a href="/">Home</a>
-        <a href="/spec">Spec</a>
-        <a href="/privacy">Privacy</a>
-        <a href="/accessibility">Accessibility</a>
+    <div class="wrap">
+      <div class="footer-inner">
+        <div>
+          <b>FreshContext</b>
+          <span class="sub">Context integrity infrastructure for AI systems and agents.</span>
+        </div>
+        <nav aria-label="Footer">
+          <a href="/context-integrity">Context integrity</a>
+          <a href="/spec">Specification</a>
+          <a href="/context-integrity-demo">Demo</a>
+          <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">GitHub</a>
+          <a href="https://www.npmjs.com/package/freshcontext-mcp">npm</a>
+          <a href="mailto:security@freshcontext.dev">Security</a>
+          <a href="/privacy">Privacy</a>
+          <a href="/accessibility">Accessibility</a>
+          <a href="/contact">Contact</a>
+        </nav>
       </div>
+      <p class="footer-legal">
+        MIT licensed. Built by Immanuel Gabriel.
+      </p>
     </div>
   </footer>
-<script src="/version.js" defer></script>
+
+  <script src="/site.js"></script>
 </body>
 </html>

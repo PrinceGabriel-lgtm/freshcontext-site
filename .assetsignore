@@ -13,6 +13,19 @@
 .gitignore
 .assetsignore
 
+# Dependencies. These are gitignored, so they are absent from a clean clone —
+# but the build installs them before `wrangler deploy` uploads `directory: "."`,
+# and at that point they are ordinary files in the asset root.
+node_modules/
+
+# Local state and secrets. All gitignored and so normally absent; named here
+# because the cost of one of them being present once is publishing a secret,
+# and the cost of naming them is four lines.
+.wrangler/
+.dev.vars
+.env
+.env.*
+
 # Tooling config and test material
 README.md
 package.json

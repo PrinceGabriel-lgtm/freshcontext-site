@@ -1,146 +1,64 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FreshContext Specification v1.2</title>
-  <meta name="description" content="The FreshContext Specification — an open standard for freshness-aware AI retrieval. Version 1.2, MIT licensed." />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FreshContext Specification — Verifiable Context Integrity</title>
+  <meta name="description" content="The open FreshContext Specification: envelope format, freshness confidence levels, decay model, adapter contract and JSON Schema. MIT licensed." />
   <link rel="canonical" href="https://freshcontext.dev/spec" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --void: #09090b; --surface: #111113; --surface2: #18181b; --surface3: #1e1e22;
-      --border: rgba(255,255,255,0.07); --border2: rgba(255,255,255,0.12);
-      --text: #e4e4e7; --muted: rgba(228,228,231,0.74); --dim: rgba(228,228,231,0.62);
-      --green: #4ade80; --green-dim: rgba(74,222,128,0.07);
-      --gold: #c8a84b; --gold-dim: rgba(200,168,75,0.08);
-      --blue: #7dd3fc; --amber: #fbbf24; --red: #f87171;
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { background: var(--void); color: var(--text); font-family: 'Outfit', sans-serif; font-weight: 300; min-height: 100vh; }
-    body::after { content: ''; position: fixed; width: 700px; height: 500px; background: radial-gradient(ellipse, rgba(200,168,75,0.025) 0%, transparent 65%); top: -100px; left: 50%; transform: translateX(-50%); pointer-events: none; z-index: 0; }
-    a:focus-visible { outline: 3px solid rgba(200,168,75,0.55); outline-offset: 3px; border-radius: 6px; }
-    .skip-link { position: absolute; left: 16px; top: 12px; z-index: 200; transform: translateY(-160%); background: var(--text); color: var(--void); padding: 10px 14px; border-radius: 8px; text-decoration: none; font-family: 'DM Mono', monospace; font-size: 0.8rem; }
-    .skip-link:focus { transform: translateY(0); }
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.2rem 3rem; display: flex; justify-content: space-between; align-items: center; background: rgba(9,9,11,0.94); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
-    .logo { font-family: 'DM Mono', monospace; font-size: 0.85rem; color: var(--text); text-decoration: none; }
-    .logo span { color: var(--green); }
-    .nav-links { display: flex; gap: 1.25rem; list-style: none; flex-wrap: wrap; justify-content: flex-end; }
-    .nav-links a { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.25s; }
-    .nav-links a:hover { color: var(--text); }
-    .nav-links a.active { color: var(--gold); }
-    .page { display: flex; padding-top: 64px; min-height: 100vh; }
-    .sidebar { width: 240px; flex-shrink: 0; position: sticky; top: 64px; height: calc(100vh - 64px); overflow-y: auto; padding: 2rem 0; border-right: 1px solid var(--border); }
-    .sidebar-section { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim); padding: 0.75rem 1.5rem 0.35rem; }
-    .sidebar a { display: block; padding: 0.45rem 1.5rem; font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--muted); text-decoration: none; border-left: 2px solid transparent; transition: color 0.2s, border-color 0.2s; }
-    .sidebar a:hover { color: var(--text); border-left-color: var(--border2); }
-    .sidebar a.active { color: var(--gold); border-left-color: var(--gold); }
-    .content { flex: 1; max-width: 760px; padding: 3.5rem 3rem 6rem; position: relative; z-index: 1; }
-    .spec-badge { display: inline-flex; align-items: center; gap: 8px; font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); background: var(--gold-dim); border: 1px solid rgba(200,168,75,0.2); padding: 4px 14px; border-radius: 20px; margin-bottom: 1.5rem; }
-    .spec-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
-    .spec-title { font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; line-height: 1.1; margin-bottom: 0.75rem; }
-    .spec-title em { font-style: italic; color: var(--gold); }
-    .spec-meta { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--muted); margin-bottom: 2.5rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
-    .spec-section { margin-bottom: 3.5rem; scroll-margin-top: 80px; }
-    h2 { font-family: 'Instrument Serif', serif; font-size: 1.5rem; font-weight: 400; color: var(--text); margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
-    h3 { font-size: 0.95rem; font-weight: 500; color: var(--text); margin: 1.5rem 0 0.5rem; }
-    p { color: var(--muted); line-height: 1.8; margin-bottom: 0.75rem; font-size: 0.95rem; }
-    p strong { color: var(--text); font-weight: 500; }
-    .code-block { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem 1.5rem; margin: 1rem 0; overflow-x: auto; }
-    .code-block pre { font-family: 'DM Mono', monospace; font-size: 0.78rem; line-height: 1.75; color: var(--text); white-space: pre; }
-    .c-key { color: var(--green); } .c-val { color: var(--blue); } .c-comment { color: var(--dim); } .c-bracket { color: var(--gold); }
-    .spec-table { width: 100%; border-collapse: collapse; font-size: 0.83rem; margin: 1rem 0; }
-    .spec-table th { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid var(--border2); }
-    .spec-table td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); color: var(--muted); vertical-align: top; line-height: 1.6; }
-    .spec-table tr:last-child td { border-bottom: none; }
-    .spec-table tr:hover td { background: rgba(255,255,255,0.015); }
-    .spec-table code { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--green); background: var(--green-dim); padding: 1px 6px; border-radius: 4px; }
-    .conf-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 1rem 0; }
-    .conf-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.1rem; }
-    .conf-card.high { border-top: 2px solid var(--green); } .conf-card.medium { border-top: 2px solid var(--amber); } .conf-card.low { border-top: 2px solid var(--red); }
-    .conf-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.5rem; }
-    .conf-card.high .conf-label { color: var(--green); } .conf-card.medium .conf-label { color: var(--amber); } .conf-card.low .conf-label { color: var(--red); }
-    .conf-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
-    .compat-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: 10px; display: flex; align-items: flex-start; gap: 14px; }
-    .compat-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
-    .compat-dot.full { background: var(--green); } .compat-dot.aware { background: var(--amber); } .compat-dot.scored { background: var(--blue); }
-    .compat-name { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--text); margin-bottom: 4px; }
-    .compat-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
-    .impl-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 1.1rem 1.25rem; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
-    .impl-body { flex: 1; }
-    .impl-name { font-weight: 500; font-size: 0.9rem; color: var(--text); margin-bottom: 4px; }
-    .impl-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
-    .impl-badge { font-family: 'DM Mono', monospace; font-size: 0.6rem; padding: 3px 10px; border-radius: 20px; flex-shrink: 0; letter-spacing: 0.08em; text-transform: uppercase; }
-    .impl-badge.reference { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(200,168,75,0.2); }
-    .impl-add { background: var(--surface3); border: 1px dashed var(--border2); border-radius: 8px; padding: 1rem 1.25rem; text-align: center; font-size: 0.82rem; color: var(--dim); }
-    .impl-add a { color: var(--green); text-decoration: underline; text-underline-offset: 3px; }
-    .changelog-item { border-left: 2px solid var(--border2); padding-left: 1.25rem; margin-bottom: 1.5rem; }
-    .changelog-ver { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--gold); margin-bottom: 4px; }
-    .changelog-date { font-size: 0.75rem; color: var(--dim); margin-bottom: 0.5rem; }
-    .changelog-item ul { list-style: none; }
-    .changelog-item li { font-size: 0.83rem; color: var(--muted); padding: 3px 0; line-height: 1.6; }
-    .changelog-item li::before { content: '+ '; color: var(--green); font-family: 'DM Mono', monospace; }
-    hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
-    .spec-footer { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted); line-height: 1.9; }
-    .spec-footer a { color: var(--muted); text-decoration: none; }
-    .spec-footer a:hover { color: var(--text); }
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; } }
-    @media (max-width: 768px) { .page { display: block; } .sidebar { display: none; } .content { width: 100%; max-width: none; min-width: 0; padding: 2rem 1.5rem 4rem; } .spec-table { display: block; max-width: 100%; overflow-x: auto; } .conf-grid { grid-template-columns: 1fr; } nav { padding: 1rem 1.5rem; } .nav-links { gap: 1rem; } }
-    .sidebar::-webkit-scrollbar { width: 3px; } .sidebar::-webkit-scrollbar-thumb { background: var(--border2); }
-  </style>
+  <meta name="theme-color" content="#12140f" />
+  <meta property="og:site_name" content="FreshContext" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://freshcontext.dev/spec" />
+  <meta property="og:title" content="FreshContext Specification — Verifiable Context Integrity" />
+  <meta property="og:description" content="The open FreshContext Specification: envelope format, freshness confidence levels, decay model, adapter contract and JSON Schema. MIT licensed." />
+  <meta property="og:image" content="https://freshcontext.dev/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="FreshContext — context integrity infrastructure for AI agents" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="FreshContext Specification — Verifiable Context Integrity" />
+  <meta name="twitter:description" content="The open FreshContext Specification: envelope format, freshness confidence levels, decay model, adapter contract and JSON Schema. MIT licensed." />
+  <meta name="twitter:image" content="https://freshcontext.dev/og.png" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2312140f'/%3E%3Cpath d='M15 20h34M15 32h22M15 44h30' stroke='%23f4efe2' stroke-width='4.5' stroke-linecap='round'/%3E%3Ccircle cx='43' cy='32' r='5' fill='%230f6e55'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="/site.css" />
+  <link rel="stylesheet" href="/spec.css" />
 </head>
 <body>
-<a class="skip-link" href="#main">Skip to main content</a>
-<nav aria-label="Primary navigation">
-  <a href="/" class="logo">fresh<span>context</span></a>
-  <ul class="nav-links">
-    <li><a href="/">Product</a></li>
-    <li><a href="/#install">Use</a></li>
-    <li><a href="/context-integrity-demo">Demo</a></li>
-    <li><a href="/spec" class="active" aria-current="page">Docs</a></li>
-    <li><a href="/contact">Contact</a></li>
-    <li><a href="https://www.npmjs.com/package/freshcontext-mcp" target="_blank" rel="noopener noreferrer">npm</a></li>
-  </ul>
-</nav>
+  <a class="skip-link" href="#main">Skip to main content</a>
 
-<div class="page">
-  <aside class="sidebar" aria-label="Specification sections">
-    <div class="sidebar-section">Overview</div>
-    <a href="#what-this-is" class="active" aria-current="true">What this is</a>
-    <a href="#envelope">The envelope</a>
-    <a href="#confidence">Confidence levels</a>
-    <div class="sidebar-section">Schema</div>
-    <a href="#json-form">JSON form</a>
-    <a href="#freshness-score">Freshness score</a>
-    <a href="#decay-rates">Decay rates</a>
-    <div class="sidebar-section">Contracts</div>
-    <a href="#adapter-contract">Adapter contract</a>
-    <a href="#failure-honesty">Failure honesty</a>
-    <a href="#composite">Composite adapters</a>
-    <a href="#compatibility">Compatibility levels</a>
-    <a href="#core-backed">Core-backed status</a>
-    <div class="sidebar-section">Ecosystem</div>
-    <a href="#implementations">Implementations</a>
-    <a href="#why">Why this matters</a>
-    <a href="#changelog">Changelog</a>
-  </aside>
+  <nav class="nav" aria-label="Primary">
+    <div class="nav-inner">
+      <a href="/" class="brand" aria-label="FreshContext home">
+        <span class="brand-mark" aria-hidden="true">FC</span>
+        <span>FreshContext</span>
+      </a>
+      <div class="nav-links">
+        <a href="/">Product</a>
+        <a href="/context-integrity">Context integrity</a>
+        <a href="/context-integrity-demo">Demo</a>
+        <a href="/spec" aria-current="page">Spec</a>
+        <a href="/contact">Contact</a>
+        <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">GitHub</a>
+      </div>
+    </div>
+  </nav>
 
-  <main class="content" id="main">
-    <div class="spec-badge">Version 1.2 &mdash; May 2026</div>
+  <main id="main">
+    <section class="band">
+      <div class="wrap prose">
+<div class="spec-badge">Version 1.2 &mdash; May 2026</div>
     <h1 class="spec-title">The FreshContext<br><em>Specification</em></h1>
     <div class="spec-meta"><span>MIT License</span><span>&middot;</span><span>Immanuel Gabriel (Prince Gabriel)</span><span>&middot;</span><span>Grootfontein, Namibia</span></div>
 
-    <section class="spec-section" id="what-this-is">
+    <section class="spec-band" id="what-this-is">
       <h2>What this is</h2>
       <p>The FreshContext Specification defines a standard envelope format for AI-retrieved web data and a temporal correction layer that scores it.</p>
       <p>It exists to solve one problem: <strong>AI models present stale data with the same confidence as fresh data, and users have no way to tell the difference.</strong></p>
       <p>Any tool, agent, or system that implements this spec is <strong>FreshContext-compatible</strong>. MCP is one interface over the methodology; the envelope and structured metadata are the compatibility contract.</p>
     </section>
 
-    <section class="spec-section" id="envelope">
+    <section class="spec-band" id="envelope">
       <h2>The envelope format</h2>
       <p>Every FreshContext-compatible response MUST wrap its content in the following text envelope:</p>
       <div class="code-block"><pre>[FRESHCONTEXT]
@@ -159,7 +77,7 @@ Confidence: &lt;high|medium|low&gt;
       </tbody></table>
     </section>
 
-    <section class="spec-section" id="confidence">
+    <section class="spec-band" id="confidence">
       <h2>Confidence levels</h2>
       <div class="conf-grid">
         <div class="conf-card high"><div class="conf-label">High</div><div class="conf-desc">Date from a structured, machine-readable field &mdash; API response, HTML metadata, RSS, or official timestamp. Examples: GitHub pushed_at, arXiv submission date, HN created_at.</div></div>
@@ -168,9 +86,9 @@ Confidence: &lt;high|medium|low&gt;
       </div>
     </section>
 
-    <section class="spec-section" id="json-form">
+    <section class="spec-band" id="json-form">
       <h2>Structured JSON form</h2>
-      <p>Implementations MAY additionally expose freshness metadata as structured JSON. This form can be validated against the <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp/blob/main/freshcontext.schema.json" style="color:var(--green)">JSON Schema</a>.</p>
+      <p>Implementations MAY additionally expose freshness metadata as structured JSON. This form can be validated against the <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp/blob/main/freshcontext.schema.json">JSON Schema</a>.</p>
       <div class="code-block"><pre><span class="c-bracket">{</span>
   <span class="c-key">"freshcontext"</span>: <span class="c-bracket">{</span>
     <span class="c-key">"source_url"</span>:          <span class="c-val">"https://github.com/owner/repo"</span>,
@@ -183,16 +101,16 @@ Confidence: &lt;high|medium|low&gt;
   <span class="c-bracket">}</span>,
   <span class="c-key">"content"</span>: <span class="c-val">"..."</span>
 <span class="c-bracket">}</span></pre></div>
-      <p>Validate with: <code style="color:var(--green);background:var(--green-dim);padding:2px 8px;border-radius:4px;font-family:'DM Mono',monospace;font-size:0.82rem">npx freshcontext-validate &lt;json_string&gt;</code></p>
+      <p>Validate with: <code>npx freshcontext-validate &lt;json_string&gt;</code></p>
     </section>
 
-    <section class="spec-section" id="freshness-score">
+    <section class="spec-band" id="freshness-score">
       <h2>Freshness score</h2>
       <p>An optional numeric freshness value 0&ndash;100. The canonical FreshContext model is exponential Decay-Adjusted Relevancy:</p>
       <div class="code-block"><pre>R_t = R_0 &middot; e^(-&lambda;t)</pre></div>
-      <p>For envelope-level freshness, <code style="color:var(--green);background:var(--green-dim);padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace">R_0</code> may be normalised to 100. For ranked intelligence feeds, <code style="color:var(--green);background:var(--green-dim);padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace">R_0</code> may be semantic or profile relevance. <code style="color:var(--green);background:var(--green-dim);padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace">&lambda;</code> is the source-specific decay constant and <code style="color:var(--green);background:var(--green-dim);padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace">t</code> is signal age.</p>
-      <p><strong>Context-conditioned utility:</strong> FreshContext can rank the same signal differently depending on the requesting user, query, agent, or workflow. That context shapes <code style="color:var(--green);background:var(--green-dim);padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace">R_0</code>; DAR then applies source-specific temporal decay through <code style="color:var(--green);background:var(--green-dim);padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace">R_t = R_0 &middot; e^(-&lambda;t)</code>. Core utility primitives may model this as <code style="color:var(--green);background:var(--green-dim);padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace">U(q, s, t) = R(q, s) &middot; e^(-&lambda;t) &middot; C_date &middot; C_status</code>.</p>
-      <p>If no reliable timestamp exists, implementations SHOULD set <code style="color:var(--green);background:var(--green-dim);padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace">freshness_score</code> to <code style="color:var(--green);background:var(--green-dim);padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace">null</code> and confidence to <code style="color:var(--green);background:var(--green-dim);padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace">low</code>. Missing, invalid, or future timestamps beyond clock-skew tolerance MUST NOT be treated as fresh.</p>
+      <p>For envelope-level freshness, <code>R_0</code> may be normalised to 100. For ranked intelligence feeds, <code>R_0</code> may be semantic or profile relevance. <code>&lambda;</code> is the source-specific decay constant and <code>t</code> is signal age.</p>
+      <p><strong>Context-conditioned utility:</strong> FreshContext can rank the same signal differently depending on the requesting user, query, agent, or workflow. That context shapes <code>R_0</code>; DAR then applies source-specific temporal decay through <code>R_t = R_0 &middot; e^(-&lambda;t)</code>. Core utility primitives may model this as <code>U(q, s, t) = R(q, s) &middot; e^(-&lambda;t) &middot; C_date &middot; C_status</code>.</p>
+      <p>If no reliable timestamp exists, implementations SHOULD set <code>freshness_score</code> to <code>null</code> and confidence to <code>low</code>. Missing, invalid, or future timestamps beyond clock-skew tolerance MUST NOT be treated as fresh.</p>
       <table class="spec-table"><thead><tr><th>Score</th><th>Interpretation</th></tr></thead><tbody>
         <tr><td><code>90&ndash;100</code></td><td>Very recent for its source class &mdash; treat as current</td></tr>
         <tr><td><code>70&ndash;89</code></td><td>Still fresh enough for most uses</td></tr>
@@ -201,7 +119,7 @@ Confidence: &lt;high|medium|low&gt;
       </tbody></table>
     </section>
 
-    <section class="spec-section" id="decay-rates">
+    <section class="spec-band" id="decay-rates">
       <h2>Reference decay classes</h2>
       <p>These are reference/default classes. Implementations may tune them by source, profile, or deployment while preserving the exponential DAR model.</p>
       <table class="spec-table"><thead><tr><th>Source class</th><th>&lambda; per hour</th><th>Half-life</th><th>Examples</th></tr></thead><tbody>
@@ -216,69 +134,69 @@ Confidence: &lt;high|medium|low&gt;
       </tbody></table>
     </section>
 
-    <section class="spec-section" id="adapter-contract">
+    <section class="spec-band" id="adapter-contract">
       <h2>Adapter contract</h2>
       <p>Any data source that feeds into a FreshContext-compatible system is called an <strong>adapter</strong>.</p>
       <h3>Adapters MUST:</h3>
-      <ul style="color:var(--muted);font-size:0.9rem;line-height:2.1;padding-left:1.25rem;margin-bottom:1rem">
-        <li>Return raw content plus a <code style="color:var(--green);background:var(--green-dim);padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace">content_date</code> (or <code style="color:var(--green);background:var(--green-dim);padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace">null</code> if unknown)</li>
-        <li>Set a <code style="color:var(--green);background:var(--green-dim);padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace">freshness_confidence</code> level based on how the date was determined</li>
+      <ul>
+        <li>Return raw content plus a <code>content_date</code> (or <code>null</code> if unknown)</li>
+        <li>Set a <code>freshness_confidence</code> level based on how the date was determined</li>
         <li>Never fabricate or forward-date content timestamps</li>
-        <li>Identify the source system via the <code style="color:var(--green);background:var(--green-dim);padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace">adapter</code> field</li>
+        <li>Identify the source system via the <code>adapter</code> field</li>
         <li>Surface retrieval failures explicitly</li>
       </ul>
       <h3>Adapters SHOULD:</h3>
-      <ul style="color:var(--muted);font-size:0.9rem;line-height:2.1;padding-left:1.25rem">
+      <ul>
         <li>Prefer structured API sources over scraped content when both are available</li>
         <li>Surface rate-limit or access-denied errors explicitly rather than returning empty content</li>
         <li>Never silently return cached or stale data on retrieval failure</li>
       </ul>
     </section>
 
-    <section class="spec-section" id="failure-honesty">
+    <section class="spec-band" id="failure-honesty">
       <h2>Failure honesty</h2>
       <p>Adapters MUST NOT wrap failed, empty, blocked, timeout, rate-limited, access-denied, or malformed output as high-confidence fresh context.</p>
-      <p>If adapter output looks like an error, implementations SHOULD downgrade confidence to low, set <code style="color:var(--green);background:var(--green-dim);padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace">freshness_score</code> to <code style="color:var(--green);background:var(--green-dim);padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace">null</code>, preserve enough error context for diagnosis, and avoid presenting the result as successful current context.</p>
+      <p>If adapter output looks like an error, implementations SHOULD downgrade confidence to low, set <code>freshness_score</code> to <code>null</code>, preserve enough error context for diagnosis, and avoid presenting the result as successful current context.</p>
     </section>
 
-    <section class="spec-section" id="composite">
+    <section class="spec-band" id="composite">
       <h2>Composite adapters (v1.1)</h2>
       <p>A <strong>composite adapter</strong> combines multiple single-source adapters into one call. Composites MUST:</p>
-      <ul style="color:var(--muted);font-size:0.9rem;line-height:2.1;padding-left:1.25rem">
+      <ul>
         <li>Run constituent adapters in parallel (Promise.allSettled or equivalent)</li>
         <li>Handle partial failures gracefully &mdash; if one source fails, the others still return</li>
         <li>Label each section with its source adapter name</li>
-        <li>Include a <code style="color:var(--green);background:var(--green-dim);padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace">Generated:</code> timestamp at the top of combined output</li>
-        <li>Support an optional <code style="color:var(--green);background:var(--green-dim);padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace">min_freshness_score</code> parameter (0&ndash;100) to filter constituent results</li>
+        <li>Include a <code>Generated:</code> timestamp at the top of combined output</li>
+        <li>Support an optional <code>min_freshness_score</code> parameter (0&ndash;100) to filter constituent results</li>
       </ul>
-      <p>When <code style="color:var(--green);background:var(--green-dim);padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace">min_freshness_score</code> is set, any constituent result below the threshold is replaced with a staleness warning rather than omitted, preserving output structure.</p>
+      <p>When <code>min_freshness_score</code> is set, any constituent result below the threshold is replaced with a staleness warning rather than omitted, preserving output structure.</p>
     </section>
 
-    <section class="spec-section" id="compatibility">
+    <section class="spec-band" id="compatibility">
       <h2>Compatibility levels</h2>
-      <div class="compat-card"><div class="compat-dot scored"></div><div><div class="compat-name">FreshContext-scored &#9733;&#9733;&#9733;</div><div class="compat-desc">Full JSON form + numeric <code style="color:var(--green);background:var(--green-dim);padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace">freshness_score</code> on every result. Agents can filter by score threshold.</div></div></div>
-      <div class="compat-card"><div class="compat-dot full"></div><div><div class="compat-name">FreshContext-compatible &#9733;&#9733;</div><div class="compat-desc">Responses include the <code style="color:var(--green);background:var(--green-dim);padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace">[FRESHCONTEXT]</code> envelope OR JSON form with <code style="color:var(--green);background:var(--green-dim);padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace">retrieved_at</code> + <code style="color:var(--green);background:var(--green-dim);padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace">freshness_confidence</code>.</div></div></div>
-      <div class="compat-card"><div class="compat-dot aware"></div><div><div class="compat-name">FreshContext-aware &#9733;</div><div class="compat-desc">Responses include <code style="color:var(--green);background:var(--green-dim);padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace">retrieved_at</code> without <code style="color:var(--green);background:var(--green-dim);padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace">freshness_confidence</code>. Partial implementation.</div></div></div>
+      <div class="compat-card"><div class="compat-dot scored"></div><div><div class="compat-name">FreshContext-scored &#9733;&#9733;&#9733;</div><div class="compat-desc">Full JSON form + numeric <code>freshness_score</code> on every result. Agents can filter by score threshold.</div></div></div>
+      <div class="compat-card"><div class="compat-dot full"></div><div><div class="compat-name">FreshContext-compatible &#9733;&#9733;</div><div class="compat-desc">Responses include the <code>[FRESHCONTEXT]</code> envelope OR JSON form with <code>retrieved_at</code> + <code>freshness_confidence</code>.</div></div></div>
+      <div class="compat-card"><div class="compat-dot aware"></div><div><div class="compat-name">FreshContext-aware &#9733;</div><div class="compat-desc">Responses include <code>retrieved_at</code> without <code>freshness_confidence</code>. Partial implementation.</div></div></div>
       <p>MCP is one interface, not the whole FreshContext model. FreshContext-compatible systems may be MCP servers, APIs, CLIs, npm packages, dashboards, agents, or internal services.</p>
-      <p style="margin-top:1rem">Verify: <code style="color:var(--green);background:var(--green-dim);padding:2px 8px;border-radius:4px;font-family:'DM Mono',monospace;font-size:0.82rem">npx freshcontext-validate &lt;response&gt;</code></p>
+      <p>Verify: <code>npx freshcontext-validate &lt;response&gt;</code></p>
     </section>
 
-    <section class="spec-section" id="core-backed">
+    <section class="spec-band" id="core-backed">
       <h2>Core-backed implementation status</h2>
       <p>FreshContext Core now owns freshness scoring, envelope generation, confidence metadata, failure guards, shared types, and rank/explain primitives in the reference implementation.</p>
       <p>The live MCP Worker uses Core-backed envelope generation while Cloudflare-specific runtime behavior, MCP transport, cache policy, rate limits, and deployment concerns remain outside Core.</p>
       <p>Claude Desktop is a supported MCP client, but FreshContext Core is not Claude-dependent. MCP is one interface over the methodology.</p>
     </section>
 
-    <section class="spec-section" id="implementations">
+    <section class="spec-band" id="implementations">
       <h2>Implementations</h2>
       <div class="impl-card">
         <div class="impl-body">
           <div class="impl-name">freshcontext-mcp</div>
           <div class="impl-desc">The canonical reference implementation: freshcontext-mcp@<span data-npm-version>latest</span> with <code>evaluate_context</code> for caller-provided candidate context, additive readable output for each structured result, and named read-only MCP reference adapters covering GitHub, HN, arXiv, Reddit, YC, Product Hunt, Stooq finance, jobs, US federal contracts, SEC filings, GDELT global news, Singapore GeBIZ, and composite landscape tools. The npm package is live; hosted Worker and feed surfaces remain separate deployment concerns.</div>
-          <div style="margin-top:8px;display:flex;gap:12px;flex-wrap:wrap">
-            <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp" style="font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--green);text-decoration:none">GitHub &rarr;</a>
-            <a href="https://www.npmjs.com/package/freshcontext-mcp" style="font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--muted);text-decoration:none">npm &rarr;</a>
+          <div>
+            <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">GitHub &rarr;</a>
+            <a href="https://www.npmjs.com/package/freshcontext-mcp">npm &rarr;</a>
           </div>
         </div>
         <span class="impl-badge reference">Reference</span>
@@ -286,14 +204,14 @@ Confidence: &lt;high|medium|low&gt;
       <div class="impl-add">Building a FreshContext-compatible tool? <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp/issues">Open an issue</a> to be listed here.</div>
     </section>
 
-    <section class="spec-section" id="why">
+    <section class="spec-band" id="why">
       <h2>Why this matters for AI agents</h2>
       <p>Large language models have no internal clock. When an agent retrieves web data, it cannot distinguish between something published this morning and something published three years ago &mdash; unless that information is explicitly surfaced.</p>
       <p>The spec started from a concrete failure: the author asked an AI to help find a job. It returned listings. Three applications later &mdash; two roles no longer existed, one had closed two years prior. The AI presented everything with equal confidence.</p>
       <p><strong>FreshContext addresses this.</strong> Retrieved data can carry timestamp, confidence, provenance, and freshness metadata. The agent can reason about data age before acting, and users can inspect how fresh the provided context appears to be.</p>
     </section>
 
-    <section class="spec-section" id="changelog">
+    <section class="spec-band" id="changelog">
       <h2>Changelog</h2>
       <div class="changelog-item">
         <div class="changelog-ver">v1.2 &mdash; May 2026</div>
@@ -310,10 +228,10 @@ Confidence: &lt;high|medium|low&gt;
         <div class="changelog-ver">v1.1 &mdash; April 2026</div>
         <ul>
           <li>Added composite adapter contract (parallel execution, graceful partial failure, section labelling)</li>
-          <li>Added <code style="color:var(--green);background:var(--green-dim);padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace">min_freshness_score</code> parameter spec for composite adapters</li>
-          <li>Added <code style="color:var(--green);background:var(--green-dim);padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace">decay_rate</code> field to JSON form</li>
+          <li>Added <code>min_freshness_score</code> parameter spec for composite adapters</li>
+          <li>Added <code>decay_rate</code> field to JSON form</li>
           <li>Formalised three compatibility levels: FreshContext-scored, compatible, aware</li>
-          <li>Added JSON Schema (<code style="color:var(--green);background:var(--green-dim);padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace">freshcontext.schema.json</code>) and CLI validator (<code style="color:var(--green);background:var(--green-dim);padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace">npx freshcontext-validate</code>)</li>
+          <li>Added JSON Schema (<code>freshcontext.schema.json</code>) and CLI validator (<code>npx freshcontext-validate</code>)</li>
           <li>Published spec site at freshcontext-site.pages.dev/spec</li>
         </ul>
       </div>
@@ -332,32 +250,38 @@ Confidence: &lt;high|medium|low&gt;
       <div>Validator &mdash; <a href="https://www.npmjs.com/package/freshcontext-validate">npx freshcontext-validate</a></div>
       <div>Privacy &mdash; <a href="/privacy">FreshContext privacy notes</a></div>
       <div>Accessibility &mdash; <a href="/accessibility">FreshContext accessibility notes</a></div>
-      <div style="margin-top:0.75rem;color:var(--gold);font-style:italic">&ldquo;The work isn&rsquo;t gone. It&rsquo;s just waiting to be continued.&rdquo;</div>
+      <div>&ldquo;The work isn&rsquo;t gone. It&rsquo;s just waiting to be continued.&rdquo;</div>
       <div>&mdash; Prince Gabriel, Grootfontein, Namibia</div>
     </div>
+      </div>
+    </section>
   </main>
-</div>
 
-<script>
-  const sections = document.querySelectorAll('.spec-section');
-  const links = document.querySelectorAll('.sidebar a[href^="#"]');
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        links.forEach(l => {
-          l.classList.remove('active');
-          l.removeAttribute('aria-current');
-        });
-        const a = document.querySelector('.sidebar a[href="#' + e.target.id + '"]');
-        if (a) {
-          a.classList.add('active');
-          a.setAttribute('aria-current', 'true');
-        }
-      }
-    });
-  }, { rootMargin: '-20% 0px -70% 0px' });
-  sections.forEach(s => obs.observe(s));
-</script>
-<script src="/version.js" defer></script>
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-inner">
+        <div>
+          <b>FreshContext</b>
+          <span class="sub">Context integrity infrastructure for AI systems and agents.</span>
+        </div>
+        <nav aria-label="Footer">
+          <a href="/context-integrity">Context integrity</a>
+          <a href="/spec">Specification</a>
+          <a href="/context-integrity-demo">Demo</a>
+          <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">GitHub</a>
+          <a href="https://www.npmjs.com/package/freshcontext-mcp">npm</a>
+          <a href="mailto:security@freshcontext.dev">Security</a>
+          <a href="/privacy">Privacy</a>
+          <a href="/accessibility">Accessibility</a>
+          <a href="/contact">Contact</a>
+        </nav>
+      </div>
+      <p class="footer-legal">
+        MIT licensed. Built by Immanuel Gabriel.
+      </p>
+    </div>
+  </footer>
+
+  <script src="/site.js"></script>
 </body>
 </html>

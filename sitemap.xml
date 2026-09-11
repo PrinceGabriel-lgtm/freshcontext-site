@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Every canonical URL on freshcontext.dev, in the order a reader would meet
+     them. Extensionless, matching the <link rel="canonical"> on each page and
+     the 301s in _redirects; the .html forms are deliberately absent so the
+     sitemap never advertises a URL that redirects. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://freshcontext.dev/</loc>
+    <lastmod>2026-09-11</lastmod>
+  </url>
+  <url>
+    <loc>https://freshcontext.dev/context-integrity</loc>
+    <lastmod>2026-09-11</lastmod>
+  </url>
+  <url>
+    <loc>https://freshcontext.dev/spec</loc>
+    <lastmod>2026-09-11</lastmod>
+  </url>
+  <url>
+    <loc>https://freshcontext.dev/context-integrity-demo</loc>
+    <lastmod>2026-09-11</lastmod>
+  </url>
+  <url>
+    <loc>https://freshcontext.dev/contact</loc>
+    <lastmod>2026-09-11</lastmod>
+  </url>
+  <url>
+    <loc>https://freshcontext.dev/privacy</loc>
+    <lastmod>2026-09-11</lastmod>
+  </url>
+  <url>
+    <loc>https://freshcontext.dev/accessibility</loc>
+    <lastmod>2026-09-11</lastmod>
+  </url>
+</urlset>

@@ -1,0 +1,90 @@
+/* Removed with the shared shell: a fixed glassmorphic nav (it was a bare `nav`
+ * selector, so it was also repainting the footer nav dark on a light page and
+ * failing contrast), a radial gradient blob on body::after, and the .logo rules
+ * the shared .brand replaces. The brief asks for no glassmorphism and no
+ * gradient blobs; these were both. */
+/* Page-specific styles for /spec.
+ * The chrome — tokens, nav, footer, type scale, buttons, tables, code —
+ * comes from site.css. Only components unique to this page live here.
+ */
+
+/* This page was originally a fully dark surface of its own — --void #09090b,
+ * a glassmorphic fixed nav, a radial gradient blob and the Outfit typeface.
+ * That was the sharpest case of the design-system fragmentation this change
+ * exists to end, so its palette is converted to the shared light ground
+ * rather than preserved. Every value below was checked to clear 4.5:1 on
+ * paper, panel and tint. */
+:root {
+  --amber: #8a6516;
+  --blue: #1f4e7a;
+  --blue-lift: #7dd3fc;   /* 11.12:1 on --graphite, for code-block values */
+  --border: #e2d9c6;
+  --border2: #cbbda2;
+  --dim: #6a6559;
+  --green-dim: rgba(15, 110, 85, 0.08);
+  --surface2: #f3ecda;
+  --surface3: #ece3cd;
+  --text: #17140f;
+}
+
+/* DM Mono and Instrument Serif were named here but nothing loaded them — the
+ * webfont <link> left with the old page chrome, so both were already rendering
+ * as the generic fallback. They now name the shared tokens, which is what the
+ * page was actually drawing, and keeps font-src 'self' honest.
+ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+.spec-badge { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-deep); background: var(--gold-wash); border: 1px solid rgba(125, 98, 32, 0.22); padding: 4px 14px; border-radius: 20px; margin-bottom: 1.5rem; }
+.spec-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+.spec-title { font-family: var(--sans); font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; line-height: 1.1; margin-bottom: 0.75rem; }
+.spec-title em { font-style: italic; color: var(--gold); }
+.spec-meta { font-family: var(--mono); font-size: 0.65rem; color: var(--muted); margin-bottom: 2.5rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+.spec-band { margin-bottom: 3.5rem; scroll-margin-top: 80px; }
+p strong { color: var(--text); font-weight: 500; }
+.code-block { margin: 1rem 0; }
+.code-block pre { font-family: var(--mono); font-size: 0.78rem; line-height: 1.75; white-space: pre; }
+/* Syntax colours sit on --graphite, so each is the dark-ground role. */
+.c-key { color: var(--green-lift); }
+.c-val { color: var(--blue-lift); }
+.c-bracket { color: var(--gold-lift); }
+.spec-table { width: 100%; border-collapse: collapse; font-size: 0.83rem; margin: 1rem 0; }
+.spec-table th { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid var(--border2); }
+.spec-table td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); color: var(--muted); vertical-align: top; line-height: 1.6; }
+.spec-table tr:last-child td { border-bottom: none; }
+.spec-table tr:hover td { background: rgba(255,255,255,0.015); }
+.spec-table code { font-family: var(--mono); font-size: 0.75rem; color: var(--green); background: var(--green-dim); padding: 1px 6px; border-radius: 4px; }
+.conf-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 1rem 0; }
+.conf-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.1rem; }
+.conf-card.high { border-top: 2px solid var(--green); }
+.conf-card.medium { border-top: 2px solid var(--amber); }
+.conf-card.low { border-top: 2px solid var(--red); }
+.conf-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.5rem; }
+.conf-card.high .conf-label { color: var(--green); }
+.conf-card.medium .conf-label { color: var(--amber); }
+.conf-card.low .conf-label { color: var(--red); }
+.conf-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+.compat-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: 10px; display: flex; align-items: flex-start; gap: 14px; }
+.compat-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+.compat-dot.full { background: var(--green); }
+.compat-dot.aware { background: var(--amber); }
+.compat-dot.scored { background: var(--blue); }
+.compat-name { font-family: var(--mono); font-size: 0.7rem; color: var(--text); margin-bottom: 4px; }
+.compat-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+.impl-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 1.1rem 1.25rem; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.impl-body { flex: 1; }
+.impl-name { font-weight: 500; font-size: 0.9rem; color: var(--text); margin-bottom: 4px; }
+.impl-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+.impl-badge { font-family: var(--mono); font-size: 0.6rem; padding: 3px 10px; border-radius: 20px; flex-shrink: 0; letter-spacing: 0.08em; text-transform: uppercase; }
+.impl-badge.reference { background: var(--gold-wash); color: var(--gold-deep); border: 1px solid rgba(125, 98, 32, 0.22); }
+.impl-add { background: var(--surface3); border: 1px dashed var(--border2); border-radius: 8px; padding: 1rem 1.25rem; text-align: center; font-size: 0.82rem; color: var(--dim); }
+.impl-add a { color: var(--green); text-decoration: underline; text-underline-offset: 3px; }
+.changelog-item { border-left: 2px solid var(--border2); padding-left: 1.25rem; margin-bottom: 1.5rem; }
+.changelog-ver { font-family: var(--mono); font-size: 0.7rem; color: var(--gold); margin-bottom: 4px; }
+.changelog-item ul { list-style: none; }
+.changelog-item li { font-size: 0.83rem; color: var(--muted); padding: 3px 0; line-height: 1.6; }
+.changelog-item li::before { content: '+ '; color: var(--green); font-family: var(--mono); }
+hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+.spec-footer { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); font-family: var(--mono); font-size: 0.72rem; color: var(--muted); line-height: 1.9; }
+.spec-footer a { color: var(--muted); text-decoration: none; }
+.spec-footer a:hover { color: var(--text); }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; } }
+@media (max-width: 768px) { .spec-table { display: block; max-width: 100%; overflow-x: auto; } .conf-grid { grid-template-columns: 1fr; } }

@@ -1,17 +1,20 @@
 name: Verify
 
-# The site is deployed by hand with `npx wrangler deploy` from the repository root.
-# Nothing gated that: a malformed page or a regressed accessibility check reached
-# freshcontext.dev and stayed there until somebody happened to notice. package.json
-# has carried `check:html` and `check:a11y` for a while, but nothing ran them except
-# a person remembering to.
+# package.json has carried `check:html` and `check:a11y` for a while, but nothing ran
+# them except a person remembering to. These now run on every push and pull request.
 #
-# So these run on every push and pull request. The gate now exists before the deploy
-# rather than after it.
+# What this workflow is NOT: a deploy gate. The site is deployed by Cloudflare Workers
+# Builds, which watches the repository directly and starts on the push itself — it does
+# not wait on GitHub Actions and has no view of whether these checks passed. A push to
+# main is live within about a minute, typically before this job finishes. An earlier
+# version of this comment claimed the gate "now exists before the deploy"; it does not,
+# and the timings on PR #9 showed the deploy completing 28 seconds before the checks did.
 #
-# This workflow deliberately does NOT deploy. That would need CLOUDFLARE_API_TOKEN in
-# this repository's secrets and a rollback story of its own, and it is a separate
-# decision from having checks at all.
+# So this is a fast signal on a pull request, not an interlock. Making it an interlock
+# means turning off the Workers Builds trigger and deploying from here with
+# CLOUDFLARE_API_TOKEN plus a rollback story — a separate decision from having checks.
+#
+# This workflow deliberately does NOT deploy.
 
 on:
   push:
