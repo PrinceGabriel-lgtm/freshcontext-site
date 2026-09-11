@@ -32,7 +32,7 @@ if (-not (Test-Path $ConfigDir)) {
 # ── 4. Create or update config file ──
 $freshEntry = @{
     command = "npx"
-    args = @("-y", "mcp-remote", "https://freshcontext-mcp.gimmanuel73.workers.dev/mcp")
+    args = @("-y", "mcp-remote", "https://api.freshcontext.dev/mcp")
 }
 
 if (-not (Test-Path $ConfigFile)) {

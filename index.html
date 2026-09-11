@@ -8,8 +8,8 @@
   <meta property="og:title" content="FreshContext" />
   <meta property="og:description" content="A context gateway for agents and apps: raw retrieval results become freshness-ranked, explained, decision-ready context." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://freshcontext-site.pages.dev/" />
-  <link rel="canonical" href="https://freshcontext-site.pages.dev/" />
+  <meta property="og:url" content="https://freshcontext.dev/" />
+  <link rel="canonical" href="https://freshcontext.dev/" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23141614'/%3E%3Cpath d='M15 20h34M15 32h22M15 44h30' stroke='%23f6f2e8' stroke-width='4.5' stroke-linecap='round'/%3E%3Ccircle cx='43' cy='32' r='5' fill='%231c8f6a'/%3E%3C/svg%3E" />
   <style>
     :root {
@@ -637,6 +637,7 @@
       <div class="nav-links">
         <a href="#product">Product</a>
         <a href="#install">Use</a>
+        <a href="#deploy">Deploy</a>
         <a href="/context-integrity-demo">Demo</a>
         <a href="/spec">Docs</a>
         <a href="/contact">Contact</a>
@@ -649,16 +650,16 @@
     <section class="hero" id="hero">
       <div class="container hero-layout">
         <div>
-          <div class="eyebrow">Context integrity before reasoning</div>
+          <div class="eyebrow">Context integrity infrastructure</div>
           <h1>Context that earns its place.</h1>
-          <p class="lead">FreshContext decides what context deserves to reach the model. Raw retrieval results become freshness-ranked, explained, decision-ready context for agents and apps.</p>
+          <p class="lead">AI systems increasingly act on external context that changed after it was retrieved. FreshContext sits between context acquisition and agent action and decides whether what is arriving is still fresh, attributable and coherent enough to rely on &mdash; returning a signed, ledger-backed verdict rather than a ranked list.</p>
           <div class="hero-actions">
             <a class="button" href="#install">Use FreshContext</a>
             <a class="button secondary" href="/context-integrity-demo">See the demo</a>
           </div>
           <div class="release-strip">
-            <span class="pill">context gateway</span>
-            <span class="pill">Core evaluation active</span>
+            <span class="pill">signed verdicts</span>
+            <span class="pill">ledger-backed verification</span>
             <span class="pill">source profiles</span>
             <span class="pill">decision layer</span>
           </div>
@@ -819,6 +820,110 @@
       </div>
     </section>
 
+    <section class="section alt" id="deploy">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="section-label">Deployment modes</p>
+            <h2>The engine is separable from the interface.</h2>
+          </div>
+          <p class="section-lede">Core does not depend on being reached through MCP. The same engine runs in each of these without a rewrite, which is what keeps FreshContext a primitive rather than a single-integration tool.</p>
+        </div>
+
+        <div class="interface-grid">
+          <article class="card">
+            <div class="card-top">
+              <span class="kicker">Standalone</span>
+              <span class="status">live</span>
+            </div>
+            <h3>Its own service</h3>
+            <p>FreshContext runs as a context-integrity service in its own right, which is how it runs today at <code>api.freshcontext.dev</code>.</p>
+          </article>
+          <article class="card">
+            <div class="card-top">
+              <span class="kicker">MCP layer</span>
+              <span class="status">live</span>
+            </div>
+            <h3>Around agent workflows</h3>
+            <p>Core evaluates and governs context flowing through MCP-enabled workflows. The live path in this repository.</p>
+          </article>
+          <article class="card">
+            <div class="card-top">
+              <span class="kicker">SDK / API</span>
+              <span class="status soon">seam</span>
+            </div>
+            <h3>Called directly</h3>
+            <p>Integrity primitives consumed programmatically, with no MCP in the path. The Core import boundary already supports this.</p>
+          </article>
+          <article class="card">
+            <div class="card-top">
+              <span class="kicker">Embedded</span>
+              <span class="status soon">seam</span>
+            </div>
+            <h3>Inside another platform</h3>
+            <p>Core runs as a subsystem of an existing AI, data or security platform, invisible to that platform&rsquo;s users.</p>
+          </article>
+          <article class="card">
+            <div class="card-top">
+              <span class="kicker">Gateway</span>
+              <span class="status soon">seam</span>
+            </div>
+            <h3>At the policy boundary</h3>
+            <p>Core sits where context is admitted into agent execution, rather than alongside it. Depends on the safety harness below.</p>
+          </article>
+          <article class="card">
+            <div class="card-top">
+              <span class="kicker">White-label</span>
+              <span class="status soon">seam</span>
+            </div>
+            <h3>Under other branding</h3>
+            <p>The engine surfaced through another product&rsquo;s API and UI. Nothing in Core assumes the FreshContext name.</p>
+          </article>
+        </div>
+        <p class="section-lede" style="margin-top:22px">Only the standalone and MCP modes are exercised in production. The rest are integration seams the architecture supports &mdash; not shipped configurations, and not claims.</p>
+      </div>
+    </section>
+
+    <section class="section" id="expansion">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="section-label">Expansion surfaces</p>
+            <h2>What is deliberately not built yet.</h2>
+          </div>
+          <p class="section-lede">Stated in future tense because none of it ships today. The distinction matters: a defect in the core is a liability, an unbuilt surface is a choice. These are choices.</p>
+        </div>
+
+        <div class="interface-grid">
+          <article class="card">
+            <div class="card-top">
+              <span class="kicker">Roadmap</span>
+              <span class="status soon">not built</span>
+            </div>
+            <h3>Context safety harness</h3>
+            <p>Policy enforcement before context reaches an agent &mdash; pass, warn, refresh, quarantine or block, with evidence attached to each decision. Today <code>evaluate_context</code> emits decisions and warnings; the enforcement state machine does not exist. <code>quarantine</code> and <code>block</code> appear nowhere in the codebase.</p>
+          </article>
+          <article class="card">
+            <div class="card-top">
+              <span class="kicker">Roadmap</span>
+              <span class="status soon">not built</span>
+            </div>
+            <h3>Control plane</h3>
+            <p>A dashboard over source health, trust score, context drift and provenance lineage. The verdict ledger is the data contract it would read from, and that ledger exists &mdash; the interface over it does not.</p>
+          </article>
+          <article class="card">
+            <div class="card-top">
+              <span class="kicker">Roadmap</span>
+              <span class="status soon">not built</span>
+            </div>
+            <h3>Integrity telemetry</h3>
+            <p>Historical integrity state, incidents, upstream degradation and remediation history, so a team can see when their context became unreliable rather than discovering it downstream.</p>
+          </article>
+        </div>
+        <p class="section-lede" style="margin-top:22px">Tracked in full in the <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp#roadmap">repository roadmap</a>, split into production core, expansion surfaces and research frontier.</p>
+      </div>
+    </section>
+
     <section class="section alt" id="demo">
       <div class="container">
         <div class="section-head">
@@ -889,6 +994,7 @@
         <div>
           <h3>Contact</h3>
           <a href="/contact">Contact page</a>
+          <a href="mailto:hello@freshcontext.dev">hello@freshcontext.dev</a>
           <a href="https://www.linkedin.com/in/immanuel-gabriel-99375a292/">LinkedIn</a>
         </div>
       </div>

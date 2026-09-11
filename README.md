@@ -3,7 +3,7 @@
 Static public site for FreshContext.
 
 Production:
-https://freshcontext-site.pages.dev/
+https://freshcontext.dev/
 
 Key pages:
 - /
