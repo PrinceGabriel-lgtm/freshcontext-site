@@ -1,8 +1,31 @@
+# Everything here is excluded from the published static-asset bundle.
+#
+# Stated explicitly rather than relying on Cloudflare skipping dot-entries by
+# default. That default is not something this repository should depend on: if it
+# does not hold, `.git/` alone would publish the entire repository history as
+# static assets. An inherited conditional default is exactly the shape of bug that
+# turned the workers.dev hostname off in freshcontext-mcp, so this file names what
+# ships instead of assuming.
+
+# Version control and CI
+.git/
+.github/
+.gitignore
+.assetsignore
+
+# Tooling config and test material
 README.md
 package.json
 package-lock.json
 playwright.config.js
+.htmlvalidate.json
+tests/
+test-results/
+playwright-report/
+
+# Install scripts are distributed through the docs, not served from the site
 install.ps1
 install.sh
-tests/
+
+# Deployment config
 wrangler.jsonc
