@@ -52,6 +52,27 @@ jobs:
       - name: Validate HTML
         run: npm run check:html
 
+      # freshcontext.schema.json is served from this repository so that the schema's own
+      # $id -- https://freshcontext.dev/freshcontext.schema.json -- actually resolves. It
+      # did not: every human-facing link pointed at the GitHub blob and worked, while the
+      # machine-facing identifier a validator resolves was a 404, on a schema published as
+      # an open standard.
+      #
+      # The canonical copy lives in freshcontext-mcp beside the spec and the validator.
+      # This one is a published mirror, and two copies drift, so the mirror is checked
+      # against the source on every run. Compared as parsed JSON with sorted keys, because
+      # what has to match is the schema, not its whitespace.
+      - name: Schema mirror still matches freshcontext-mcp
+        run: |
+          set -euo pipefail
+          curl -fsS --max-time 30 -o "$RUNNER_TEMP/canonical.json" \
+            https://raw.githubusercontent.com/PrinceGabriel-lgtm/freshcontext-mcp/main/freshcontext.schema.json
+          if ! diff -u <(jq -S . "$RUNNER_TEMP/canonical.json") <(jq -S . freshcontext.schema.json); then
+            echo "::error::freshcontext.schema.json has drifted from the canonical copy in freshcontext-mcp. Copy it across rather than editing this mirror."
+            exit 1
+          fi
+          echo "schema mirror matches the canonical copy"
+
       # Serves the site from a node http server inside the spec file, so there is no
       # separate server to start and nothing to wait for.
       - name: Accessibility (axe + mobile overflow)
