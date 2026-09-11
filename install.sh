@@ -39,7 +39,7 @@ if [ ! -f "$CONFIG_FILE" ]; then
   "mcpServers": {
     "freshcontext": {
       "command": "npx",
-      "args": ["-y", "mcp-remote", "https://freshcontext-mcp.gimmanuel73.workers.dev/mcp"]
+      "args": ["-y", "mcp-remote", "https://api.freshcontext.dev/mcp"]
     }
   }
 }
@@ -55,7 +55,7 @@ else
     if (!config.mcpServers) config.mcpServers = {};
     config.mcpServers.freshcontext = {
       command: 'npx',
-      args: ['-y', 'mcp-remote', 'https://freshcontext-mcp.gimmanuel73.workers.dev/mcp']
+      args: ['-y', 'mcp-remote', 'https://api.freshcontext.dev/mcp']
     };
     fs.writeFileSync(path, JSON.stringify(config, null, 2));
     console.log('done');
