@@ -1,0 +1,8 @@
+README.md
+package.json
+package-lock.json
+playwright.config.js
+install.ps1
+install.sh
+tests/
+wrangler.jsonc
