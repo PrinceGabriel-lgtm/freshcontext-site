@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Terms of Use | FreshContext</title>
+  <meta name="description" content="Terms of use for the FreshContext public site, published specification, hosted verification API, and MCP reference package." />
+  <link rel="canonical" href="https://freshcontext.dev/terms" />
+  <meta name="theme-color" content="#12140f" />
+  <meta property="og:site_name" content="FreshContext" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://freshcontext.dev/terms" />
+  <meta property="og:title" content="Terms of Use | FreshContext" />
+  <meta property="og:description" content="Terms of use for the FreshContext public site, published specification, hosted verification API, and MCP reference package." />
+  <meta property="og:image" content="https://freshcontext.dev/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="FreshContext — context integrity infrastructure for AI agents" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Terms of Use | FreshContext" />
+  <meta name="twitter:description" content="Terms of use for the FreshContext public site, published specification, hosted verification API, and MCP reference package." />
+  <meta name="twitter:image" content="https://freshcontext.dev/og.png" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2312140f'/%3E%3Cpath d='M15 20h34M15 32h22M15 44h30' stroke='%23f4efe2' stroke-width='4.5' stroke-linecap='round'/%3E%3Ccircle cx='43' cy='32' r='5' fill='%230f6e55'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="/site.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <nav class="nav" aria-label="Primary">
+    <div class="nav-inner">
+      <a href="/" class="brand" aria-label="FreshContext home">
+        <span class="brand-mark" aria-hidden="true">FC</span>
+        <span>FreshContext</span>
+      </a>
+      <div class="nav-links">
+        <a href="/">Product</a>
+        <a href="/context-integrity">Context integrity</a>
+        <a href="/context-integrity-demo">Demo</a>
+        <a href="/spec">Spec</a>
+        <a href="/contact">Contact</a>
+        <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <section class="band">
+      <div class="wrap prose">
+<div class="eyebrow">Terms of use</div>
+    <h1>FreshContext Terms of Use</h1>
+    <p class="lede">These terms cover the public site, the published specification and schema, the hosted verification API, and the MCP reference package.</p>
+    <p class="sub">Last reviewed: 13 September 2026.</p>
+
+    <section>
+      <h2>What These Terms Are</h2>
+      <p>FreshContext publishes a specification, an MIT-licensed reference implementation, and a hosted endpoint that lets anyone verify a signed verdict. These terms govern use of the hosted service and the public site. They do not replace the MIT licence, which governs the source code and continues to apply on its own terms.</p>
+      <p>This is a plain-language statement of how the service is offered, not a negotiated commercial agreement and not legal advice. Anyone evaluating FreshContext for procurement, regulated use, or a commercial arrangement should expect a separate agreement and their own counsel's review.</p>
+    </section>
+
+    <section>
+      <h2>The Service Is Offered As-Is</h2>
+      <p>The hosted API and site are provided without warranty of any kind, without a service level commitment, and without a guaranteed response time. Availability, rate limits, response shapes, and endpoints may change or be withdrawn. Nothing here creates an obligation to keep any endpoint running.</p>
+      <p>FreshContext produces freshness, confidence, utility, and provenance metadata about candidate context. <strong>It does not determine truth.</strong> A verdict describes how context was treated and why. It is not a factual guarantee about the underlying content, and it is not legal, medical, tax, financial, or professional advice. Decisions made in reliance on a verdict remain the responsibility of the party making them.</p>
+    </section>
+
+    <section>
+      <h2>Acceptable Use</h2>
+      <p>The verification endpoint is public and unauthenticated on purpose: a third party must be able to check a verdict without holding a credential or asking permission. That design depends on it not being abused. Please do not:</p>
+      <ul>
+        <li>send volumes intended to degrade the service, or work around published rate limits</li>
+        <li>submit unlawful material, or content you lack the rights to submit</li>
+        <li>submit secrets, credentials, payment details, health records, or other sensitive personal data — the service is not designed to receive it and no agreement covering such data is in place</li>
+        <li>present FreshContext output as a certification, compliance status, endorsement, or determination of truth</li>
+        <li>imply partnership, affiliation, or endorsement by FreshContext or by any third party named in the documentation</li>
+      </ul>
+      <p>Rate limits apply per source address and may change without notice. Access may be restricted where use threatens the availability of the service for others.</p>
+    </section>
+
+    <section>
+      <h2>What You Send</h2>
+      <p>You keep whatever rights you hold in content you submit. Submitting content grants only what is needed to operate the service: to evaluate it, compute a verdict, and store the resulting record. The <a href="/privacy">privacy page</a> describes what a stored record contains — in short, identifiers, decision, timestamps, a signature, and a hash of the content rather than the content itself.</p>
+      <p>You are responsible for having the right to submit what you submit.</p>
+    </section>
+
+    <section>
+      <h2>Limitation Of Liability</h2>
+      <p>To the fullest extent permitted by applicable law, FreshContext and its maintainer are not liable for indirect, incidental, special, consequential, or exemplary damages, or for lost profits, lost data, or business interruption, arising from use of or inability to use the service — including where a verdict was inaccurate, unavailable, or relied upon.</p>
+      <p>Some jurisdictions do not allow certain exclusions, in which case those exclusions do not apply to the extent prohibited.</p>
+    </section>
+
+    <section>
+      <h2>Licence, Brand, And Third-Party Names</h2>
+      <p>The reference implementation is MIT-licensed; the <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp/blob/main/LICENSE">LICENSE</a> file governs the code. The specification and schema are published for implementation and validation.</p>
+      <p>"FreshContext" is the project name used by its maintainer. No mark registration is claimed. Third-party names appearing in the documentation belong to their owners and are used descriptively, for interoperability and reference. Their use implies no endorsement, certification, sponsorship, or affiliation.</p>
+    </section>
+
+    <section>
+      <h2>Changes</h2>
+      <p>These terms may change as the project changes. The review date at the top of this page states when it was last examined, and that date is only moved when the page is genuinely re-read — a review date that claims more than the review did would undercut the point of the project.</p>
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <p>Questions about these terms, the service, or a specific record: use the <a href="/contact">contact page</a>. Security reports: <a href="mailto:security@freshcontext.dev">security@freshcontext.dev</a>. Please do not include secrets, tokens, private logs, customer data, or exploit payloads.</p>
+    </section>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-inner">
+        <div>
+          <b>FreshContext</b>
+          <span class="sub">Context integrity infrastructure for AI systems and agents.</span>
+        </div>
+        <nav aria-label="Footer">
+          <a href="/context-integrity">Context integrity</a>
+          <a href="/spec">Specification</a>
+          <a href="/context-integrity-demo">Demo</a>
+          <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">GitHub</a>
+          <a href="https://www.npmjs.com/package/freshcontext-mcp">npm</a>
+          <a href="mailto:security@freshcontext.dev">Security</a>
+          <a href="/terms">Terms</a>
+          <a href="/privacy">Privacy</a>
+          <a href="/accessibility">Accessibility</a>
+          <a href="/contact">Contact</a>
+        </nav>
+      </div>
+      <p class="footer-legal">
+        MIT licensed. Built by Immanuel Gabriel.
+      </p>
+    </div>
+  </footer>
+
+  <script src="/site.js"></script>
+</body>
+</html>
