@@ -42,3 +42,9 @@ install.sh
 
 # Deployment config
 wrangler.jsonc
+
+# NOT ignored, and deliberately so: build.json. The deploy job writes it just
+# before upload and then asks the live site for it, which is the only way this
+# repository can prove that the commit CI just checked is the commit being
+# served. Adding it here would leave the smoke test asserting against whatever
+# was already deployed and passing regardless.
