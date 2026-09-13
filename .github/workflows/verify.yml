@@ -26,11 +26,37 @@ name: Verify
 # Two deployers for one Worker is worse than either alone — whichever lands last wins,
 # and the build stamp would flap between them. So `deploy` is gated on the repository
 # variable SITE_DEPLOY_FROM_ACTIONS. Merging this changes nothing in production. The
-# variable goes to `true` in the same sitting that the Workers Builds trigger goes off,
-# and setting it back to `false` is the entire rollback plan for the cutover itself.
+# variable goes to `true` in the same sitting that Cloudflare stops deploying main, and
+# setting it back to `false` is the entire rollback plan for the cutover itself.
 #
 # Note that the site keeps SERVING throughout either way: turning a deploy trigger off
-# does not unpublish anything, it only stops new pushes going live.
+# does not unpublish anything, it only stops new pushes going live. Cloudflare says so
+# itself: disabling build access "will disable new builds ... though your previous
+# deployments will continue to be hosted by Cloudflare Workers".
+#
+# ── how Workers Builds is configured, because a dashboard setting is invisible here ──
+#
+# The integration is deliberately still connected. Cloudflare controls production
+# deploys and preview builds separately (Settings > Build > Branch control), and the
+# preview URL on each pull request is worth keeping: the checks below prove a page
+# validates and passes axe, but somebody still has to LOOK at a contrast or layout
+# change before it ships.
+#
+# So:
+#   production branch          -> cloudflare-production-parked   (never pushed to)
+#   non-production branches    -> on, which is what builds the previews
+#
+# A push to main is therefore a non-production build: Cloudflare creates a version and
+# does NOT promote it, and this workflow deploys production after `check` passes.
+#
+# THE PARKED BRANCH IS NOT DEAD WEIGHT. Pointing Cloudflare's production branch back
+# at main re-creates the exact race this commit removed — Workers Builds would deploy on
+# push again, ahead of the checks, and whichever of the two landed last would win. If
+# that branch looks like clutter, the thing to delete is the Cloudflare setting that
+# depends on it, in that order, not the branch.
+#
+# It is parked at main's content rather than left empty on purpose: changing the setting
+# can itself trigger a build, and a build of an empty branch would publish an empty site.
 
 on:
   push:
