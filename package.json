@@ -9,6 +9,7 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.11.3",
     "@playwright/test": "^1.60.0",
-    "html-validate": "^11.4.0"
+    "html-validate": "^11.4.0",
+    "wrangler": "^4.99.0"
   }
 }

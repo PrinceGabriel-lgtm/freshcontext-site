@@ -1,20 +1,62 @@
 name: Verify
 
-# package.json has carried `check:html` and `check:a11y` for a while, but nothing ran
-# them except a person remembering to. These now run on every push and pull request.
+# Checks on every push and pull request, and — once switched on — the deploy.
 #
-# What this workflow is NOT: a deploy gate. The site is deployed by Cloudflare Workers
-# Builds, which watches the repository directly and starts on the push itself — it does
-# not wait on GitHub Actions and has no view of whether these checks passed. A push to
-# main is live within about a minute, typically before this job finishes. An earlier
-# version of this comment claimed the gate "now exists before the deploy"; it does not,
-# and the timings on PR #9 showed the deploy completing 28 seconds before the checks did.
+# package.json carried `check:html` and `check:a11y` for a while before anything ran
+# them except a person remembering to. They run here on every push and pull request.
 #
-# So this is a fast signal on a pull request, not an interlock. Making it an interlock
-# means turning off the Workers Builds trigger and deploying from here with
-# CLOUDFLARE_API_TOKEN plus a rollback story — a separate decision from having checks.
+# ── the interlock those checks did not have ──
 #
-# This workflow deliberately does NOT deploy.
+# Cloudflare Workers Builds watches this repository and deploys on the push itself.
+# It does not wait on GitHub Actions and has no view of whether these checks passed:
+# the timings on PR #9 showed the deploy finishing 28 seconds BEFORE the checks did.
+# So HTML validation, the accessibility suite and the schema mirror check all ran
+# against something already live.
+#
+# For a marketing page that is a cosmetic half-minute. It is not one for
+# freshcontext.schema.json, which is published at its own $id and resolved by other
+# people's validators: a drifted mirror served first and reported afterwards is a
+# correctness claim verified after the fact.
+#
+# The `deploy` job below closes that. It needs `check`, so nothing reaches production
+# that has not passed.
+#
+# ── the cutover, and why it ships switched off ──
+#
+# Two deployers for one Worker is worse than either alone — whichever lands last wins,
+# and the build stamp would flap between them. So `deploy` is gated on the repository
+# variable SITE_DEPLOY_FROM_ACTIONS. Merging this changes nothing in production. The
+# variable goes to `true` in the same sitting that Cloudflare stops deploying main, and
+# setting it back to `false` is the entire rollback plan for the cutover itself.
+#
+# Note that the site keeps SERVING throughout either way: turning a deploy trigger off
+# does not unpublish anything, it only stops new pushes going live. Cloudflare says so
+# itself: disabling build access "will disable new builds ... though your previous
+# deployments will continue to be hosted by Cloudflare Workers".
+#
+# ── how Workers Builds is configured, because a dashboard setting is invisible here ──
+#
+# The integration is deliberately still connected. Cloudflare controls production
+# deploys and preview builds separately (Settings > Build > Branch control), and the
+# preview URL on each pull request is worth keeping: the checks below prove a page
+# validates and passes axe, but somebody still has to LOOK at a contrast or layout
+# change before it ships.
+#
+# So:
+#   production branch          -> cloudflare-production-parked   (never pushed to)
+#   non-production branches    -> on, which is what builds the previews
+#
+# A push to main is therefore a non-production build: Cloudflare creates a version and
+# does NOT promote it, and this workflow deploys production after `check` passes.
+#
+# THE PARKED BRANCH IS NOT DEAD WEIGHT. Pointing Cloudflare's production branch back
+# at main re-creates the exact race this commit removed — Workers Builds would deploy on
+# push again, ahead of the checks, and whichever of the two landed last would win. If
+# that branch looks like clutter, the thing to delete is the Cloudflare setting that
+# depends on it, in that order, not the branch.
+#
+# It is parked at main's content rather than left empty on purpose: changing the setting
+# can itself trigger a build, and a build of an empty branch would publish an empty site.
 
 on:
   push:
@@ -24,9 +66,13 @@ on:
 permissions:
   contents: read
 
+# Cancelling a superseded pull-request run saves a runner. Cancelling a run on
+# main can kill `deploy` between `wrangler deploy` and the smoke test, which
+# leaves an unverified version live with nothing left running to roll it back.
+# So main runs to completion and everything else is cancellable.
 concurrency:
   group: verify-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
   check:
@@ -91,3 +137,185 @@ jobs:
             test-results/
           retention-days: 7
           if-no-files-found: ignore
+
+  deploy:
+    name: Deploy the site to production
+    needs: check
+    # Push to main, in this repository, and only once the cutover variable is on.
+    # `needs: check` is the point of the whole job: no deploy without a green check.
+    if: >-
+      github.event_name == 'push'
+      && github.ref == 'refs/heads/main'
+      && github.repository == 'PrinceGabriel-lgtm/freshcontext-site'
+      && vars.SITE_DEPLOY_FROM_ACTIONS == 'true'
+    runs-on: ubuntu-latest
+    environment: production
+    concurrency:
+      group: deploy-site-production
+      cancel-in-progress: false
+    permissions:
+      contents: read
+
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+      # Hardcoded rather than read from a repository variable. freshcontext-mcp
+      # carried a blind spot for months because both of its proofs read a hostname
+      # from a variable that pointed somewhere other than the published name, so
+      # every published URL could have 404'd with CI green. This is the name in the
+      # schema's own $id, in sitemap.xml, and in every og: tag. Assert that one.
+      SITE_BASE: https://freshcontext.dev
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      # wrangler is pinned in package-lock.json and deployed with, rather than
+      # resolved fresh by a third-party action or a bare `npx wrangler`. This step
+      # holds CLOUDFLARE_API_TOKEN, and anything resolved at that moment is
+      # unpinned code running beside a production credential.
+      #
+      # It costs something: wrangler pulls miniflare, which pulls sharp, which
+      # carries libvips advisories. They are devDependencies, absent from
+      # `npm audit --omit=dev`, and unreachable here — this is `wrangler deploy`,
+      # not `wrangler dev`, and the published artifact is static files with no
+      # JavaScript bundle at all. Recorded rather than left to be discovered.
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Fail early if deploy credentials are missing
+        run: |
+          missing=0
+          [ -n "$CLOUDFLARE_API_TOKEN" ]  || { echo "::error::Secret CLOUDFLARE_API_TOKEN is not set."; missing=1; }
+          [ -n "$CLOUDFLARE_ACCOUNT_ID" ] || { echo "::error::Variable CLOUDFLARE_ACCOUNT_ID is not set."; missing=1; }
+          exit $missing
+
+      # Without this, the strongest thing the smoke test could say is "the site
+      # answers and the schema matches" — which passes just as well against the
+      # PREVIOUS deploy any time this commit changed neither. The stamp is what
+      # turns it into "this commit is the one being served", the same property
+      # /health's git_sha gives the Worker in freshcontext-mcp.
+      - name: Stamp the build
+        run: |
+          set -euo pipefail
+          node -e '
+            const fs = require("node:fs");
+            fs.writeFileSync("build.json", JSON.stringify({
+              git_sha: process.env.GITHUB_SHA,
+              ref: process.env.GITHUB_REF_NAME,
+              run_id: process.env.GITHUB_RUN_ID,
+              deployed_at: new Date().toISOString(),
+            }, null, 2) + "\n");
+          '
+          cat build.json
+
+      - name: Deploy
+        id: deploy
+        run: npx wrangler deploy
+
+      - name: Smoke test production
+        id: smoke
+        run: |
+          set -uo pipefail
+          bust="cachebust=${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          fail () { echo "::error::$1"; exit 1; }
+
+          # A Cloudflare managed challenge is an edge-policy problem, not a bad
+          # deploy, and rolling back for it would revert good code because someone
+          # toggled bot protection. Detected by its own fingerprint and reported
+          # separately; the rollback step below excludes this case. This is not
+          # hypothetical: it took api.freshcontext.dev off the air earlier today.
+          hdr="$(curl -sS -o /dev/null -D - --max-time 20 "$SITE_BASE/?$bust" || true)"
+          if printf '%s' "$hdr" | grep -qi '^cf-mitigated:'; then
+            echo "edge_challenge=true" >> "$GITHUB_OUTPUT"
+            printf '%s\n' "$hdr" | grep -iE '^(cf-ray|cf-mitigated|server):' || true
+            fail "Cloudflare is challenging requests to $SITE_BASE. This is zone bot policy, not this deploy — the site was NOT rolled back. Check Bot Fight Mode / Super Bot Fight Mode for the zone."
+          fi
+
+          # 1. Is THIS commit the one being served?
+          stamp=""
+          for attempt in 1 2 3 4 5 6; do
+            sleep 5
+            if stamp="$(curl -fsS --max-time 20 -H 'Cache-Control: no-cache' "$SITE_BASE/build.json?$bust")"; then
+              got="$(node -e "
+                try { process.stdout.write(String(JSON.parse(process.argv[1]).git_sha ?? '')); }
+                catch { process.stdout.write(''); }
+              " "$stamp")"
+              if [ "$got" = "$GITHUB_SHA" ]; then break; fi
+              echo "attempt $attempt: /build.json reports git_sha=${got:-<absent>}, waiting for $GITHUB_SHA"
+            else
+              echo "attempt $attempt: /build.json did not answer"
+            fi
+            stamp=""
+          done
+          [ -n "$stamp" ] || fail "/build.json never reported $GITHUB_SHA. The deploy did not reach $SITE_BASE."
+          printf '%s\n' "$stamp"
+          echo "ok  build stamp matches $GITHUB_SHA"
+
+          # 2. The published claim: the schema resolves at its own \$id, and the
+          #    bytes being served are the ones this commit checked against the
+          #    canonical copy in freshcontext-mcp. Parsed and key-sorted, because
+          #    what has to match is the schema, not its whitespace.
+          served="$(curl -fsS --max-time 20 "$SITE_BASE/freshcontext.schema.json?$bust")" \
+            || fail "the schema is unreachable at its own \$id, $SITE_BASE/freshcontext.schema.json"
+          if ! diff -u <(jq -S . freshcontext.schema.json) <(printf '%s' "$served" | jq -S .); then
+            fail "the schema served at its \$id is not the copy in this commit."
+          fi
+          echo "ok  schema at its \$id matches this commit"
+
+          # 3. Every route named in sitemap.xml and in the og: tags. A missing page
+          #    is the failure a human notices last and a crawler notices first.
+          for path in / /spec /privacy /terms /accessibility /contact /context-integrity /context-integrity-demo /og.png /robots.txt /sitemap.xml; do
+            code="$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 "$SITE_BASE$path?$bust" || echo 000)"
+            [ "$code" = "200" ] || fail "$path returned $code, expected 200"
+          done
+          echo "ok  all published routes answer 200"
+
+          # 4. _redirects is consumed by Cloudflare rather than served, so the only
+          #    way to know it survived the deploy is to follow one.
+          code="$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 "$SITE_BASE/spec.html" || echo 000)"
+          [ "$code" = "301" ] || fail "/spec.html returned $code, expected a 301 from _redirects"
+          echo "ok  _redirects is live"
+
+          # 5. Same for _headers. The CSP is the hardening work; a deploy that
+          #    silently dropped it would look identical in a browser.
+          csp="$(curl -sS -o /dev/null -D - --max-time 20 "$SITE_BASE/?$bust" | grep -i '^content-security-policy:' || true)"
+          [ -n "$csp" ] || fail "no Content-Security-Policy on $SITE_BASE/ — _headers did not survive the deploy."
+          printf '%s' "$csp" | grep -q "script-src 'self'" \
+            || fail "Content-Security-Policy is present but no longer carries script-src 'self'."
+          echo "ok  _headers is live and CSP still names script-src 'self'"
+
+      # Excludes the challenge case above: that failure is the zone's bot policy,
+      # and reverting a good deploy because of it would be the wrong correction.
+      - name: Roll back on failed smoke test
+        if: failure() && steps.smoke.outcome == 'failure' && steps.smoke.outputs.edge_challenge != 'true'
+        run: |
+          set -euo pipefail
+          echo "::warning::Smoke test failed for $GITHUB_SHA — rolling back."
+          npx wrangler rollback --yes \
+            --message "Automated rollback: smoke test failed for $GITHUB_SHA"
+          {
+            echo '### Rolled back'
+            echo
+            echo "Smoke test failed for \`$GITHUB_SHA\`; the site was returned to the previous version."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Record the deployment
+        if: always() && steps.deploy.outcome == 'success'
+        continue-on-error: true
+        run: |
+          {
+            echo '### Deployment status'
+            echo
+            echo "Serving commit \`$GITHUB_SHA\` — check it yourself at $SITE_BASE/build.json"
+            echo
+            echo '```'
+            npx wrangler deployments status 2>&1 || true
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
