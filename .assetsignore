@@ -26,7 +26,11 @@ node_modules/
 .env
 .env.*
 
-# Tooling config and test material
+# Repository governance and tooling config. These describe the repository to a
+# contributor; they are not site content and are not served. README.md was
+# already here; LICENSE and CONTRIBUTING.md join it for the same reason.
+LICENSE
+CONTRIBUTING.md
 README.md
 package.json
 package-lock.json
