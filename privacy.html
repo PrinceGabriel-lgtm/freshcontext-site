@@ -86,8 +86,21 @@
 
     <section>
       <h2>User Data And Telemetry</h2>
-      <p>FreshContext does not currently sell user data.</p>
+      <p>FreshContext does not sell user data.</p>
       <p>The public site does not include a payment flow. If telemetry, accounts, billing, or hosted product features are added later, this page should be updated before release.</p>
+    </section>
+
+    <section>
+      <h2>Retention And Deletion</h2>
+      <p>Stated plainly, because the honest answer is more useful than a tidy one: there is currently no automated retention limit and no scheduled deletion. Verdict rows and stored signal records persist until removed by hand. Cache entries in KV expire on a per-adapter timer measured in minutes to hours, but that is caching behaviour and should not be read as a retention policy.</p>
+      <p>Adding a retention window is open work rather than an implemented control. This page will say so when that changes, and it should not be read as promising one today.</p>
+      <p>To ask about removal of a specific record, use the <a href="/contact">contact page</a> with enough detail to identify it, such as a verdict identifier or source URL. Requests are handled by a person, not a workflow.</p>
+    </section>
+
+    <section>
+      <h2>Operator Profile Record</h2>
+      <p>The hosted database holds one scoring-preference record used by the signal-intelligence and briefing paths to rank signals. It stores interests, skills, and a location, and it describes the operator of this deployment rather than any visitor or caller. It is seeded by hand; no automated path writes it, and the software falls back to a built-in default when it is absent.</p>
+      <p>It is described here because a complete account of what the deployment stores is more useful than one that covers only the parts that are easy to explain.</p>
     </section>
 
     <section>
@@ -113,6 +126,7 @@
           <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">GitHub</a>
           <a href="https://www.npmjs.com/package/freshcontext-mcp">npm</a>
           <a href="mailto:security@freshcontext.dev">Security</a>
+          <a href="/terms">Terms</a>
           <a href="/privacy">Privacy</a>
           <a href="/accessibility">Accessibility</a>
           <a href="/contact">Contact</a>
