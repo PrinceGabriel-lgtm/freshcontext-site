@@ -49,6 +49,7 @@
 <div class="eyebrow">Privacy and security notes</div>
     <h1>FreshContext Privacy</h1>
     <p class="lede">This page explains the public FreshContext site, demo, MCP tools, hosted Worker surfaces, data sources, metadata, and contact expectations.</p>
+    <p class="sub">Last reviewed: 13 September 2026.</p>
 
     <section>
       <h2>Scope</h2>
@@ -67,12 +68,14 @@
       <h2>Hosted Worker And Cloudflare</h2>
       <p>Hosted FreshContext Worker routes may be processed by Cloudflare infrastructure. Cloudflare logs or observability systems may contain request metadata such as route, timing, status, source network metadata, user agent, or error details.</p>
       <p>Where implemented, KV, D1, or cache layers may store adapter results, feed records, cache metadata, operational metadata, or historical signal data.</p>
+      <p>The verdict ledger is narrower than that, and deliberately so. A stored verdict row holds identifiers, the source URL and source type, the decision and its label, the profiles applied, timestamps, the engine version, the signing payload and its signature — and a SHA-256 of the canonicalised content. It does not hold the content itself. Content is hashed before it enters the signed payload, which is what lets a verdict be verified without the material it was computed over ever being retained.</p>
     </section>
 
     <section>
       <h2>Metadata FreshContext Emits</h2>
       <p>FreshContext may emit metadata such as source URL, published time, retrieved time, freshness confidence, freshness score, utility values, status, provenance fields, and adapter details where applicable.</p>
-      <p>Ha-Pri v1 should be treated as a provenance stamp and audit reference. It is not hard enforcement against alteration.</p>
+      <p>Verdicts written to the hosted ledger are signed. Current records use <code>FRESHCONTEXT_HA_PRI_V4</code>, an Ed25519 signature over the verdict-bound fields. The public key is published at <a href="https://api.freshcontext.dev/.well-known/freshcontext-signing-keys.json">/.well-known/freshcontext-signing-keys.json</a>, so a third party can verify a verdict offline without a FreshContext account, an API key, or any contact with us. Records written before Ed25519 verify through the earlier HMAC path and report that they did, rather than being presented as equivalent.</p>
+      <p>Ha-Pri v1 is a different and older mechanism, used by the signal-intelligence path rather than by verdict attestation. Its salt is a published constant, so it should be treated as a provenance stamp and audit reference only. It is not authentication and not enforcement against alteration. The two should not be read as the same guarantee.</p>
     </section>
 
     <section>
