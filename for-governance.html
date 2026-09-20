@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FreshContext for AI Governance — Verifiable Context Decisions Before Model Action</title>
+  <meta name="description" content="FreshContext preserves inspectable context-evaluation decisions before model or agent action, including signed verdicts and offline verification where used." />
+  <link rel="canonical" href="https://freshcontext.dev/for-governance" />
+  <meta name="theme-color" content="#12140f" />
+  <meta property="og:site_name" content="FreshContext" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://freshcontext.dev/for-governance" />
+  <meta property="og:title" content="FreshContext for AI Governance — Verifiable Context Decisions" />
+  <meta property="og:description" content="Leave evidence for why context was trusted, questioned, refreshed or excluded before model action." />
+  <meta property="og:image" content="https://freshcontext.dev/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="stylesheet" href="/site.css" />
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"FreshContext","item":"https://freshcontext.dev/"},
+      {"@type":"ListItem","position":2,"name":"FreshContext for AI Governance","item":"https://freshcontext.dev/for-governance"}
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <nav class="nav" aria-label="Primary">
+    <div class="nav-inner">
+      <a href="/" class="brand" aria-label="FreshContext home"><span class="brand-mark" aria-hidden="true">FC</span><span>FreshContext</span></a>
+      <div class="nav-links"><a href="/">Product</a><a href="/integration">Integration</a><a href="/context-integrity-demo">Demo</a><a href="/spec">Spec</a><a href="/contact">Contact</a><a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">GitHub</a></div>
+    </div>
+  </nav>
+  <main id="main">
+    <section class="band band--dark">
+      <div class="wrap">
+        <div class="head">
+          <div>
+            <p class="eyebrow">FreshContext for AI governance</p>
+            <h1>Leave evidence for why context was trusted, questioned, refreshed or excluded.</h1>
+            <p class="lede">Governance usually examines models, permissions and actions. FreshContext adds a judgment point one layer earlier: the context admitted before the model or agent acts.</p>
+            <div class="actions mt-l"><a class="btn" href="/integration">Explore integration</a><a class="btn btn--ghost" href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp/blob/main/docs/VERIFYING.md">Read the verification method</a></div>
+          </div>
+          <div class="spec">
+            <div class="spec-hd"><b>Evidence path</b></div>
+            <dl><div><dt>candidate</dt><dd>context + source + time</dd></div><div><dt>decision</dt><dd>reasoned verdict</dd></div><div><dt>attestation</dt><dd>signed record where used</dd></div><div><dt>verification</dt><dd>independent check</dd></div></dl>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="wrap">
+        <div class="head"><div><p class="eyebrow">The governance gap</p><h2>The context handoff is often invisible.</h2></div><p class="sub">A system may log what the model produced or what tool it called without preserving a clear record of why the input context was considered fit to rely on.</p></div>
+        <div class="rows">
+          <div class="row"><h3>Source</h3><p>Where did the context come from, and what source class was assumed?</p></div>
+          <div class="row"><h3>Time</h3><p>When was it published or observed, when was it retrieved, and how quickly does this source decay?</p></div>
+          <div class="row"><h3>Confidence</h3><p>How strong is the timestamp or evidence basis, and were any failure states present?</p></div>
+          <div class="row"><h3>Decision</h3><p>Why was this context used, questioned, refreshed, watched or excluded?</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band band--tint">
+      <div class="wrap">
+        <div class="head"><div><p class="eyebrow">Attestation</p><h2>A verdict can be checked without trusting FreshContext.</h2></div><p class="sub">New ledger-backed verdict records are signed with Ed25519. The public key document and offline verifiers let a third party check the signature independently.</p></div>
+        <div class="rows">
+          <div class="row"><h3>Published key</h3><p>The active and retired public verification keys are available from the FreshContext well-known key document.</p></div>
+          <div class="row"><h3>Ledger lookup</h3><p><code>/v1/verify</code> can resolve a verdict identifier against the stored record and report the verification method used.</p></div>
+          <div class="row"><h3>Offline verification</h3><p>Node and Python verifiers ship with the published package so the signature can be checked without an account, API key or callback to FreshContext.</p></div>
+        </div>
+        <div class="actions mt-m"><a class="btn btn--ghost" href="https://api.freshcontext.dev/.well-known/freshcontext-signing-keys.json">Inspect the signing keys</a><a class="btn btn--ghost" href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp/blob/main/docs/VERIFYING.md">Verification documentation</a></div>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="wrap">
+        <div class="head"><div><p class="eyebrow">Boundary</p><h2>Governance primitive, not governance replacement.</h2></div><p class="sub">FreshContext provides context-evaluation and attestation primitives. It does not itself replace legal, compliance, model-risk, security, or organizational governance processes.</p></div>
+        <div class="tablewrap">
+          <table><thead><tr><th>FreshContext can provide</th><th>FreshContext does not claim</th></tr></thead>
+            <tbody>
+              <tr><td>Freshness, source, confidence and utility signals</td><td>That freshness alone proves factual truth</td></tr>
+              <tr><td>Readable context decisions with reasons</td><td>That the caller must enforce the recommendation</td></tr>
+              <tr><td>Signed verdict records where ledger-backed attestation is used</td><td>Legal or regulatory compliance certification</td></tr>
+              <tr><td>Independent signature verification</td><td>Replacement of model governance, security or organizational controls</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="band band--dark">
+      <div class="wrap">
+        <div class="head"><div><p class="eyebrow">Commercial path</p><h2>Review the context boundary in one workflow first.</h2></div><p class="sub">A bounded integration review can identify where context enters, which evidence should travel with it, and whether signed decision records add value to the current governance process.</p></div>
+        <div class="actions"><a class="btn" href="/integration">See the integration offer</a><a class="btn btn--ghost" href="mailto:immanuel@freshcontext.dev?subject=FreshContext%20governance%20integration%20review">Request a governance integration review</a></div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><div class="wrap"><div class="footer-inner"><div><b>FreshContext</b><span class="sub">Context integrity infrastructure for AI systems and agents.</span></div><nav aria-label="Footer"><a href="/integration">Integration</a><a href="/for-rag">RAG</a><a href="/for-agents">Agents</a><a href="/context-integrity-demo">Demo</a><a href="/spec">Specification</a><a href="/contact">Contact</a></nav></div><p class="footer-legal">MIT licensed. Built by Immanuel Gabriel.</p></div></footer>
+  <script src="/site.js"></script>
+</body>
+</html>
