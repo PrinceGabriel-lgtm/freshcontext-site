@@ -36,4 +36,20 @@
     <loc>https://freshcontext.dev/accessibility</loc>
     <lastmod>2026-09-13</lastmod>
   </url>
+  <url>
+    <loc>https://freshcontext.dev/integration</loc>
+    <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
+    <loc>https://freshcontext.dev/for-rag</loc>
+    <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
+    <loc>https://freshcontext.dev/for-agents</loc>
+    <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
+    <loc>https://freshcontext.dev/for-governance</loc>
+    <lastmod>2026-09-20</lastmod>
+  </url>
 </urlset>

@@ -1,0 +1,19 @@
+# FreshContext
+
+> Context integrity infrastructure for AI systems and agents.
+
+Canonical: https://freshcontext.dev/
+Integration: https://freshcontext.dev/integration
+RAG: https://freshcontext.dev/for-rag
+Agents: https://freshcontext.dev/for-agents
+Governance: https://freshcontext.dev/for-governance
+Demo: https://freshcontext.dev/context-integrity-demo
+Specification: https://freshcontext.dev/spec
+Repository: https://github.com/PrinceGabriel-lgtm/freshcontext-mcp
+Package: https://www.npmjs.com/package/freshcontext-mcp
+
+FreshContext evaluates candidate context before model or agent use. It scores context-integrity signals such as freshness, source/date confidence, utility and provenance, then returns a reasoned decision about whether context should be used, verified, refreshed, treated as background, watched or excluded.
+
+FreshContext does not certify truth. It does not replace legal, compliance, model-risk, security or organizational governance.
+
+The public FreshContext implementation and specification include MIT-licensed material. Current commercial work focuses on integration, implementation, operation, verification infrastructure and strategic deployment.

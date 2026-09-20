@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FreshContext for AI Agents — Check Context Before the Agent Acts</title>
+  <meta name="description" content="FreshContext evaluates whether context reaching an AI agent is fresh, attributable and coherent enough to rely on before action." />
+  <link rel="canonical" href="https://freshcontext.dev/for-agents" />
+  <meta name="theme-color" content="#12140f" />
+  <meta property="og:site_name" content="FreshContext" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://freshcontext.dev/for-agents" />
+  <meta property="og:title" content="FreshContext for AI Agents — Check Context Before Action" />
+  <meta property="og:description" content="Add a context-integrity judgment layer before your agent acts, and preserve the reason behind the decision." />
+  <meta property="og:image" content="https://freshcontext.dev/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="stylesheet" href="/site.css" />
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"FreshContext","item":"https://freshcontext.dev/"},
+      {"@type":"ListItem","position":2,"name":"FreshContext for AI Agents","item":"https://freshcontext.dev/for-agents"}
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <nav class="nav" aria-label="Primary">
+    <div class="nav-inner">
+      <a href="/" class="brand" aria-label="FreshContext home"><span class="brand-mark" aria-hidden="true">FC</span><span>FreshContext</span></a>
+      <div class="nav-links"><a href="/">Product</a><a href="/integration">Integration</a><a href="/context-integrity-demo">Demo</a><a href="/spec">Spec</a><a href="/contact">Contact</a><a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">GitHub</a></div>
+    </div>
+  </nav>
+  <main id="main">
+    <section class="band band--dark">
+      <div class="wrap">
+        <div class="head">
+          <div>
+            <p class="eyebrow">FreshContext for AI agents</p>
+            <h1>Agents should not act on context they never checked.</h1>
+            <p class="lede">Tool calls and autonomous workflows increase the cost of weak context. FreshContext evaluates candidate context before it reaches the model or agent and returns an explainable decision about whether it is fit to rely on.</p>
+            <div class="actions mt-l"><a class="btn" href="/integration">Explore integration</a><a class="btn btn--ghost" href="/context-integrity-demo">Inspect the demo</a></div>
+          </div>
+          <div class="spec">
+            <div class="spec-hd"><b>Agent boundary</b></div>
+            <dl><div><dt>context</dt><dd>tools / memory / retrieval</dd></div><div><dt>judgment</dt><dd>FreshContext</dd></div><div><dt>action</dt><dd>agent / app</dd></div></dl>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="wrap">
+        <div class="head"><div><p class="eyebrow">Why it matters</p><h2>Better models do not remove context risk.</h2></div><p class="sub">As agents gain more tools and autonomy, the context admitted before action becomes more consequential.</p></div>
+        <div class="rows">
+          <div class="row"><h3>Tool output expires</h3><p>Status, prices, releases, jobs, policy pages and operational state can change faster than an agent remembers.</p></div>
+          <div class="row"><h3>Memory carries old assumptions</h3><p>Previously useful context can remain semantically relevant while becoming operationally wrong.</p></div>
+          <div class="row"><h3>Failures can masquerade as evidence</h3><p>A blocked or malformed fetch should be visible as a failure state, not smuggled into the reasoning chain as a successful source.</p></div>
+          <div class="row"><h3>Action needs explanation</h3><p>When an agent relied on a source, operators should be able to inspect why that context was admitted and what warnings existed.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band band--tint">
+      <div class="wrap">
+        <div class="head"><div><p class="eyebrow">Decision layer</p><h2>FreshContext separates measurement from action.</h2></div><p class="sub">The Core measures freshness, confidence, utility, provenance and related signals; the decision layer turns that evidence into a readable recommendation.</p></div>
+        <div class="tablewrap">
+          <table><thead><tr><th>Example decision</th><th>Meaning</th><th>Typical next step</th></tr></thead>
+            <tbody>
+              <tr><td><strong>use / cite</strong></td><td>Context is strong enough for the current use</td><td>Pass it onward with provenance preserved</td></tr>
+              <tr><td><strong>needs verification</strong></td><td>Useful signal exists but confidence is not high enough</td><td>Confirm before consequential use</td></tr>
+              <tr><td><strong>needs refresh</strong></td><td>Context may have aged beyond the intended source profile</td><td>Retrieve again or obtain a newer source</td></tr>
+              <tr><td><strong>background / watch</strong></td><td>Potentially useful, but not strong enough for primary reliance</td><td>Keep available without treating it as current primary evidence</td></tr>
+              <tr><td><strong>exclude</strong></td><td>Context does not meet the current integrity threshold</td><td>Do not include it in trusted context</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note mt-m"><strong>Important:</strong> exclusion is a judgment emitted by FreshContext, not an enforcement firewall. The caller remains responsible for what its agent does with that judgment.</div>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="wrap">
+        <div class="head"><div><p class="eyebrow">Verifiable evidence</p><h2>Leave a record someone else can check.</h2></div><p class="sub">Where ledger-backed verdicts are used, new verdict records are signed with Ed25519 and can be verified offline using published key material.</p></div>
+        <div class="actions">
+          <a class="btn btn--ghost" href="https://api.freshcontext.dev/.well-known/freshcontext-signing-keys.json">Published key</a>
+          <a class="btn btn--ghost" href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp/blob/main/docs/VERIFYING.md">Verification method</a>
+          <a class="btn btn--ghost" href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">Repository</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="band band--dark">
+      <div class="wrap">
+        <div class="head"><div><p class="eyebrow">Commercial path</p><h2>Start with one agent workflow.</h2></div><p class="sub">Use a bounded implementation to prove where FreshContext belongs in the tool, memory or retrieval path before expanding.</p></div>
+        <div class="actions"><a class="btn" href="/integration">See the integration offer</a><a class="btn btn--ghost" href="mailto:immanuel@freshcontext.dev?subject=FreshContext%20agent%20integration%20review">Request an agent integration review</a></div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><div class="wrap"><div class="footer-inner"><div><b>FreshContext</b><span class="sub">Context integrity infrastructure for AI systems and agents.</span></div><nav aria-label="Footer"><a href="/integration">Integration</a><a href="/for-rag">RAG</a><a href="/for-governance">Governance</a><a href="/context-integrity-demo">Demo</a><a href="/spec">Specification</a><a href="/contact">Contact</a></nav></div><p class="footer-legal">MIT licensed. Built by Immanuel Gabriel.</p></div></footer>
+  <script src="/site.js"></script>
+</body>
+</html>
