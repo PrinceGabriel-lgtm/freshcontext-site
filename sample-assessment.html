@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FreshContext Sample Assessment — Policy RAG Workflow</title>
+  <meta name="description" content="A worked sample of the deliverable structure used in a FreshContext Context Integrity Assessment." />
+  <link rel="canonical" href="https://freshcontext.dev/sample-assessment" />
+  <meta name="theme-color" content="#12140f" />
+  <meta property="og:site_name" content="FreshContext" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://freshcontext.dev/sample-assessment" />
+  <meta property="og:title" content="FreshContext Sample Assessment — Policy RAG Workflow" />
+  <meta property="og:description" content="A worked example showing what a FreshContext Context Integrity Assessment actually produces." />
+  <meta property="og:image" content="https://freshcontext.dev/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="stylesheet" href="/site.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <nav class="nav" aria-label="Primary">
+    <div class="nav-inner">
+      <a href="/" class="brand" aria-label="FreshContext home"><span class="brand-mark" aria-hidden="true">FC</span><span>FreshContext</span></a>
+      <div class="nav-links">
+        <a href="/">Product</a>
+        <a href="/integration">Integration</a>
+        <a href="/services">Services</a>
+        <a href="/context-integrity-demo">Demo</a>
+        <a href="/spec">Spec</a>
+        <a href="/contact">Contact</a>
+        <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <section class="band band--dark">
+      <div class="wrap">
+        <div class="head">
+          <div>
+            <p class="eyebrow">Worked sample · not a client case study</p>
+            <h1>What a Context Integrity Assessment actually produces.</h1>
+            <p class="lede">This fictional policy-support RAG example shows the structure, evidence and decision boundaries of the paid assessment. It does not claim a real customer result.</p>
+            <div class="actions mt-l">
+              <a class="btn" href="/apply?service=assessment">Apply for an assessment</a>
+              <a class="btn btn--ghost" href="/services">Back to services</a>
+            </div>
+          </div>
+          <div class="spec">
+            <div class="spec-hd"><b>Sample engagement</b><span class="state state--open">Illustrative</span></div>
+            <dl>
+              <div><dt>workflow</dt><dd>policy-support RAG assistant</dd></div>
+              <div><dt>risk</dt><dd>stale policy retrieval</dd></div>
+              <div><dt>environment</dt><dd>staging</dd></div>
+              <div><dt>service</dt><dd>Context Integrity Assessment</dd></div>
+              <div><dt>output</dt><dd>fit map + evidence + implementation estimate</dd></div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="wrap">
+        <div class="head">
+          <div><p class="eyebrow">Executive finding</p><h2>The failure is upstream of generation.</h2></div>
+          <p class="sub">The assistant can produce fluent answers from policy pages that are semantically relevant but operationally stale. The primary insertion point is between retrieval and answer generation, where candidate context can be evaluated before it becomes trusted prompt context.</p>
+        </div>
+        <div class="note"><strong>Assessment conclusion:</strong> FreshContext appears technically suitable for this workflow because the failure is context-selection integrity, not a need to retrain the model. Residual risk remains: FreshContext does not determine whether the policy text itself is legally correct or authoritative.</div>
+      </div>
+    </section>
+
+    <section class="band band--tint">
+      <div class="wrap">
+        <div class="head">
+          <div><p class="eyebrow">Workflow map</p><h2>Recommended insertion point.</h2></div>
+          <p class="sub">The assessment makes the integration seam explicit rather than simply recommending “use FreshContext.”</p>
+        </div>
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>Stage</th><th>Current behavior</th><th>Assessment treatment</th></tr></thead>
+            <tbody>
+              <tr><td>Policy corpus</td><td>Pages carry mixed update dates and source authority</td><td>Preserve source/date metadata where available</td></tr>
+              <tr><td>Retriever</td><td>Ranks primarily on semantic relevance</td><td>Keep retriever unchanged</td></tr>
+              <tr><td>Context gate</td><td>No explicit integrity decision</td><td><strong>Insert FreshContext here</strong></td></tr>
+              <tr><td>Generator</td><td>Receives top retrieved passages as trusted context</td><td>Receive only context plus explicit decisions/reasons</td></tr>
+              <tr><td>Answer</td><td>May cite stale policy as current</td><td>Application decides how to handle verify/refresh/background outcomes</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="wrap">
+        <div class="head">
+          <div><p class="eyebrow">Risk register</p><h2>Observed context-integrity risks.</h2></div>
+          <p class="sub">A real assessment ties each concern to evidence, operational effect and residual risk.</p>
+        </div>
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>Risk</th><th>Evidence</th><th>Operational effect</th><th>FreshContext treatment</th></tr></thead>
+            <tbody>
+              <tr><td>Stale policy page</td><td>Relevant page last updated 14 months ago</td><td>Outdated guidance may dominate semantic rank</td><td>Apply source-aware temporal pressure and surface refresh/verification need</td></tr>
+              <tr><td>Unknown date</td><td>One retrieved document has no reliable publication/update date</td><td>System silently treats recency as unknown but still usable</td><td>Preserve date uncertainty instead of converting it to current</td></tr>
+              <tr><td>Weak provenance</td><td>Copied policy summary lacks canonical source</td><td>Agent may cite a derivative summary as primary</td><td>Reduce readiness and expose provenance weakness</td></tr>
+              <tr><td>Conflicting sources</td><td>Two pages describe different thresholds</td><td>Generator may synthesize contradiction</td><td>Return explicit decision/reason; caller still owns resolution</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="band band--tint">
+      <div class="wrap">
+        <div class="head">
+          <div><p class="eyebrow">Representative evidence</p><h2>Sample decision set.</h2></div>
+          <p class="sub">These are illustrative examples of the type of evidence supplied. They are not claims about a real customer's data.</p>
+        </div>
+        <div class="rows">
+          <div class="row"><h3>Current canonical policy</h3><p><strong>Expected:</strong> usable as primary/supporting context where the configured source/date confidence is strong and the content is relevant.</p></div>
+          <div class="row"><h3>Old but highly relevant policy</h3><p><strong>Expected:</strong> semantic relevance remains visible, but temporal decay prevents relevance alone from silently making it current.</p></div>
+          <div class="row"><h3>Undated summary</h3><p><strong>Expected:</strong> date uncertainty is surfaced and can drive verify/background handling rather than an invented freshness claim.</p></div>
+          <div class="row"><h3>Unavailable source</h3><p><strong>Expected:</strong> unknown/unavailable state remains unknown; it is not rewritten as healthy, current or verified.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="wrap">
+        <div class="head">
+          <div><p class="eyebrow">Implementation recommendation</p><h2>Move to a single-workflow pilot.</h2></div>
+          <p class="sub">The assessment closes with a concrete commercial next step, not an open-ended consulting recommendation.</p>
+        </div>
+        <div class="cols cols--2">
+          <div class="card">
+            <h3>Recommended scope</h3>
+            <p>One staging RAG workflow; one insertion point after retrieval; agreed metadata contract; five deterministic acceptance scenarios; operator handover.</p>
+          </div>
+          <div class="card">
+            <h3>Dependencies</h3>
+            <p>Representative retrieved payloads, source/date metadata where available, staging access, technical owner, and agreement on how verify/refresh/background decisions affect generation.</p>
+          </div>
+        </div>
+        <div class="spec mt-m">
+          <div class="spec-hd"><b>Indicative next engagement</b></div>
+          <dl>
+            <div><dt>service</dt><dd>Single-Workflow Integration</dd></div>
+            <div><dt>typical range</dt><dd>US$2,500–5,000</dd></div>
+            <div><dt>acceptance</dt><dd>five agreed scenarios + handover</dd></div>
+            <div><dt>not included</dt><dd>SLA, SSO, compliance certification, truth verification</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <section class="band band--dark">
+      <div class="wrap">
+        <div class="head">
+          <div><p class="eyebrow">Commercial proof</p><h2>You can see the output before buying the work.</h2></div>
+          <p class="sub">The paid assessment applies this structure to your actual workflow, evidence and constraints.</p>
+        </div>
+        <div class="actions">
+          <a class="btn" href="/apply?service=assessment">Apply for an assessment</a>
+          <a class="btn btn--ghost" href="/context-integrity-demo">Inspect the technology</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-inner">
+        <div><b>FreshContext</b><span class="sub">Context integrity infrastructure for AI systems and agents.</span></div>
+        <nav aria-label="Footer">
+          <a href="/services">Services</a><a href="/integration">Integration</a><a href="/context-integrity">Context integrity</a>
+          <a href="/spec">Specification</a><a href="/context-integrity-demo">Demo</a>
+          <a href="/terms">Terms</a><a href="/privacy">Privacy</a><a href="/contact">Contact</a>
+        </nav>
+      </div>
+      <p class="footer-legal">MIT licensed. Built by Immanuel Gabriel.</p>
+    </div>
+  </footer>
+  <script src="/site.js"></script>
+</body>
+</html>
