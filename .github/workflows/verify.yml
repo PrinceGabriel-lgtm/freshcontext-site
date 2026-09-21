@@ -271,7 +271,7 @@ jobs:
 
           # 3. Every route named in sitemap.xml and in the og: tags. A missing page
           #    is the failure a human notices last and a crawler notices first.
-          for path in / /spec /privacy /terms /accessibility /contact /services /apply /integration /for-rag /for-agents /for-governance /context-integrity /context-integrity-demo /og.png /robots.txt /sitemap.xml; do
+          for path in / /spec /privacy /terms /accessibility /contact /services /sample-assessment /apply /integration /for-rag /for-agents /for-governance /context-integrity /context-integrity-demo /og.png /robots.txt /sitemap.xml; do
             code="$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 "$SITE_BASE$path?$bust" || echo 000)"
             [ "$code" = "200" ] || fail "$path returned $code, expected 200"
           done
