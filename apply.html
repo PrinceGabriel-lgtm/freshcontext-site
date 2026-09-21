@@ -82,19 +82,19 @@
               <div class="form-grid">
                 <div>
                   <label for="company">Company / organisation</label>
-                  <input id="company" name="company" autocomplete="organization" required />
+                  <input id="company" name="company" type="text" maxlength="160" autocomplete="organization" required />
                 </div>
                 <div>
                   <label for="name">Your name</label>
-                  <input id="name" name="name" autocomplete="name" required />
+                  <input id="name" name="name" type="text" maxlength="120" autocomplete="name" required />
                 </div>
                 <div>
                   <label for="email">Work email</label>
-                  <input id="email" name="email" type="email" autocomplete="email" required />
+                  <input id="email" name="email" type="email" maxlength="254" autocomplete="email" required />
                 </div>
                 <div>
                   <label for="role">Role</label>
-                  <input id="role" name="role" autocomplete="organization-title" required />
+                  <input id="role" name="role" type="text" maxlength="120" autocomplete="organization-title" required />
                 </div>
               </div>
             </fieldset>
@@ -102,16 +102,16 @@
             <fieldset>
               <legend>Workflow</legend>
               <label for="workflow">What workflow do you want FreshContext to evaluate or harden?</label>
-              <textarea id="workflow" name="workflow" rows="5" required placeholder="Example: a RAG support assistant that retrieves policy pages before answering customers."></textarea>
+              <textarea id="workflow" name="workflow" rows="5" maxlength="900" required placeholder="Example: a RAG support assistant that retrieves policy pages before answering customers."></textarea>
 
               <label for="stack">Current stack</label>
-              <textarea id="stack" name="stack" rows="3" required placeholder="Retriever, vector database, orchestration framework, model/provider, deployment environment, or relevant tools."></textarea>
+              <textarea id="stack" name="stack" rows="3" maxlength="700" required placeholder="Retriever, vector database, orchestration framework, model/provider, deployment environment, or relevant tools."></textarea>
 
               <label for="failure">What context failure are you seeing or trying to prevent?</label>
-              <textarea id="failure" name="failure" rows="5" required placeholder="Describe stale context, weak dating, missing provenance, conflicting sources, unsafe handoff, or another specific failure mode."></textarea>
+              <textarea id="failure" name="failure" rows="5" maxlength="900" required placeholder="Describe stale context, weak dating, missing provenance, conflicting sources, unsafe handoff, or another specific failure mode."></textarea>
 
               <label for="acceptance">What would count as an acceptable result?</label>
-              <textarea id="acceptance" name="acceptance" rows="4" required placeholder="Name the measurable behavior, evidence or acceptance test you would want to see."></textarea>
+              <textarea id="acceptance" name="acceptance" rows="4" maxlength="700" required placeholder="Name the measurable behavior, evidence or acceptance test you would want to see."></textarea>
             </fieldset>
 
             <fieldset>
