@@ -4,6 +4,8 @@
 
 Canonical: https://freshcontext.dev/
 Integration: https://freshcontext.dev/integration
+Services: https://freshcontext.dev/services
+Commercial application: https://freshcontext.dev/apply
 RAG: https://freshcontext.dev/for-rag
 Agents: https://freshcontext.dev/for-agents
 Governance: https://freshcontext.dev/for-governance
