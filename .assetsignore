@@ -26,6 +26,10 @@ node_modules/
 .env
 .env.*
 
+# Internal commercial tooling — repository-visible but never a public site asset
+ops/
+commercial-packs/
+
 # Tooling config and test material
 README.md
 package.json
