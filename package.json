@@ -2,9 +2,10 @@
   "name": "freshcontext-site",
   "private": true,
   "scripts": {
-    "check": "npm run check:html && npm run check:a11y",
+    "check": "npm run check:commercial && npm run check:html && npm run check:a11y",
     "check:html": "html-validate *.html",
-    "check:a11y": "playwright test"
+    "check:a11y": "playwright test",
+    "check:commercial": "node --test ops/commercial/generate-pack.test.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.3",

@@ -95,6 +95,9 @@ jobs:
       # package-lock.json. The config used to pin `channel: "chrome"`, which binds the
       # suite to whatever Google Chrome happens to be installed on the machine — a
       # different build on every laptop, and absent entirely from most containers.
+      - name: Verify commercial pack generator
+        run: npm run check:commercial
+
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
 

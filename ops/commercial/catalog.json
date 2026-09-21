@@ -1,0 +1,129 @@
+{
+  "version": "1.0",
+  "services": {
+    "assessment": {
+      "name": "Context Integrity Assessment",
+      "defaultDepositPercent": 50,
+      "deliveryWindow": "2–4 business days after all required inputs are received",
+      "deliverables": [
+        "Context Integrity Fit Map",
+        "Failure-Mode Register",
+        "Sample Evaluation Evidence",
+        "Recommended Integration Point",
+        "Implementation Dependency List",
+        "Implementation Estimate",
+        "Findings Walkthrough"
+      ],
+      "acceptance": [
+        "The agreed workflow was reviewed.",
+        "All listed assessment deliverables were supplied.",
+        "At least one representative sample path was documented.",
+        "Observed context-integrity risks and dependencies were stated.",
+        "The findings walkthrough was completed or waived in writing."
+      ],
+      "outOfScope": [
+        "Production code changes",
+        "Production deployment",
+        "Custom source adapter development",
+        "Continuous monitoring or SLA",
+        "Compliance certification or penetration testing",
+        "Truth verification or general model evaluation"
+      ]
+    },
+    "single-workflow": {
+      "name": "Single-Workflow Integration",
+      "defaultDepositPercent": 50,
+      "deliveryWindow": "5–10 business days after READY_TO_START",
+      "deliverables": [
+        "Integration Architecture Note",
+        "Integration / Configuration Change Set",
+        "Acceptance Test Specification",
+        "Acceptance Test Results",
+        "Verification / Evidence Note",
+        "Operator Handover Guide",
+        "Technical Handover",
+        "Acceptance Certificate"
+      ],
+      "acceptance": [
+        "Current high-confidence context behaves as agreed.",
+        "Stale context is surfaced and handled according to the configured policy.",
+        "Weak or unknown dating is not silently treated as current.",
+        "Provenance or source-confidence weakness remains visible.",
+        "Failure or unknown state is reported honestly rather than converted to healthy state."
+      ],
+      "outOfScope": [
+        "Multiple materially distinct workflows",
+        "24/7 monitoring or production SLA",
+        "SSO, SCIM, or enterprise control plane",
+        "Broad custom UI or marketplace work",
+        "Compliance certification",
+        "Unlimited custom adapters",
+        "Guaranteed model-answer correctness"
+      ]
+    },
+    "private-multi": {
+      "name": "Private / Multi-Workflow Implementation",
+      "defaultDepositPercent": 40,
+      "deliveryWindow": "Typically 2–4 weeks after READY_TO_START, subject to access and dependencies",
+      "deliverables": [
+        "Multi-Workflow Architecture Pack",
+        "Deployment / Environment Plan",
+        "Workflow Configuration Matrix",
+        "Integration Change Sets",
+        "Verification / Key-Handling Note where applicable",
+        "Workflow Acceptance Suites",
+        "Consolidated Acceptance Results",
+        "Operator Runbook",
+        "Training / Handover",
+        "Closeout and Open-Risk Register"
+      ],
+      "acceptance": [
+        "Each in-scope workflow is integrated at the agreed insertion point.",
+        "Each workflow passes its signed acceptance schedule.",
+        "The agreed evidence or decision output is produced.",
+        "An operator runbook is supplied.",
+        "Known limitations and residual risks are documented.",
+        "The client can reproduce the agreed operation in the agreed environment."
+      ],
+      "outOfScope": [
+        "Unlimited workflows",
+        "Continuous managed operations",
+        "SSO or SCIM",
+        "SOC 2, ISO, or other compliance certification",
+        "Regulated-data processor obligations not separately agreed",
+        "Enterprise SLA",
+        "Automatic billing or admin portal",
+        "General governance dashboard or model-safety certification"
+      ]
+    },
+    "build-to-spec": {
+      "name": "Build-to-Spec Implementation",
+      "defaultDepositPercent": 30,
+      "deliveryWindow": "Milestone schedule defined in the signed specification",
+      "deliverables": [
+        "Signed Technical Specification",
+        "Milestone Schedule",
+        "Acceptance Tests per Milestone",
+        "Implementation Change Set",
+        "Dependency and Open-Risk Register",
+        "Background-IP and Client-Deliverables Schedule",
+        "Third-Party / Open-Source Disclosure",
+        "Handover Package"
+      ],
+      "acceptance": [
+        "Each milestone has an observable acceptance test.",
+        "The implemented capability matches the signed technical specification.",
+        "Dependencies and known limitations are documented.",
+        "Open-source and third-party components are disclosed.",
+        "Handover material is supplied for the agreed deployment."
+      ],
+      "outOfScope": [
+        "Undefined or open-ended feature requests",
+        "Exclusivity or assignment unless separately executed",
+        "Unlimited revisions",
+        "Unsupported compliance or SLA claims",
+        "Buyer rights not expressly stated in the signed agreement"
+      ]
+    }
+  }
+}

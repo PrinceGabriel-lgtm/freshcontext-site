@@ -12,3 +12,6 @@ test-results/
 build.json
 .DS_Store
 Thumbs.db
+
+# Generated client commercial packs — may contain confidential client data.
+commercial-packs/
