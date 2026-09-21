@@ -11,6 +11,8 @@ const pages = [
   "/context-integrity",
   "/context-integrity-demo",
   "/contact",
+  "/services",
+  "/apply",
   "/terms",
   "/privacy",
   "/accessibility",
