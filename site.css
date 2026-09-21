@@ -328,3 +328,125 @@ pre code { background: none; color: inherit; padding: 0; }
   margin: -1px; padding: 0; overflow: hidden;
   clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
 }
+
+/* ── commercial services / application ───────────────────────────────────── */
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.service-card {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  justify-content: space-between;
+}
+.service-card .btn { align-self: flex-start; }
+.service-meta { margin: 0; border-top: 1px solid var(--line); }
+.service-meta div {
+  display: grid;
+  grid-template-columns: 118px minmax(0, 1fr);
+  gap: 10px 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+.service-meta dt { color: var(--muted); font-size: 12px; font-weight: 600; }
+.service-meta dd { margin: 0; font-size: 13.5px; }
+
+.application-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(280px, 0.75fr);
+  gap: 42px;
+  align-items: start;
+}
+.application-head { grid-template-columns: 1fr; }
+.application-form { display: grid; gap: 24px; }
+.application-form fieldset {
+  margin: 0;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--panel);
+}
+.application-form legend {
+  padding: 0 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.application-form label {
+  display: block;
+  margin: 0 0 7px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.application-form input,
+.application-form select,
+.application-form textarea {
+  width: 100%;
+  font: inherit;
+  color: var(--ink);
+  background: #fffdf7;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  padding: 10px 11px;
+}
+.application-form textarea { resize: vertical; min-height: 92px; }
+.application-form input:focus,
+.application-form select:focus,
+.application-form textarea:focus {
+  outline: 2px solid var(--green);
+  outline-offset: 1px;
+  border-color: var(--green);
+}
+.application-form textarea + label,
+.application-form select + label,
+.application-form input + label { margin-top: 18px; }
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 20px;
+}
+.field-help {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 12.5px;
+}
+.check-row {
+  display: grid !important;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  font-weight: 400 !important;
+}
+.check-row input {
+  width: auto;
+  margin-top: 5px;
+}
+.application-side { position: sticky; top: 88px; }
+.compact-rows .row {
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: 8px;
+  padding: 10px 0;
+}
+.compact-rows .row h3 { font-family: var(--mono); color: var(--muted); }
+.compact-rows .row p { margin: 0; }
+
+@media (max-width: 860px) {
+  .service-grid,
+  .application-layout,
+  .form-grid { grid-template-columns: 1fr; }
+  .application-side { position: static; }
+}
+
+@media print {
+  .nav,
+  .footer,
+  #commercial-application,
+  #application-print,
+  #application-email { display: none !important; }
+  #prepared-application[hidden] { display: none !important; }
+  #prepared-application { border: 0; padding: 0; }
+  body { background: #fff; }
+}
+

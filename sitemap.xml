@@ -6,7 +6,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://freshcontext.dev/</loc>
-    <lastmod>2026-09-11</lastmod>
+    <lastmod>2026-09-21</lastmod>
   </url>
   <url>
     <loc>https://freshcontext.dev/context-integrity</loc>
@@ -22,15 +22,15 @@
   </url>
   <url>
     <loc>https://freshcontext.dev/contact</loc>
-    <lastmod>2026-09-11</lastmod>
+    <lastmod>2026-09-21</lastmod>
   </url>
   <url>
     <loc>https://freshcontext.dev/terms</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-21</lastmod>
   </url>
   <url>
     <loc>https://freshcontext.dev/privacy</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-21</lastmod>
   </url>
   <url>
     <loc>https://freshcontext.dev/accessibility</loc>
@@ -38,7 +38,15 @@
   </url>
   <url>
     <loc>https://freshcontext.dev/integration</loc>
-    <lastmod>2026-09-20</lastmod>
+    <lastmod>2026-09-21</lastmod>
+  </url>
+  <url>
+    <loc>https://freshcontext.dev/services</loc>
+    <lastmod>2026-09-21</lastmod>
+  </url>
+  <url>
+    <loc>https://freshcontext.dev/apply</loc>
+    <lastmod>2026-09-21</lastmod>
   </url>
   <url>
     <loc>https://freshcontext.dev/for-rag</loc>
