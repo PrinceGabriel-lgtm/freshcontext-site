@@ -101,3 +101,46 @@ test("escapes user-controlled content in printable HTML", () => {
   assert.doesNotMatch(html, /<script>alert\(1\)<\/script>/);
   assert.match(html, /&lt;script&gt;alert\(1\)&lt;\/script&gt;/);
 });
+
+// A payment must be reconcilable to ONE invoice. The generator already minted
+// FC-INV-<date>-<suffix>-01 — the trailing -01 anticipating milestone and final invoices —
+// but both the invoice markdown and the printable pack told the payer to quote the
+// APPLICATION reference. Every invoice for an engagement shares that, so a second payment
+// could only be matched by amount. These assert the payer is given the invoice reference,
+// and that the upstream references stay on the document for traceability.
+test("the payment reference is the invoice reference, not the application reference", () => {
+  const { output, result } = run();
+  assert.equal(result.status, 0, result.stderr);
+
+  const manifest = JSON.parse(readFileSync(path.join(output, "00_manifest.json"), "utf8"));
+  const invoiceId = manifest.invoice_id;
+  const application = manifest.application_reference;
+  assert.notEqual(invoiceId, application);
+
+  const invoice = readFileSync(path.join(output, "02_invoice.md"), "utf8");
+  const section = invoice.split("## Payment reference")[1];
+  assert.ok(section, "invoice has no Payment reference section");
+
+  const quoted = section
+    .split(String.fromCharCode(10))
+    .map((line) => line.trim())
+    .find((line) => line.startsWith("**"));
+  assert.equal(quoted, "**" + invoiceId + "**", "payer must be given the invoice reference");
+
+  // Upstream references stay on the document, just not as the thing to pay against.
+  assert.ok(section.includes(application), "application reference should remain for traceability");
+  assert.ok(
+    section.includes(manifest.service_order_id),
+    "service order reference should remain for traceability",
+  );
+
+  const printable = readFileSync(path.join(output, "06_transaction_pack.html"), "utf8");
+  const notice = printable.split("Use payment reference")[1];
+  assert.ok(notice, "printable pack has no payment reference notice");
+  const firstSentence = notice.slice(0, 120);
+  assert.ok(firstSentence.includes(invoiceId), "printable pack must quote the invoice reference");
+  assert.ok(
+    !firstSentence.includes(application),
+    "printable pack must not tell the payer to pay against the application reference",
+  );
+});
