@@ -315,7 +315,14 @@ Remaining contractual balance after commencement deposit: **${money(balanceAmoun
 
 ## Payment reference
 
-**${application}**
+**${invoiceId}**
+
+Quote this invoice reference on the payment. It is unique to this invoice, so an engagement
+that later produces a milestone or final invoice can still be reconciled payment by payment.
+An application reference cannot do that, because every invoice for the engagement shares it.
+
+For traceability: application ${application}, service order ${serviceOrderId}. Those identify
+the engagement; the invoice reference identifies the payment.
 
 Payment details must be supplied through the formally issued invoice or another approved channel.
 
@@ -515,7 +522,7 @@ const html = `<!doctype html>
       <tr><td>Tax/VAT</td><td>TO BE CONFIRMED BEFORE FORMAL ISSUE</td></tr>
     </tbody>
   </table>
-  <div class="notice"><strong>Do not pay this draft.</strong> Banking/payment details belong only on the formally issued invoice or another approved channel. Use payment reference <strong>${h.app}</strong>.</div>
+  <div class="notice"><strong>Do not pay this draft.</strong> Banking/payment details belong only on the formally issued invoice or another approved channel. Use payment reference <strong>${h.invoiceId}</strong>.</div>
 </section>
 
 <section class="page page-break">
