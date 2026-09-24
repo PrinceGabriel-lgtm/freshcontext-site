@@ -11,6 +11,8 @@
 .git/
 .github/
 .gitignore
+.gitattributes
+RELEASE-BOUNDARY.md
 .assetsignore
 
 # Dependencies. These are gitignored, so they are absent from a clean clone —

@@ -49,7 +49,7 @@
 <div class="eyebrow">Privacy and security notes</div>
     <h1>FreshContext Privacy</h1>
     <p class="lede">This page explains the public FreshContext site, demo, MCP tools, hosted Worker surfaces, data sources, metadata, and contact expectations.</p>
-    <p class="sub">Last reviewed: 21 September 2026.</p>
+    <p class="sub">Release proposal: 24 September 2026. Not yet deployed. Commercial request processing below describes the staged release and requires approval before activation.</p>
 
     <section>
       <h2>Scope</h2>
@@ -84,11 +84,15 @@
       <p>Do not paste secrets, tokens, private logs, customer data, or account credentials into public chats, GitHub issues, demos, screenshots, or logs.</p>
     </section>
 
-    <section>
+    <section id="commercial-requests">
       <h2>Commercial Application Data</h2>
-      <p>The commercial application form is prepared locally in the visitor's browser. FreshContext does not receive the entered form fields merely because the page was completed. The information is transmitted only if the visitor chooses to send the prepared email.</p>
-      <p>Once sent, the application is processed through the sender's email provider and the FreshContext mailbox provider and may remain in those systems until deleted. The application process is not a secure upload channel for secrets, credentials, payment-card information, regulated records, production data sets, or exploit material. Sensitive implementation details should wait for an agreed channel and any required confidentiality or data-processing terms.</p>
-      <p>Application references are generated in the browser for correspondence and record matching. They are not authentication credentials, purchase-order numbers, or proof that FreshContext accepted an engagement.</p>
+      <p>The intended operator for commercial requests is Immanuel Gabriel, contact <a href="mailto:immanuel@freshcontext.dev">immanuel@freshcontext.dev</a>. Operator identity, applicable privacy obligations, processing locations and vendor arrangements must be confirmed before this release is activated.</p>
+      <p>When direct requests are enabled, selecting Send request transmits your name, email, optional organisation, workflow description, selected service and a limited source-channel code to FreshContext through Cloudflare. The source code is limited to known campaign names or unknown, not your browsing history or a full referring URL. A receipt reference is returned only after the request is stored. This is not a booking, contract or payment.</p>
+      <p>Cloudflare Turnstile processes verification information to limit automated abuse. The server checks its result. A network address is used transiently for rate limiting and is not copied into the commercial request record; Cloudflare may separately process request metadata. The form does not intentionally log submitted fields, cookies, challenge tokens, or request bodies.</p>
+      <p>Commercial requests are stored in a dedicated Cloudflare D1 database for fit review and a reply. A reference-only operator notice is sent through Resend when configured; that notice contains no applicant name, email or workflow description. Only authorized operators should access the request records. No public request-lookup endpoint is provided.</p>
+      <p>The staged system deletes initial request records after 90 days. If an engagement proceeds, separately agreed contract, invoice and delivery records have their own retention requirements; the original request still expires. The scheduled deletion, vendor retention, access controls and backup handling must be verified before promising this window in production.</p>
+      <p>The request is not a secure upload channel for secrets, credentials, payment-card information, regulated records, production datasets or exploit material. Sensitive implementation details should wait for an agreed channel and any required confidentiality or data-processing terms. Request records are not sent to the Core evaluation engine or an AI model by this form.</p>
+      <p>If you use the email fallback, your email provider and the FreshContext mailbox provider process the message, with their own retention. The database deletion schedule does not delete email correspondence. To ask about access, correction or deletion, contact the operator using the business email above; no particular statutory right or jurisdiction is assumed by this draft.</p>
     </section>
 
     <section>
@@ -99,7 +103,7 @@
 
     <section>
       <h2>Retention And Deletion</h2>
-      <p>Stated plainly, because the honest answer is more useful than a tidy one: there is currently no automated retention limit and no scheduled deletion. Verdict rows and stored signal records persist until removed by hand. Cache entries in KV expire on a per-adapter timer measured in minutes to hours, but that is caching behaviour and should not be read as a retention policy.</p>
+      <p>For the existing verdict and signal service, there is currently no automated retention limit and no scheduled deletion. Verdict rows and stored signal records persist until removed by hand. Cache entries in KV expire on a per-adapter timer measured in minutes to hours, but that is caching behaviour and should not be read as a retention policy. The separate staged commercial-request retention proposal above does not change the existing service.</p>
       <p>Adding a retention window is open work rather than an implemented control. This page will say so when that changes, and it should not be read as promising one today.</p>
       <p>To ask about removal of a specific record, use the <a href="/contact">contact page</a> with enough detail to identify it, such as a verdict identifier or source URL. Requests are handled by a person, not a workflow.</p>
     </section>
@@ -140,7 +144,7 @@
         </nav>
       </div>
       <p class="footer-legal">
-        MIT licensed. Built by Immanuel Gabriel.
+        Historical community software retains its applicable licence. Commercial engagements are governed by agreed terms.
       </p>
     </div>
   </footer>

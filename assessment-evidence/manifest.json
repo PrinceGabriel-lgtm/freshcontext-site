@@ -1,0 +1,51 @@
+{
+  "schema": "fc.bundle.v1",
+  "authentication": "UNSIGNED",
+  "files": [
+    {
+      "file": "acceptance.json",
+      "bytes": 2222,
+      "sha256": "5aefc9a7c6b84b4298fd84dfe82c7a483c18bdbfbdef624c73ab3a773047ba33"
+    },
+    {
+      "file": "assessment.json",
+      "bytes": 6953,
+      "sha256": "0ffc351eea31988ccb9ae2277583ddf76a027f818c600caae95807b30a634415"
+    },
+    {
+      "file": "assessment.md",
+      "bytes": 3890,
+      "sha256": "678d6c480e504e5f992357b61185b68b60745bee3c942676d6bed0b7e6ac692b"
+    },
+    {
+      "file": "changed-input.json",
+      "bytes": 2569,
+      "sha256": "e1ebe1d380f8418df681e547e0c6dc164173a41931300ecb64c96f50e7990937"
+    },
+    {
+      "file": "changed.json",
+      "bytes": 6902,
+      "sha256": "a39e2e49150f85cfe1bf49667cbea8bfb9bcf9148297ff952b8622c9782f5c52"
+    },
+    {
+      "file": "expectations.json",
+      "bytes": 521,
+      "sha256": "2986d254fedd7fc086e79608f0b61f4dcaa1b2ea2e80feb05ddcfff50606f482"
+    },
+    {
+      "file": "index.html",
+      "bytes": 14561,
+      "sha256": "a5dafcc9f7c6b370dd5169c24c6fb251b97572968dd5f2782fbb46d90844ec54"
+    },
+    {
+      "file": "input.json",
+      "bytes": 2518,
+      "sha256": "aa1b32f89dba9bff79af8a9ba2b4b1183499c1c1e4cce9a394c1cf039c73da3b"
+    },
+    {
+      "file": "interpretation-example.md",
+      "bytes": 3544,
+      "sha256": "cf60c566190613b2312641380a3b9b826cd7bf429c34016986f75864734ee839"
+    }
+  ]
+}

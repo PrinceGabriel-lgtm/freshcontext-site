@@ -1,0 +1,2 @@
+# Evidence byte comparisons and inline CSP hashes must survive checkout.
+assessment-evidence/** -text
