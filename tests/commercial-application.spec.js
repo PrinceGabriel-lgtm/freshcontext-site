@@ -2,119 +2,72 @@ const { test, expect } = require("@playwright/test");
 const { createServer } = require("node:http");
 const { readFile } = require("node:fs/promises");
 const { extname, isAbsolute, join, normalize, relative } = require("node:path");
-
 const root = join(__dirname, "..");
-let server;
-let baseURL;
-
-function contentType(pathname) {
-  if (pathname.endsWith(".html")) return "text/html; charset=utf-8";
-  if (pathname.endsWith(".css")) return "text/css; charset=utf-8";
-  if (pathname.endsWith(".js")) return "text/javascript; charset=utf-8";
-  return "application/octet-stream";
-}
-
-function resolvePath(url) {
-  const pathname = new URL(url, "http://localhost").pathname;
-  const filename = pathname === "/"
-    ? "index.html"
-    : extname(pathname)
-      ? pathname.slice(1)
-      : `${pathname.slice(1)}.html`;
-  const safePath = normalize(join(root, filename));
-  const relativePath = relative(root, safePath);
-  if (relativePath.startsWith("..") || isAbsolute(relativePath)) return null;
-  return safePath;
-}
-
+let server, baseURL;
 test.beforeAll(async () => {
   server = createServer(async (req, res) => {
-    const path = resolvePath(req.url ?? "/");
-    if (!path) {
-      res.writeHead(403);
-      res.end("Forbidden");
-      return;
-    }
-
+    const pathname = new URL(req.url, "http://localhost").pathname;
+    const filename = pathname === "/" ? "index.html" : extname(pathname) ? pathname.slice(1) : `${pathname.slice(1)}.html`;
+    const path = normalize(join(root, filename));
+    const rel = relative(root, path);
+    if (rel.startsWith("..") || isAbsolute(rel)) { res.writeHead(403); res.end(); return; }
     try {
       const body = await readFile(path);
-      res.writeHead(200, { "content-type": contentType(path) });
-      res.end(body);
-    } catch {
-      res.writeHead(404);
-      res.end("Not found");
-    }
+      const type = { ".html":"text/html", ".css":"text/css", ".js":"text/javascript" }[extname(path)] || "application/octet-stream";
+      res.writeHead(200, {"content-type":type}); res.end(body);
+    } catch { res.writeHead(404); res.end(); }
   });
-
-  await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
-  const address = server.address();
-  baseURL = `http://127.0.0.1:${address.port}`;
+  await new Promise(resolve => server.listen(0,"127.0.0.1",resolve));
+  baseURL = `http://127.0.0.1:${server.address().port}`;
 });
-
-test.afterAll(async () => {
-  await new Promise((resolve) => server.close(resolve));
+test.afterAll(async () => { await new Promise(resolve => server.close(resolve)); });
+test.beforeEach(async ({page}) => {
+  await page.route("**/api/request-config", route => route.fulfill({json:{enabled:true,mode:"local-preview"}}));
 });
-
-test("service link preselects the requested engagement", async ({ page }) => {
+async function fill(page) {
+  await page.fill("#name","Synthetic Reviewer");
+  await page.fill("#email","reviewer@example.invalid");
+  await page.fill("#workflow","Synthetic workflow for browser checks.");
+}
+test("service links preserve the selected engagement",async ({page}) => {
   await page.goto(`${baseURL}/apply?service=single-workflow`);
   await expect(page.locator("#service")).toHaveValue("single-workflow");
 });
-
-test("application preparation creates a trackable non-binding email", async ({ page }) => {
-  await page.goto(`${baseURL}/apply?service=assessment`);
-
-  await page.fill("#company", "Example Systems");
-  await page.fill("#name", "Alex Example");
-  await page.fill("#email", "alex@example.com");
-  await page.fill("#role", "AI Platform Lead");
-  await page.fill("#workflow", "RAG assistant retrieves policy pages before answering.");
-  await page.fill("#stack", "Postgres, vector search, TypeScript orchestration.");
-  await page.fill("#failure", "Policy pages can be stale and source dates are inconsistently captured.");
-  await page.fill("#acceptance", "Stale candidates are flagged and decisions carry inspectable reasons.");
-  await page.selectOption("#timeline", { label: "Within 30 days" });
-  await page.selectOption("#environment", { label: "Staging / test" });
-  await page.selectOption("#sensitivity", { label: "Public / non-sensitive test data" });
-  await page.selectOption("#authority", { label: "I can approve this engagement" });
-  await page.check("#acknowledgement");
-
-  await page.click('button[type="submit"]');
-
-  const prepared = page.locator("#prepared-application");
-  await expect(prepared).toBeVisible();
-
-  const reference = await page.locator("#application-reference").textContent();
-  expect(reference).toMatch(/^FC-APP-\d{8}-[A-F0-9]{6}$/);
-
-  const summary = await page.locator("#application-summary").textContent();
-  expect(summary).toContain(`Application reference: ${reference}`);
-  expect(summary).toContain("Context Integrity Assessment");
-  expect(summary).toContain("Example Systems");
-  expect(summary).toContain("This application is non-binding.");
-
-  const href = await page.locator("#application-email").getAttribute("href");
-  expect(href).toContain("mailto:immanuel@freshcontext.dev");
-  expect(decodeURIComponent(href)).toContain(reference);
-  expect(decodeURIComponent(href)).toContain("Context Integrity Assessment");
+test("receipt is displayed only after a valid successful server response",async ({page}) => {
+  let posted;
+  await page.route("**/api/requests",async route => {
+    posted=route.request().postDataJSON();
+    await route.fulfill({status:201,json:{reference:"FC-REQ-ABCDEF0123456789ABCDEF01"}});
+  });
+  await page.goto(`${baseURL}/apply?utm_source=coderlegion`);
+  await fill(page); await page.getByRole("checkbox").check(); await page.click("#send-request");
+  await expect(page.locator("#receipt")).toBeVisible();
+  expect(posted.attribution).toBe("coderlegion"); expect(posted.company).toBe(""); expect(posted.acknowledgement).toBe(true);
+  expect(posted.idempotency_key).toMatch(/^[a-f0-9-]{36}$/);
+  await expect(page.locator("#request-form")).toBeHidden();
+  await expect(page.locator("#receipt")).toContainText("No booking, contract or payment");
 });
-
-test("application cannot be prepared without commercial acknowledgement", async ({ page }) => {
-  await page.goto(`${baseURL}/apply?service=build-to-spec`);
-
-  await page.fill("#company", "Example Systems");
-  await page.fill("#name", "Alex Example");
-  await page.fill("#email", "alex@example.com");
-  await page.fill("#role", "CTO");
-  await page.fill("#workflow", "Agent workflow.");
-  await page.fill("#stack", "TypeScript.");
-  await page.fill("#failure", "Context integrity risk.");
-  await page.fill("#acceptance", "Inspectable decision output.");
-  await page.selectOption("#timeline", { label: "Quarter / later" });
-  await page.selectOption("#environment", { label: "Not yet decided" });
-  await page.selectOption("#sensitivity", { label: "Not sure yet" });
-  await page.selectOption("#authority", { label: "I can approve this engagement" });
-
-  await page.click('button[type="submit"]');
-
-  await expect(page.locator("#prepared-application")).toBeHidden();
-  await expect(page.locator("#acknowledgement")).toBeFocused();
+test("unacknowledged requests are not submitted",async ({page}) => {
+  let submissions=0;
+  await page.route("**/api/requests",route=>{submissions++;return route.fulfill({status:503,json:{}});});
+  await page.goto(`${baseURL}/apply`); await fill(page); await page.click("#send-request");
+  await expect(page.locator("#receipt")).toBeHidden(); expect(submissions).toBe(0);
+});
+test("failed writes preserve the request and reuse the key for an exact retry",async ({page}) => {
+  const posted=[];
+  await page.route("**/api/requests",route=>{posted.push(route.request().postDataJSON());return route.fulfill({status:503,json:{error:"unavailable"}});});
+  await page.goto(`${baseURL}/apply`); await fill(page); await page.getByRole("checkbox").check();
+  await page.click("#send-request"); await expect(page.locator("#request-status")).toContainText("Receipt could not be confirmed");
+  await page.click("#send-request"); await expect(page.locator("#request-status")).toContainText("Receipt could not be confirmed");
+  expect(posted).toHaveLength(2); expect(posted[0].idempotency_key).toBe(posted[1].idempotency_key);
+  await expect(page.locator("#receipt")).toBeHidden();
+  await expect(page.locator("#workflow")).toHaveValue("Synthetic workflow for browser checks.");
+});
+test("a missing receiver leaves a clear email fallback, never a false receipt",async ({page}) => {
+  await page.route("**/api/request-config",route=>route.fulfill({status:404,body:"Not found"}));
+  await page.goto(`${baseURL}/apply`);
+  await expect(page.locator("#request-status")).toContainText("Direct requests are unavailable");
+  await expect(page.locator("#send-request")).toBeDisabled();
+  await expect(page.locator('a[href="mailto:immanuel@freshcontext.dev"]')).toBeVisible();
+  await expect(page.locator("#receipt")).toBeHidden();
 });

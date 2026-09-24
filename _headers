@@ -13,7 +13,7 @@
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Resource-Policy: same-origin
   Strict-Transport-Security: max-age=31536000; includeSubDomains
-  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://registry.npmjs.org; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' https://challenges.cloudflare.com 'sha256-U7+xpgw1Bi7MFBi0e0N1CJxYk7MfL+AecxyTQ2G3nK4='; style-src 'self' 'sha256-A9uEMtN+Zz+Jbpojufh3r9VKCtHa58z++myza/SKEn8='; img-src 'self' data:; font-src 'self'; connect-src 'self' https://registry.npmjs.org https://challenges.cloudflare.com; form-action 'none'; frame-src https://challenges.cloudflare.com; frame-ancestors 'none'; upgrade-insecure-requests
 
 # The schema is published to be fetched by other people's tooling — validators,
 # editors, CI — so it is the one path that answers cross-origin. Nothing else on

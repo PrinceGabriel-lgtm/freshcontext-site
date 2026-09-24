@@ -1,0 +1,169 @@
+{
+  "schema": "fc.assessment.v1",
+  "id": "synthetic-workflow-01",
+  "title": "Supplier knowledge handoff",
+  "synthetic": true,
+  "scope": "Five invented records for a bounded knowledge-workflow demonstration. No customer, source authentication or answer-quality experiment.",
+  "evaluated_at": "2026-09-24T12:00:00Z",
+  "engine": "freshcontext-mcp@0.5.2",
+  "runner": "fc-assessment-1",
+  "input_sha256": "e1ebe1d380f8418df681e547e0c6dc164173a41931300ecb64c96f50e7990937",
+  "profile": "local_custom",
+  "intent": "business_due_diligence",
+  "items": [
+    {
+      "id": "recent",
+      "title": "Current operating note",
+      "source": "synthetic:operating-note",
+      "published_at": "2026-09-23T12:00:00.000Z",
+      "retrieved_at": "2026-09-24T12:00:00.000Z",
+      "relevance_supplied_by_caller": 0.95,
+      "decision": "use_first",
+      "freshness": 98,
+      "confidence": "high",
+      "provenance": "complete",
+      "handoff_safe": true,
+      "action": "Use this near the top of the context bundle.",
+      "reasons": [
+        "Strong semantic match and current freshness for user_provided.",
+        "source profile local_custom uses balanced date policy",
+        "intent profile business_due_diligence selected"
+      ],
+      "warnings": [
+        "FreshContext supports context triage only; it is not legal, tax, or investment advice."
+      ],
+      "input_sha256": "072f82b13d83b6c33ed722961c571cd695ef92beef1d034e340ca72dd043854d",
+      "retrieval_age_hours": 0,
+      "review_flags": []
+    },
+    {
+      "id": "undated",
+      "title": "Undated implementation note",
+      "source": "synthetic:implementation-note",
+      "published_at": "2026-09-23T12:00:00.000Z",
+      "retrieved_at": "2026-09-24T12:00:00.000Z",
+      "relevance_supplied_by_caller": 0.95,
+      "decision": "use_first",
+      "freshness": 98,
+      "confidence": "high",
+      "provenance": "complete",
+      "handoff_safe": true,
+      "action": "Use this near the top of the context bundle.",
+      "reasons": [
+        "Strong semantic match and current freshness for user_provided.",
+        "source profile local_custom uses balanced date policy",
+        "intent profile business_due_diligence selected"
+      ],
+      "warnings": [
+        "FreshContext supports context triage only; it is not legal, tax, or investment advice."
+      ],
+      "input_sha256": "7e2c53773e99777246dd984d14a13493c7af28bb5fa2f0d0b9e29f4cd1823510",
+      "retrieval_age_hours": 0,
+      "review_flags": []
+    },
+    {
+      "id": "untraceable",
+      "title": "Untraceable source",
+      "source": "unknown",
+      "published_at": "2026-09-23T12:00:00.000Z",
+      "retrieved_at": "2026-09-24T12:00:00.000Z",
+      "relevance_supplied_by_caller": 0.95,
+      "decision": "use_first",
+      "freshness": 98,
+      "confidence": "high",
+      "provenance": "unknown",
+      "handoff_safe": false,
+      "action": "Use this near the top of the context bundle.",
+      "reasons": [
+        "Strong semantic match and current freshness for user_provided.",
+        "source profile local_custom uses balanced date policy",
+        "intent profile business_due_diligence selected"
+      ],
+      "warnings": [
+        "FreshContext supports context triage only; it is not legal, tax, or investment advice."
+      ],
+      "input_sha256": "e84cd97ba94f4aba938714dddd7ab9bac234cd8920190f0cddce96a98482f008",
+      "retrieval_age_hours": 0,
+      "review_flags": []
+    },
+    {
+      "id": "historical",
+      "title": "Historical policy",
+      "source": "synthetic:policy-2019",
+      "published_at": "2019-01-01T12:00:00.000Z",
+      "retrieved_at": "2026-09-24T12:00:00.000Z",
+      "relevance_supplied_by_caller": 0.95,
+      "decision": "use_as_background",
+      "freshness": 0,
+      "confidence": "high",
+      "provenance": "complete",
+      "handoff_safe": true,
+      "action": "Use it for framing, history, or background rather than as the main current source.",
+      "reasons": [
+        "Relevant signal, but stale for user_provided.",
+        "source profile local_custom uses balanced date policy",
+        "intent profile business_due_diligence selected"
+      ],
+      "warnings": [
+        "FreshContext supports context triage only; it is not legal, tax, or investment advice."
+      ],
+      "input_sha256": "2596d97bc660b131a7e15f10cfadbfcec887542239818ff9882d3e33ba2aab2c",
+      "retrieval_age_hours": 0,
+      "review_flags": []
+    },
+    {
+      "id": "failed",
+      "title": "Failed retrieval",
+      "source": "synthetic:unavailable-record",
+      "published_at": null,
+      "retrieved_at": "2026-09-24T12:00:00.000Z",
+      "relevance_supplied_by_caller": 0.95,
+      "decision": "exclude",
+      "freshness": null,
+      "confidence": "low",
+      "provenance": "unknown",
+      "handoff_safe": false,
+      "action": "Keep it out of the final context bundle unless a human explicitly reviews it.",
+      "reasons": [
+        "Missing freshness data for user_provided; ranked mostly by semantic relevance.",
+        "content looked like failed adapter output; status set to failed",
+        "timestamp confidence is unknown; utility reduced to zero",
+        "signal status is failed; utility reduced to zero",
+        "source profile local_custom uses balanced date policy",
+        "intent profile business_due_diligence selected"
+      ],
+      "warnings": [
+        "FreshContext supports context triage only; it is not legal, tax, or investment advice."
+      ],
+      "input_sha256": "a376270f3d8bfb918a7d55099023737453202a1de364124c2b0684f1a9fb09fb",
+      "retrieval_age_hours": 0,
+      "review_flags": []
+    }
+  ],
+  "summary": {
+    "total": 5,
+    "handoff_safe": 3,
+    "needs_review": 2,
+    "freshness_unknown": 1
+  },
+  "change_review": {
+    "prior_input_sha256": "aa1b32f89dba9bff79af8a9ba2b4b1183499c1c1e4cce9a394c1cf039c73da3b",
+    "changed_ids": [
+      "undated"
+    ],
+    "removed_ids": [],
+    "basis_changed": false,
+    "review_required": true
+  },
+  "human_review": "REQUIRED",
+  "customer_acceptance": "NOT_RECORDED",
+  "limitations": [
+    "Caller supplies dates, status and relevance; this run does not retrieve or authenticate sources.",
+    "Core freshness is publication-to-retrieval, not necessarily publication-to-evaluation. Inspect retrieval_age_hours and review_flags before relying on a captured source as current.",
+    "Metadata completeness and handoff-safe status do not prove truth, current validity, ownership or legal compliance.",
+    "Known-old context may be allowed as background. No answer-quality or business-outcome improvement is measured.",
+    "Profile settings are legacy engine behavior, not customer-validated calibration.",
+    "This packet is unsigned. Hashes support byte comparison only; preserve a trusted copy separately.",
+    "Interpretation, fit map, recommendation, walkthrough and acceptance require people."
+  ]
+}

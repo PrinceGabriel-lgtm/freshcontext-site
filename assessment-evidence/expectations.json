@@ -1,0 +1,27 @@
+{
+  "recent": {
+    "decision": "use_first",
+    "handoff_safe": true,
+    "provenance": "complete"
+  },
+  "historical": {
+    "decision": "use_as_background",
+    "handoff_safe": true,
+    "freshness": 0
+  },
+  "undated": {
+    "decision": "needs_verification",
+    "handoff_safe": false,
+    "freshness": null
+  },
+  "failed": {
+    "decision": "exclude",
+    "handoff_safe": false,
+    "freshness": null
+  },
+  "untraceable": {
+    "decision": "use_first",
+    "handoff_safe": false,
+    "provenance": "unknown"
+  }
+}

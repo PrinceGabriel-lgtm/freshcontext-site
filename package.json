@@ -3,14 +3,14 @@
   "private": true,
   "scripts": {
     "check": "npm run check:commercial && npm run check:html && npm run check:a11y",
-    "check:html": "html-validate *.html",
+    "check:html": "html-validate *.html assessment-evidence/index.html",
     "check:a11y": "playwright test",
-    "check:commercial": "node --test ops/commercial/generate-pack.test.mjs"
+    "check:commercial": "node --test ops/commercial/generate-pack.test.mjs tests/evidence.test.cjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.3",
     "@playwright/test": "^1.60.0",
     "html-validate": "^11.4.0",
-    "wrangler": "^4.99.0"
+    "wrangler": "4.137.0"
   }
 }

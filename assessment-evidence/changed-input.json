@@ -1,0 +1,72 @@
+{
+  "schema": "fc.assessment-input.v1",
+  "id": "synthetic-workflow-01",
+  "title": "Supplier knowledge handoff",
+  "synthetic": true,
+  "scope": "Five invented records for a bounded knowledge-workflow demonstration. No customer, source authentication or answer-quality experiment.",
+  "now": "2026-09-24T12:00:00Z",
+  "profile": "local_custom",
+  "intent": "business_due_diligence",
+  "signals": [
+    {
+      "id": "recent",
+      "title": "Current operating note",
+      "source": "synthetic:operating-note",
+      "source_type": "user_provided",
+      "content": "Synthetic note: the supplier intake workflow has three review stages.",
+      "published_at": "2026-09-23T12:00:00Z",
+      "retrieved_at": "2026-09-24T12:00:00Z",
+      "semantic_score": 0.95,
+      "date_confidence": "high",
+      "status": "success"
+    },
+    {
+      "id": "historical",
+      "title": "Historical policy",
+      "source": "synthetic:policy-2019",
+      "source_type": "user_provided",
+      "content": "Synthetic historical policy retained to explain a former review process.",
+      "published_at": "2019-01-01T12:00:00Z",
+      "retrieved_at": "2026-09-24T12:00:00Z",
+      "semantic_score": 0.95,
+      "date_confidence": "high",
+      "status": "success"
+    },
+    {
+      "id": "undated",
+      "title": "Undated implementation note",
+      "source": "synthetic:implementation-note",
+      "source_type": "user_provided",
+      "content": "Synthetic implementation note whose publication date has now been established in this simulated review.",
+      "published_at": "2026-09-23T12:00:00Z",
+      "retrieved_at": "2026-09-24T12:00:00Z",
+      "semantic_score": 0.95,
+      "date_confidence": "high",
+      "status": "success"
+    },
+    {
+      "id": "failed",
+      "title": "Failed retrieval",
+      "source": "synthetic:unavailable-record",
+      "source_type": "user_provided",
+      "content": "Synthetic retrieval failed; this record must not be used as successful evidence.",
+      "published_at": null,
+      "retrieved_at": "2026-09-24T12:00:00Z",
+      "semantic_score": 0.95,
+      "date_confidence": "unknown",
+      "status": "failed"
+    },
+    {
+      "id": "untraceable",
+      "title": "Untraceable source",
+      "source": "unknown",
+      "source_type": "user_provided",
+      "content": "Synthetic recent-looking assertion with an unusable source identity.",
+      "published_at": "2026-09-23T12:00:00Z",
+      "retrieved_at": "2026-09-24T12:00:00Z",
+      "semantic_score": 0.95,
+      "date_confidence": "high",
+      "status": "success"
+    }
+  ]
+}

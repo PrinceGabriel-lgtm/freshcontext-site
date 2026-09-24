@@ -1,253 +1,43 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Apply for FreshContext Implementation</title>
-  <meta name="description" content="Prepare a FreshContext commercial application for a context-integrity assessment, pilot, private implementation or build-to-spec engagement." />
-  <link rel="canonical" href="https://freshcontext.dev/apply" />
-  <meta name="theme-color" content="#12140f" />
-  <meta property="og:site_name" content="FreshContext" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://freshcontext.dev/apply" />
-  <meta property="og:title" content="Apply for FreshContext Implementation" />
-  <meta property="og:description" content="Describe one real workflow, prepare a trackable application reference, and send it directly to FreshContext for qualification." />
-  <meta property="og:image" content="https://freshcontext.dev/og.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <link rel="stylesheet" href="/site.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Request a Context Integrity Assessment | FreshContext</title>
+  <meta name="description" content="Bring one AI workflow. Request a bounded FreshContext assessment with evidence, a fit recommendation and a technical walkthrough.">
+  <link rel="canonical" href="https://freshcontext.dev/apply">
+  <link rel="stylesheet" href="/site.css">
+  <link rel="stylesheet" href="/commercial.css">
 </head>
-<body>
-  <a class="skip-link" href="#main">Skip to main content</a>
-  <nav class="nav" aria-label="Primary">
-    <div class="nav-inner">
-      <a href="/" class="brand" aria-label="FreshContext home"><span class="brand-mark" aria-hidden="true">FC</span><span>FreshContext</span></a>
-      <div class="nav-links">
-        <a href="/">Product</a>
-        <a href="/integration">Integration</a>
-        <a href="/services">Services</a>
-        <a href="/apply" aria-current="page">Apply</a>
-        <a href="/contact">Contact</a>
-        <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">GitHub</a>
-      </div>
-    </div>
-  </nav>
-
-  <main id="main">
-    <section class="band band--dark">
-      <div class="wrap">
-        <div class="head">
-          <div>
-            <p class="eyebrow">Commercial intake</p>
-            <h1>Apply against a real workflow.</h1>
-            <p class="lede">This application is the first commercial gate. It gives FreshContext enough information to decide fit, define scope and issue the right service order and invoice.</p>
-          </div>
-          <div class="spec">
-            <div class="spec-hd"><b>What happens here</b><span class="state state--open">No payment</span></div>
-            <dl>
-              <div><dt>site</dt><dd>prepares application locally</dd></div>
-              <div><dt>reference</dt><dd>generated in your browser</dd></div>
-              <div><dt>submission</dt><dd>sent only when you send the email</dd></div>
-              <div><dt>contract</dt><dd>issued after qualification</dd></div>
-              <div><dt>payment</dt><dd>only against issued invoice</dd></div>
-            </dl>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="band">
-      <div class="wrap application-layout">
-        <div>
-          <div class="head application-head">
-            <div><p class="eyebrow">Application</p><h2>Tell us what needs to be hardened.</h2></div>
-            <p class="sub">Required fields are the minimum we need to determine whether this is a real implementation problem rather than a generic product enquiry.</p>
-          </div>
-
-          <form id="commercial-application" class="application-form" novalidate>
-            <fieldset>
-              <legend>Service</legend>
-              <label for="service">Engagement</label>
-              <select id="service" name="service" required>
-                <option value="">Choose a service</option>
-                <option value="assessment">Context Integrity Assessment — US$750–1,500</option>
-                <option value="single-workflow">Single-Workflow Integration — US$2,500–5,000</option>
-                <option value="private-multi">Private / Multi-Workflow Implementation — US$7,500–15,000+</option>
-                <option value="build-to-spec">Build-to-Spec Implementation — US$20,000+</option>
-              </select>
-              <p class="field-help" id="service-help">Choose the smallest engagement that can prove the value in a real workflow.</p>
-            </fieldset>
-
-            <fieldset>
-              <legend>Applicant</legend>
-              <div class="form-grid">
-                <div>
-                  <label for="company">Company / organisation</label>
-                  <input id="company" name="company" type="text" maxlength="160" autocomplete="organization" required />
-                </div>
-                <div>
-                  <label for="name">Your name</label>
-                  <input id="name" name="name" type="text" maxlength="120" autocomplete="name" required />
-                </div>
-                <div>
-                  <label for="email">Work email</label>
-                  <input id="email" name="email" type="email" maxlength="254" autocomplete="email" required />
-                </div>
-                <div>
-                  <label for="role">Role</label>
-                  <input id="role" name="role" type="text" maxlength="120" autocomplete="organization-title" required />
-                </div>
-              </div>
-            </fieldset>
-
-            <fieldset>
-              <legend>Workflow</legend>
-              <label for="workflow">What workflow do you want FreshContext to evaluate or harden?</label>
-              <textarea id="workflow" name="workflow" rows="5" maxlength="900" required placeholder="Example: a RAG support assistant that retrieves policy pages before answering customers."></textarea>
-
-              <label for="stack">Current stack</label>
-              <textarea id="stack" name="stack" rows="3" maxlength="700" required placeholder="Retriever, vector database, orchestration framework, model/provider, deployment environment, or relevant tools."></textarea>
-
-              <label for="failure">What context failure are you seeing or trying to prevent?</label>
-              <textarea id="failure" name="failure" rows="5" maxlength="900" required placeholder="Describe stale context, weak dating, missing provenance, conflicting sources, unsafe handoff, or another specific failure mode."></textarea>
-
-              <label for="acceptance">What would count as an acceptable result?</label>
-              <textarea id="acceptance" name="acceptance" rows="4" maxlength="700" required placeholder="Name the measurable behavior, evidence or acceptance test you would want to see."></textarea>
-            </fieldset>
-
-            <fieldset>
-              <legend>Constraints</legend>
-              <div class="form-grid">
-                <div>
-                  <label for="timeline">Target timeline</label>
-                  <select id="timeline" name="timeline" required>
-                    <option value="">Choose one</option>
-                    <option>Within 2 weeks</option>
-                    <option>Within 30 days</option>
-                    <option>Within 60 days</option>
-                    <option>Quarter / later</option>
-                    <option>Exploratory — no fixed date</option>
-                  </select>
-                </div>
-                <div>
-                  <label for="environment">Target environment</label>
-                  <select id="environment" name="environment" required>
-                    <option value="">Choose one</option>
-                    <option>Local / developer environment</option>
-                    <option>Staging / test</option>
-                    <option>Production</option>
-                    <option>Private / customer-managed environment</option>
-                    <option>Not yet decided</option>
-                  </select>
-                </div>
-                <div>
-                  <label for="sensitivity">Data sensitivity</label>
-                  <select id="sensitivity" name="sensitivity" required>
-                    <option value="">Choose one</option>
-                    <option>Public / non-sensitive test data</option>
-                    <option>Internal business data</option>
-                    <option>Customer or personal data may be involved</option>
-                    <option>Regulated / high-sensitivity environment</option>
-                    <option>Not sure yet</option>
-                  </select>
-                </div>
-                <div>
-                  <label for="authority">Commercial authority</label>
-                  <select id="authority" name="authority" required>
-                    <option value="">Choose one</option>
-                    <option>I can approve this engagement</option>
-                    <option>I can recommend it but need approval</option>
-                    <option>I am evaluating on behalf of someone else</option>
-                    <option>Exploratory only</option>
-                  </select>
-                </div>
-              </div>
-            </fieldset>
-
-            <fieldset>
-              <legend>Commercial acknowledgement</legend>
-              <label class="check-row">
-                <input id="acknowledgement" name="acknowledgement" type="checkbox" required />
-                <span>I understand this application is non-binding. Work does not begin until the required commercial agreement is signed and any commencement deposit stated on the issued invoice has cleared.</span>
-              </label>
-            </fieldset>
-
-            <div class="actions">
-              <button class="btn" type="submit">Prepare application</button>
-              <a class="btn btn--ghost" href="/services">Back to services</a>
-            </div>
-            <p class="field-help">No form data is sent to FreshContext by this page. The page prepares a structured email in your browser; you choose whether to send it.</p>
-          </form>
-        </div>
-
-        <aside class="application-side" aria-label="Commercial process">
-          <div class="card">
-            <p class="eyebrow">After submission</p>
-            <h3>Qualification before paperwork.</h3>
-            <p>FreshContext reviews fit, dependencies, scope and commercial readiness. If the application is accepted, we issue the transaction pack for that engagement.</p>
-            <div class="rows compact-rows">
-              <div class="row"><h3>1</h3><p>application received</p></div>
-              <div class="row"><h3>2</h3><p>fit and scope review</p></div>
-              <div class="row"><h3>3</h3><p>service order + invoice</p></div>
-              <div class="row"><h3>4</h3><p>signature + cleared deposit</p></div>
-              <div class="row"><h3>5</h3><p>kickoff and implementation</p></div>
-              <div class="row"><h3>6</h3><p>acceptance and close</p></div>
-            </div>
-          </div>
-          <div class="note mt-m"><strong>Do not send payment yet.</strong> Payment instructions belong on an issued invoice tied to an accepted scope and application reference.</div>
-        </aside>
-      </div>
-    </section>
-
-    <section id="prepared-application" class="band band--tint" hidden>
-      <div class="wrap">
-        <div class="head">
-          <div>
-            <p class="eyebrow">Prepared</p>
-            <h2>Your application is ready to send.</h2>
-          </div>
-          <p class="sub">Keep the reference in the email subject and in any later service order, invoice, payment reference or acceptance record.</p>
-        </div>
-
-        <div class="spec">
-          <div class="spec-hd"><b>Application reference</b><span class="state state--live">Prepared</span></div>
-          <dl>
-            <div><dt>reference</dt><dd id="application-reference">—</dd></div>
-            <div><dt>service</dt><dd id="application-service">—</dd></div>
-            <div><dt>recipient</dt><dd>immanuel@freshcontext.dev</dd></div>
-            <div><dt>status</dt><dd>prepared — not yet received</dd></div>
-          </dl>
-        </div>
-
-        <div class="cmd mt-m">
-          <div class="cmd-bar"><span>application summary</span><button class="copy" type="button">Copy</button></div>
-          <pre id="application-summary"><code>Complete the application above to prepare a summary.</code></pre>
-        </div>
-
-        <div class="actions mt-m">
-          <a id="application-email" class="btn" href="mailto:immanuel@freshcontext.dev">Open email draft</a>
-          <button id="application-print" class="btn btn--ghost" type="button">Print / save PDF</button>
-        </div>
-        <div class="note mt-m"><strong>Next gate:</strong> sending the email creates a commercial enquiry, not an engagement. FreshContext must still accept the scope and issue the controlling service order and invoice.</div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="wrap">
-      <div class="footer-inner">
-        <div><b>FreshContext</b><span class="sub">Context integrity infrastructure for AI systems and agents.</span></div>
-        <nav aria-label="Footer">
-          <a href="/services">Services</a><a href="/integration">Integration</a><a href="/context-integrity">Context integrity</a>
-          <a href="/spec">Specification</a><a href="/context-integrity-demo">Demo</a>
-          <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">GitHub</a>
-          <a href="/terms">Terms</a><a href="/privacy">Privacy</a><a href="/contact">Contact</a>
-        </nav>
-      </div>
-      <p class="footer-legal">MIT licensed. Built by Immanuel Gabriel.</p>
-    </div>
-  </footer>
-
-  <script src="/site.js"></script>
-  <script src="/apply.js"></script>
-</body>
-</html>
+<body class="commercial-view">
+<a class="skip-link" href="#main">Skip to main content</a>
+<nav class="nav" aria-label="Primary"><div class="nav-inner"><a href="/" class="brand" aria-label="FreshContext home"><span class="brand-mark" aria-hidden="true">FC</span><span>FreshContext</span></a><div class="nav-links"><a href="/services">Services</a><a href="/context-integrity-demo">Demo</a><a href="/apply" aria-current="page">Request assessment</a><a href="/contact">Contact</a></div></div></nav>
+<p id="preview-notice" class="preview-notice" hidden>Local review preview. Synthetic entries only. No request or payment is sent to FreshContext.</p>
+<main id="main" class="wrap request-layout">
+  <section aria-labelledby="request-title">
+    <p class="eyebrow">FreshContext services</p>
+    <h1 id="request-title">Context Integrity Assessment</h1>
+    <p class="lede">One workflow. Inspectable evidence, a fit recommendation and a technical walkthrough.</p>
+    <p class="price"><strong id="price-amount">US$750-1,500</strong><span>Final scope and price agreed before payment.</span></p>
+    <form id="request-form">
+      <label for="service">What do you need?</label>
+      <select id="service" name="service"><option value="assessment">Context Integrity Assessment</option><option value="single-workflow">Single-workflow implementation</option><option value="private-multi">Private / multi-workflow implementation</option><option value="build-to-spec">Build-to-spec enquiry</option></select>
+      <div class="form-grid"><div><label for="name">Your name</label><input id="name" name="name" type="text" autocomplete="name" maxlength="120" required></div><div><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" maxlength="254" required></div></div>
+      <label for="workflow">What workflow or context problem should we assess?</label>
+      <textarea id="workflow" name="workflow" rows="5" maxlength="2000" required aria-describedby="data-warning"></textarea>
+      <p id="data-warning" class="field-help">A short description is enough. No passwords, private case files or sensitive production data.</p>
+      <label for="company">Company or organisation <span class="optional">(optional)</span></label>
+      <input id="company" name="company" type="text" autocomplete="organization" maxlength="160">
+      <label class="acknowledgement"><input type="checkbox" name="acknowledgement" required><span>This request is non-binding. I have read the <a href="/privacy#commercial-requests">request data notice</a>. Scope, terms and payment are agreed separately.</span></label>
+      <div id="challenge"></div>
+      <button id="send-request" class="button" type="submit" disabled>Send request</button>
+      <p id="request-status" role="status" aria-live="polite">Checking request availability...</p>
+      <p class="field-help">Or email <a href="mailto:immanuel@freshcontext.dev">immanuel@freshcontext.dev</a>.</p>
+    </form>
+    <section id="receipt" hidden tabindex="-1" aria-labelledby="receipt-title"><h2 id="receipt-title">Request received</h2><p>Reference: <strong id="receipt-reference"></strong></p><p>We will review fit and contact you using the email you supplied. No booking, contract or payment has been created.</p><a href="/context-integrity-demo">Explore the evidence demo</a></section>
+  </section>
+  <aside aria-label="Assessment details"><h2>What you receive</h2><ol class="deliverables"><li>A map of the workflow and its context risks</li><li>A bounded sample evaluation with reasons and limitations</li><li>A fit recommendation and implementation estimate</li><li>A technical walkthrough and agreed acceptance checks</li></ol><h2>What happens next</h2><p>We confirm fit, agree the scope and issue the service order and invoice. A typical engagement uses a 50% commencement deposit. Work begins after the required agreement and cleared payment.</p><p><a href="/sample-assessment">Review a fictional sample assessment</a></p><p><a href="/context-integrity-demo">Inspect real synthetic Core results</a></p><p class="boundary">Context triage, not truth verification or compliance certification. Customer data is handled only under agreed terms.</p></aside>
+</main>
+<footer class="footer"><div class="wrap"><b>FreshContext</b><p>Historical community software retains its applicable licence. Commercial engagements are governed by agreed terms.</p><nav aria-label="Footer"><a href="/services">Services</a><a href="/terms">Terms</a><a href="/privacy">Privacy</a><a href="/contact">Contact</a></nav></div></footer>
+<script src="/request.js" defer></script>
+</body></html>

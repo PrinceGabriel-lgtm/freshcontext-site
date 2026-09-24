@@ -10,6 +10,7 @@ const pages = [
   "/spec",
   "/context-integrity",
   "/context-integrity-demo",
+  "/assessment-evidence/",
   "/contact",
   "/services",
   "/sample-assessment",
@@ -31,8 +32,8 @@ function contentType(pathname) {
 
 function resolvePath(url) {
   const pathname = new URL(url, "http://localhost").pathname;
-  const filename = pathname === "/"
-    ? "index.html"
+  const filename = pathname.endsWith("/")
+    ? `${pathname.slice(1)}index.html`
     : extname(pathname)
       ? pathname.slice(1)
       : `${pathname.slice(1)}.html`;

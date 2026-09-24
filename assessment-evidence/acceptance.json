@@ -1,0 +1,113 @@
+{
+  "schema": "fc.acceptance-checks.v1",
+  "synthetic": true,
+  "pass": true,
+  "checks": [
+    {
+      "id": "recent",
+      "field": "decision",
+      "expected": "use_first",
+      "actual": "use_first",
+      "pass": true
+    },
+    {
+      "id": "recent",
+      "field": "handoff_safe",
+      "expected": true,
+      "actual": true,
+      "pass": true
+    },
+    {
+      "id": "recent",
+      "field": "provenance",
+      "expected": "complete",
+      "actual": "complete",
+      "pass": true
+    },
+    {
+      "id": "untraceable",
+      "field": "decision",
+      "expected": "use_first",
+      "actual": "use_first",
+      "pass": true
+    },
+    {
+      "id": "untraceable",
+      "field": "handoff_safe",
+      "expected": false,
+      "actual": false,
+      "pass": true
+    },
+    {
+      "id": "untraceable",
+      "field": "provenance",
+      "expected": "unknown",
+      "actual": "unknown",
+      "pass": true
+    },
+    {
+      "id": "historical",
+      "field": "decision",
+      "expected": "use_as_background",
+      "actual": "use_as_background",
+      "pass": true
+    },
+    {
+      "id": "historical",
+      "field": "handoff_safe",
+      "expected": true,
+      "actual": true,
+      "pass": true
+    },
+    {
+      "id": "historical",
+      "field": "freshness",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "id": "undated",
+      "field": "decision",
+      "expected": "needs_verification",
+      "actual": "needs_verification",
+      "pass": true
+    },
+    {
+      "id": "undated",
+      "field": "handoff_safe",
+      "expected": false,
+      "actual": false,
+      "pass": true
+    },
+    {
+      "id": "undated",
+      "field": "freshness",
+      "expected": null,
+      "actual": null,
+      "pass": true
+    },
+    {
+      "id": "failed",
+      "field": "decision",
+      "expected": "exclude",
+      "actual": "exclude",
+      "pass": true
+    },
+    {
+      "id": "failed",
+      "field": "handoff_safe",
+      "expected": false,
+      "actual": false,
+      "pass": true
+    },
+    {
+      "id": "failed",
+      "field": "freshness",
+      "expected": null,
+      "actual": null,
+      "pass": true
+    }
+  ],
+  "customer_acceptance": "NOT_RECORDED"
+}
