@@ -55,6 +55,13 @@ test.afterAll(async () => {
   await new Promise((resolve) => server.close(resolve));
 });
 
+// By default Turnstile cannot load, which exercises the page's email fallback. The online
+// tests below register their own stub, which takes precedence.
+test.beforeEach(async ({ page }) => {
+  await page.route("https://challenges.cloudflare.com/**", (route) => route.abort());
+  await page.route("https://intake.freshcontext.dev/**", (route) => route.abort());
+});
+
 test("service link preselects the requested engagement", async ({ page }) => {
   await page.goto(`${baseURL}/apply?service=single-workflow`);
   await expect(page.locator("#service")).toHaveValue("single-workflow");
@@ -77,6 +84,8 @@ test("application preparation creates a trackable non-binding email", async ({ p
   await page.selectOption("#authority", { label: "I can approve this engagement" });
   await page.check("#acknowledgement");
 
+  // Turnstile is blocked, so the page reverts to preparing an email.
+  await expect(page.locator("#application-submit")).toHaveText("Prepare application");
   await page.click('button[type="submit"]');
 
   const prepared = page.locator("#prepared-application");
@@ -124,7 +133,7 @@ test("application cannot be prepared without commercial acknowledgement", async 
 async function openOnline(page, intake) {
   await page.route(`${baseURL}/apply*`, async (route) => {
     const res = await route.fetch();
-    const html = (await res.text()).replace('data-turnstile-sitekey=""', 'data-turnstile-sitekey="test-site-key"');
+    const html = (await res.text()).replace(/data-turnstile-sitekey="[^"]*"/, 'data-turnstile-sitekey="test-site-key"');
     await route.fulfill({ response: res, body: html });
   });
   await page.route("https://challenges.cloudflare.com/**", (route) => route.fulfill({
