@@ -49,7 +49,7 @@
 <div class="eyebrow">Privacy and security notes</div>
     <h1>FreshContext Privacy</h1>
     <p class="lede">This page explains the public FreshContext site, demo, MCP tools, hosted Worker surfaces, data sources, metadata, and contact expectations.</p>
-    <p class="sub">Last reviewed: 21 September 2026.</p>
+    <p class="sub">Last reviewed: 25 September 2026.</p>
 
     <section>
       <h2>Scope</h2>
@@ -86,9 +86,12 @@
 
     <section>
       <h2>Commercial Application Data</h2>
-      <p>The commercial application form is prepared locally in the visitor's browser. FreshContext does not receive the entered form fields merely because the page was completed. The information is transmitted only if the visitor chooses to send the prepared email.</p>
-      <p>Once sent, the application is processed through the sender's email provider and the FreshContext mailbox provider and may remain in those systems until deleted. The application process is not a secure upload channel for secrets, credentials, payment-card information, regulated records, production data sets, or exploit material. Sensitive implementation details should wait for an agreed channel and any required confidentiality or data-processing terms.</p>
-      <p>Application references are generated in the browser for correspondence and record matching. They are not authentication credentials, purchase-order numbers, or proof that FreshContext accepted an engagement.</p>
+      <p>Nothing is sent while the form is being filled in. When the visitor presses <strong>Submit application</strong>, the answers entered in the form (service, organisation, name, work email, role, workflow, stack, context failure, acceptance target, timeline, environment, data sensitivity, commercial authority and the acknowledgement) are sent over HTTPS to <code>intake.freshcontext.dev</code>, a FreshContext service on Cloudflare, and stored in a FreshContext database on Cloudflare D1 together with the application reference and the time received. They are used only to assess fit, scope the work and reply.</p>
+      <p>What is not stored: the visitor's IP address, browser user agent or request headers. The IP address is used for a moment to rate-limit submissions and is then discarded. The submission includes a Cloudflare Turnstile check to keep automated submissions out; Turnstile is operated by Cloudflare, which processes the data it needs for that check under its own privacy policy.</p>
+      <p>When an application arrives, FreshContext receives an email alert containing only the application reference, the service and the organisation name. Applications are read in a private operations console available only to FreshContext operators.</p>
+      <p>If online submission is unavailable, the page instead prepares an email in the visitor's browser, which is sent only if the visitor chooses to. An emailed application is processed through the sender's email provider and the FreshContext mailbox provider and may remain in those systems until deleted.</p>
+      <p>The application process is not a secure upload channel for secrets, credentials, payment-card information, regulated records, production data sets, or exploit material. Sensitive implementation details should wait for an agreed channel and any required confidentiality or data-processing terms.</p>
+      <p>Application references are for correspondence and record matching. They are not authentication credentials, purchase-order numbers, or proof that FreshContext accepted an engagement.</p>
     </section>
 
     <section>
@@ -100,8 +103,9 @@
     <section>
       <h2>Retention And Deletion</h2>
       <p>Stated plainly, because the honest answer is more useful than a tidy one: there is currently no automated retention limit and no scheduled deletion. Verdict rows and stored signal records persist until removed by hand. Cache entries in KV expire on a per-adapter timer measured in minutes to hours, but that is caching behaviour and should not be read as a retention policy.</p>
-      <p>Adding a retention window is open work rather than an implemented control. This page will say so when that changes, and it should not be read as promising one today.</p>
-      <p>To ask about removal of a specific record, use the <a href="/contact">contact page</a> with enough detail to identify it, such as a verdict identifier or source URL. Requests are handled by a person, not a workflow.</p>
+      <p>Adding a retention window for those records is open work rather than an implemented control. This page will say so when that changes, and it should not be read as promising one today.</p>
+      <p>Commercial applications are the exception. Each stored application carries a deletion date 90 days after it was received, and a scheduled job that runs every six hours deletes applications past that date. If an application becomes an engagement, the details needed to deliver and account for that engagement are kept in FreshContext's private engagement records for as long as the engagement and its legal, tax and accounting obligations require.</p>
+      <p>To ask about removal of a specific record, use the <a href="/contact">contact page</a> with enough detail to identify it, such as a verdict identifier, source URL or application reference. Requests are handled by a person, not a workflow.</p>
     </section>
 
     <section>

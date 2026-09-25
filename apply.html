@@ -63,7 +63,7 @@
             <p class="sub">Required fields are the minimum we need to determine whether this is a real implementation problem rather than a generic product enquiry.</p>
           </div>
 
-          <form id="commercial-application" class="application-form" novalidate>
+          <form id="commercial-application" class="application-form" novalidate data-intake-url="https://intake.freshcontext.dev/applications" data-turnstile-sitekey="0x4AAAAAAFDeJSTJAjVtkajh">
             <fieldset>
               <legend>Service</legend>
               <label for="service">Engagement</label>
@@ -171,11 +171,12 @@
               </label>
             </fieldset>
 
+            <div id="application-challenge" class="challenge" hidden></div>
             <div class="actions">
-              <button class="btn" type="submit">Prepare application</button>
+              <button id="application-submit" class="btn" type="submit">Prepare application</button>
               <a class="btn btn--ghost" href="/services">Back to services</a>
             </div>
-            <p class="field-help">No form data is sent to FreshContext by this page. The page prepares a structured email in your browser; you choose whether to send it.</p>
+            <p id="application-help" class="field-help">No form data is sent to FreshContext by this page. The page prepares a structured email in your browser; you choose whether to send it.</p>
           </form>
         </div>
 
@@ -203,18 +204,18 @@
         <div class="head">
           <div>
             <p class="eyebrow">Prepared</p>
-            <h2>Your application is ready to send.</h2>
+            <h2 id="prepared-title">Your application is ready to send.</h2>
           </div>
-          <p class="sub">Keep the reference in the email subject and in any later service order, invoice, payment reference or acceptance record.</p>
+          <p id="prepared-sub" class="sub">Keep the reference in the email subject and in any later service order, invoice, payment reference or acceptance record.</p>
         </div>
 
         <div class="spec">
-          <div class="spec-hd"><b>Application reference</b><span class="state state--live">Prepared</span></div>
+          <div class="spec-hd"><b>Application reference</b><span id="prepared-state" class="state state--live">Prepared</span></div>
           <dl>
             <div><dt>reference</dt><dd id="application-reference">—</dd></div>
             <div><dt>service</dt><dd id="application-service">—</dd></div>
             <div><dt>recipient</dt><dd>immanuel@freshcontext.dev</dd></div>
-            <div><dt>status</dt><dd>prepared — not yet received</dd></div>
+            <div><dt>status</dt><dd id="application-status">prepared — not yet received</dd></div>
           </dl>
         </div>
 
@@ -223,11 +224,11 @@
           <pre id="application-summary"><code>Complete the application above to prepare a summary.</code></pre>
         </div>
 
-        <div class="actions mt-m">
+        <div id="application-email-actions" class="actions mt-m">
           <a id="application-email" class="btn" href="mailto:immanuel@freshcontext.dev">Open email draft</a>
           <button id="application-print" class="btn btn--ghost" type="button">Print / save PDF</button>
         </div>
-        <div class="note mt-m"><strong>Next gate:</strong> sending the email creates a commercial enquiry, not an engagement. FreshContext must still accept the scope and issue the controlling service order and invoice.</div>
+        <div id="application-next" class="note mt-m"><strong>Next gate:</strong> sending the email creates a commercial enquiry, not an engagement. FreshContext must still accept the scope and issue the controlling service order and invoice.</div>
       </div>
     </section>
   </main>
