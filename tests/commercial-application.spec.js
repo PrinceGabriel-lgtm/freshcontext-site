@@ -118,3 +118,68 @@ test("application cannot be prepared without commercial acknowledgement", async 
   await expect(page.locator("#prepared-application")).toBeHidden();
   await expect(page.locator("#acknowledgement")).toBeFocused();
 });
+
+// Online submission: the page is served with a Turnstile site key, the Turnstile script is
+// replaced by a stub, and the intake endpoint is answered by the test.
+async function openOnline(page, intake) {
+  await page.route(`${baseURL}/apply*`, async (route) => {
+    const res = await route.fetch();
+    const html = (await res.text()).replace('data-turnstile-sitekey=""', 'data-turnstile-sitekey="test-site-key"');
+    await route.fulfill({ response: res, body: html });
+  });
+  await page.route("https://challenges.cloudflare.com/**", (route) => route.fulfill({
+    contentType: "text/javascript",
+    body: "window.turnstile={render:function(el,o){window.__tsAction=o.action;return 'w1'},getResponse:function(){return 'token-from-stub'},reset:function(){}};window.onFreshContextTurnstile();",
+  }));
+  const seen = [];
+  await page.route("https://intake.freshcontext.dev/applications", async (route) => {
+    seen.push(route.request().postDataJSON());
+    await route.fulfill(await intake(route));
+  });
+  await page.goto(`${baseURL}/apply?service=private-multi`);
+  await page.fill("#company", "ABC");
+  await page.fill("#name", "Jane Doe");
+  await page.fill("#email", "jane@example.com");
+  await page.fill("#role", "CTO");
+  await page.fill("#workflow", "RAG support");
+  await page.fill("#stack", "Retriever");
+  await page.fill("#failure", "Weak and unsafe handoff");
+  await page.fill("#acceptance", "Good handoff between agents");
+  await page.selectOption("#timeline", { label: "Within 2 weeks" });
+  await page.selectOption("#environment", { label: "Staging / test" });
+  await page.selectOption("#sensitivity", { label: "Public / non-sensitive test data" });
+  await page.selectOption("#authority", { label: "I can approve this engagement" });
+  await page.check("#acknowledgement");
+  return seen;
+}
+
+test("configured page submits the application and shows the reference FreshContext assigned", async ({ page }) => {
+  const seen = await openOnline(page, async () => ({ status: 201, contentType: "application/json", body: JSON.stringify({ reference: "FC-APP-20260925-5EA7ED", received_at: "2026-09-25T13:12:18.325Z" }) }));
+  await expect(page.locator("#application-submit")).toHaveText("Submit application");
+  await page.click("#application-submit");
+  await expect(page.locator("#prepared-title")).toHaveText("Application received.");
+  await expect(page.locator("#application-reference")).toHaveText("FC-APP-20260925-5EA7ED");
+  await expect(page.locator("#application-email-actions")).toBeHidden();
+  await expect(page.locator("#commercial-application")).toBeHidden();
+  expect(seen).toHaveLength(1);
+  expect(seen[0]).toMatchObject({ service: "private-multi", company: "ABC", email: "jane@example.com", acknowledgement: true, turnstile_token: "token-from-stub", timeline: "Within 2 weeks" });
+  expect(seen[0].client_reference).toMatch(/^FC-APP-\d{8}-[A-F0-9]{6}$/);
+  expect(await page.evaluate(() => window.__tsAction)).toBe("commercial_application");
+});
+
+test("a refusal the visitor can fix is explained next to the button", async ({ page }) => {
+  await openOnline(page, async () => ({ status: 429, contentType: "application/json", body: JSON.stringify({ error: "rate_limited" }) }));
+  await page.click("#application-submit");
+  await expect(page.locator("#application-help")).toContainText("Too many submissions");
+  await expect(page.locator("#prepared-application")).toBeHidden();
+  await expect(page.locator("#application-submit")).toBeEnabled();
+});
+
+test("when the service is down the page falls back to the email draft", async ({ page }) => {
+  await openOnline(page, async () => ({ status: 503, contentType: "application/json", body: JSON.stringify({ error: "rate_limit_unavailable" }) }));
+  await page.click("#application-submit");
+  await expect(page.locator("#prepared-title")).toHaveText("Your application could not be submitted online.");
+  await expect(page.locator("#application-email-actions")).toBeVisible();
+  const href = await page.locator("#application-email").getAttribute("href");
+  expect(decodeURIComponent(href)).toContain("Weak and unsafe handoff");
+});
