@@ -2,6 +2,15 @@
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "freshcontext-site",
   "compatibility_date": "2026-09-11",
+  // freshcontext.dev is the only public address. The workers.dev address served a full
+  // second copy of the site (split links and search ranking, and nothing stops it
+  // outliving a change to the real domain). Stated here, not only in the dashboard,
+  // because a deploy re-enables whatever this file leaves out.
+  "workers_dev": false,
+  // Kept on deliberately: the per-branch preview on each pull request is how a layout
+  // or contrast change gets looked at before it ships (see .github/workflows/verify.yml).
+  // Explicit, because without it previews now follow workers_dev and would switch off.
+  "preview_urls": true,
   "assets": {
     "directory": ".",
     "html_handling": "auto-trailing-slash"
