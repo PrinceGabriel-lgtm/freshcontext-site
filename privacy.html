@@ -49,7 +49,7 @@
 <div class="eyebrow">Privacy and security notes</div>
     <h1>FreshContext Privacy</h1>
     <p class="lede">This page explains the public FreshContext site, demo, MCP tools, hosted Worker surfaces, data sources, metadata, and contact expectations.</p>
-    <p class="sub">Last reviewed: 25 September 2026.</p>
+    <p class="sub">Last reviewed: 26 September 2026.</p>
 
     <section>
       <h2>Scope</h2>
@@ -86,7 +86,7 @@
 
     <section>
       <h2>Commercial Application Data</h2>
-      <p>Nothing is sent while the form is being filled in. When the visitor presses <strong>Submit application</strong>, the answers entered in the form (service, organisation, name, work email, role, workflow, stack, context failure, acceptance target, timeline, environment, data sensitivity, commercial authority and the acknowledgement) are sent over HTTPS to <code>intake.freshcontext.dev</code>, a FreshContext service on Cloudflare, and stored in a FreshContext database on Cloudflare D1 together with the application reference and the time received. They are used only to assess fit, scope the work and reply.</p>
+      <p>Nothing is sent while the form is being filled in. When the visitor presses <strong>Submit application</strong>, the answers entered in the form (service, organisation, name, work email, role, workflow, stack, context failure, acceptance target, timeline, environment, data sensitivity, commercial authority and the acknowledgement) are sent over HTTPS to <code>intake.freshcontext.dev</code>, a FreshContext service on Cloudflare, and stored in a FreshContext database on Cloudflare D1 together with the application reference and the time received. That database is kept in Cloudflare's eastern United States region, so applications are stored outside Namibia; requests reach it through Cloudflare's global network. They are used only to assess fit, scope the work and reply.</p>
       <p>What is not stored: the visitor's IP address, browser user agent or request headers. The IP address is used for a moment to rate-limit submissions and is then discarded. The submission includes a Cloudflare Turnstile check to keep automated submissions out; Turnstile is operated by Cloudflare, which processes the data it needs for that check under its own privacy policy.</p>
       <p>When an application arrives, FreshContext receives an email alert containing only the application reference, the service and the organisation name. Applications are read in a private operations console available only to FreshContext operators.</p>
       <p>If online submission is unavailable, the page instead prepares an email in the visitor's browser, which is sent only if the visitor chooses to. An emailed application is processed through the sender's email provider and the FreshContext mailbox provider and may remain in those systems until deleted.</p>
