@@ -98,6 +98,9 @@ jobs:
       - name: Verify commercial pack generator
         run: npm run check:commercial
 
+      - name: Verify the pages.dev retirement redirect
+        run: npm run check:redirect
+
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
 
