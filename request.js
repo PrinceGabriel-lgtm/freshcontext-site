@@ -99,7 +99,7 @@
       if (mailBody) {
         done.querySelector("[data-done-title]").textContent = "It couldn't be sent online.";
         done.querySelector("[data-done-text]").textContent =
-          "Our request service didn't answer. Your " + titles[service].toLowerCase() +
+          "Your " + titles[service].toLowerCase() +
           " is ready as an email: open it, check it, and press send. Nothing has been sent yet.";
         done.querySelector("[data-mail]").href = "mailto:immanuel@freshcontext.dev?subject=" +
           encodeURIComponent("FreshContext " + titles[service] + " " + ref) + "&body=" + encodeURIComponent(mailBody);
@@ -168,7 +168,16 @@
     }
     challenge.hidden = false;
     loadTurnstile().then(function (turnstile) {
-      widgetId = turnstile.render(challenge, { sitekey: siteKey, action: "commercial_application" });
+      widgetId = turnstile.render(challenge, {
+        sitekey: siteKey,
+        action: "commercial_application",
+        // A widget that cannot run (blocked frame, unknown host) must not trap the visitor.
+        "error-callback": function () {
+          online = false;
+          challenge.hidden = true;
+          say("The verification check could not load, so the form will prepare an email for you to send instead.");
+        }
+      });
     }, function () {
       online = false;
       challenge.hidden = true;
