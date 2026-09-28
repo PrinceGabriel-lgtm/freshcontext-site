@@ -4,58 +4,57 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Accessibility | FreshContext</title>
-  <meta name="description" content="How FreshContext reviews its public surfaces for accessibility, the standards referenced, known limitations, and how to report a barrier." />
+  <meta name="description" content="How FreshContext checks its public pages for accessibility, and how to report a barrier." />
   <link rel="canonical" href="https://freshcontext.dev/accessibility" />
-  <meta name="theme-color" content="#12140f" />
+  <meta name="theme-color" content="#0b3325" />
   <meta property="og:site_name" content="FreshContext" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://freshcontext.dev/accessibility" />
   <meta property="og:title" content="Accessibility | FreshContext" />
-  <meta property="og:description" content="How FreshContext reviews its public surfaces for accessibility, the standards referenced, known limitations, and how to report a barrier." />
+  <meta property="og:description" content="How FreshContext checks its public pages for accessibility, and how to report a barrier." />
   <meta property="og:image" content="https://freshcontext.dev/og.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="FreshContext — context integrity infrastructure for AI agents" />
+  <meta property="og:image:alt" content="FreshContext: check whether your support bot's answers still match your sources" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Accessibility | FreshContext" />
-  <meta name="twitter:description" content="How FreshContext reviews its public surfaces for accessibility, the standards referenced, known limitations, and how to report a barrier." />
+  <meta name="twitter:description" content="How FreshContext checks its public pages for accessibility, and how to report a barrier." />
   <meta name="twitter:image" content="https://freshcontext.dev/og.png" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2312140f'/%3E%3Cpath d='M15 20h34M15 32h22M15 44h30' stroke='%23f4efe2' stroke-width='4.5' stroke-linecap='round'/%3E%3Ccircle cx='43' cy='32' r='5' fill='%230f6e55'/%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b3325'/%3E%3Cpath d='M15 20h34M15 32h22M15 44h30' stroke='%23ffffff' stroke-width='4.5' stroke-linecap='round'/%3E%3Ccircle cx='43' cy='32' r='5' fill='%237fd8ae'/%3E%3C/svg%3E" />
   <link rel="stylesheet" href="/site.css" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
 
-  <nav class="nav" aria-label="Primary">
-    <div class="nav-inner">
+  <header class="nav">
+    <nav class="nav-inner" aria-label="Primary">
       <a href="/" class="brand" aria-label="FreshContext home">
         <span class="brand-mark" aria-hidden="true">FC</span>
         <span>FreshContext</span>
       </a>
       <div class="nav-links">
-        <a href="/">Product</a>
-        <a href="/context-integrity">Context integrity</a>
-        <a href="/context-integrity-demo">Demo</a>
-        <a href="/spec">Spec</a>
+        <a href="/how-it-works">How it works</a>
+        <a href="/pricing">Pricing</a>
+        <a href="/legacy">Legacy</a>
         <a href="/contact">Contact</a>
-        <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">GitHub</a>
+        <a class="btn btn--small" href="/snapshot">Free Snapshot</a>
       </div>
-    </div>
-  </nav>
+    </nav>
+  </header>
 
   <main id="main">
     <section class="band">
       <div class="wrap prose">
 <div class="eyebrow">Accessibility readiness</div>
     <h1>FreshContext Accessibility</h1>
-    <p class="lede">FreshContext is working toward accessible public surfaces for the site, demo, and documentation pages. This page describes the current approach and how to report barriers.</p>
+    <p class="lede">FreshContext is working toward accessible public pages and forms. This page describes the current approach and how to report barriers.</p>
 
     <section>
       <h2>Current Approach</h2>
       <p>The public site is reviewed against WCAG-oriented engineering checks, including semantic page structure, keyboard navigation, focus visibility, readable contrast, mobile layout, and automated axe/html validation.</p>
       <p>FreshContext pairs automated checks with manual keyboard and layout review because automated reports alone do not prove that every user experience is accessible.</p>
       <p>This page is a trust/readiness note, not a legal conclusion or formal conformance statement.</p>
-      <p>Last reviewed: 13 September 2026, after the September 2026 rebuild of the public pages. The prior review predated that rebuild.</p>
+      <p>Last reviewed: 28 September 2026, after the redesign of the public pages. Every page is checked with axe and a phone-width layout check on each change.</p>
     </section>
 
     <section>
@@ -72,7 +71,7 @@
 
     <section>
       <h2>Known Limitations</h2>
-      <p>The current site is a static public information surface. It does not include account flows, payments, forms, video, audio, or authenticated product dashboards.</p>
+      <p>The site is a static information site with two short forms (the Snapshot request and the audit enquiry). The forms use a Cloudflare Turnstile check, which is designed to be accessible but is operated by Cloudflare; if it blocks you, email <a href="mailto:immanuel@freshcontext.dev">immanuel@freshcontext.dev</a> instead. The site has no accounts, payments, video or audio.</p>
       <p>Automated accessibility checks do not prove that every user experience is accessible. Manual review and professional accessibility/legal review may still be needed before commercial launch, procurement, or regulated use.</p>
     </section>
 
@@ -90,24 +89,22 @@
       <div class="footer-inner">
         <div>
           <b>FreshContext</b>
-          <span class="sub">Context integrity infrastructure for AI systems and agents.</span>
+          <span class="sub">Checks whether your support bot's answers still match the sources they came from.</span>
         </div>
         <nav aria-label="Footer">
-          <a href="/context-integrity">Context integrity</a>
+          <a href="/snapshot">Free Snapshot</a>
+          <a href="/how-it-works">How it works</a>
+          <a href="/pricing">Pricing</a>
+          <a href="/contact">Contact</a>
+          <a href="/legacy">Legacy package</a>
           <a href="/spec">Specification</a>
-          <a href="/context-integrity-demo">Demo</a>
-          <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">GitHub</a>
-          <a href="https://www.npmjs.com/package/freshcontext-mcp">npm</a>
-          <a href="mailto:security@freshcontext.dev">Security</a>
           <a href="/terms">Terms</a>
           <a href="/privacy">Privacy</a>
           <a href="/accessibility">Accessibility</a>
-          <a href="/contact">Contact</a>
+          <a href="mailto:security@freshcontext.dev">Security</a>
         </nav>
       </div>
-      <p class="footer-legal">
-        MIT licensed. Built by Immanuel Gabriel.
-      </p>
+      <p class="footer-legal">Immanuel Gabriel, trading as FreshContext · Tsumeb, Namibia · <a href="mailto:immanuel@freshcontext.dev">immanuel@freshcontext.dev</a></p>
     </div>
   </footer>
 

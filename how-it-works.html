@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How the Stale Answer Audit works | FreshContext</title>
+  <meta name="description" content="The method: rule-based checks against live sources, a person on every finding, and unclear never counted as current." />
+  <link rel="canonical" href="https://freshcontext.dev/how-it-works" />
+  <meta name="theme-color" content="#0b3325" />
+  <meta property="og:site_name" content="FreshContext" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://freshcontext.dev/how-it-works" />
+  <meta property="og:title" content="How the Stale Answer Audit works | FreshContext" />
+  <meta property="og:description" content="The method: rule-based checks against live sources, a person on every finding, and unclear never counted as current." />
+  <meta property="og:image" content="https://freshcontext.dev/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="FreshContext: check whether your support bot's answers still match your sources" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="How the Stale Answer Audit works | FreshContext" />
+  <meta name="twitter:description" content="The method: rule-based checks against live sources, a person on every finding, and unclear never counted as current." />
+  <meta name="twitter:image" content="https://freshcontext.dev/og.png" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b3325'/%3E%3Cpath d='M15 20h34M15 32h22M15 44h30' stroke='%23ffffff' stroke-width='4.5' stroke-linecap='round'/%3E%3Ccircle cx='43' cy='32' r='5' fill='%237fd8ae'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="/site.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="nav">
+    <nav class="nav-inner" aria-label="Primary">
+      <a href="/" class="brand" aria-label="FreshContext home">
+        <span class="brand-mark" aria-hidden="true">FC</span>
+        <span>FreshContext</span>
+      </a>
+      <div class="nav-links">
+        <a href="/how-it-works" aria-current="page">How it works</a>
+        <a href="/pricing">Pricing</a>
+        <a href="/legacy">Legacy</a>
+        <a href="/contact">Contact</a>
+        <a class="btn btn--small" href="/snapshot">Free Snapshot</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="band page-hd">
+      <div class="wrap">
+        <p class="eyebrow">How it works</p>
+        <h1>From an answer to the evidence behind it.</h1>
+        <p class="lede">A fixed method, the same for every customer: rules check what can be checked, a person checks every finding, and anything we can't settle is reported as unsettled.</p>
+      </div>
+    </section>
+
+    <section class="band flush-top">
+      <div class="wrap">
+        <ol class="steps">
+          <li><h2>Agree the scope</h2><p>A short Order names the bot, the answer sample (up to 200 or 500), the sources and the deliverables. Public sources are enough to start; read access to private ones is optional.</p></li>
+          <li><h2>Send the answers</h2><p>An export of recent questions and answers, with the source link each answer used where you have it, through a private upload in your own portal. Never through the public Snapshot form.</p></li>
+          <li><h2>Check against the live sources</h2><p>We extract the checkable claims in each answer (prices, percentages, versions, dates, plan names and links) and compare them with a fresh, logged read of the source. Each read records what we fetched and when.</p></li>
+          <li><h2>A person reviews every finding</h2><p>Every changed, gone or unclear item is opened and checked by hand before it goes in the report. Pages we couldn't read, and claims no rule could settle, are listed as exactly that.</p></li>
+          <li><h2>Walk through the report</h2><p>A one-hour walkthrough with your team, and one round of corrections. Delivered within 10 business days of receiving both the deposit and the agreed inputs.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="band band--tint">
+      <div class="wrap">
+        <div class="head">
+          <div><p class="eyebrow">What you receive</p><h2>Findings you can check yourself.</h2></div>
+          <p class="sub">Every number in the report can be traced to a page, a passage and a time.</p>
+        </div>
+        <div class="rows">
+          <div class="row"><h3>Stale answer rate</h3><p>How many of the sampled answers rest on information that has changed, gone, or can't be verified, each counted separately.</p></div>
+          <div class="row"><h3>Evidence per finding</h3><p>The question, the answer, the claim at issue, what the live source says today (quoted), and the link.</p></div>
+          <div class="row"><h3>Source register</h3><p>Every source the bot relies on, its status (current, changed, gone or unclear), and a &ldquo;check again on&rdquo; date for each.</p></div>
+          <div class="row"><h3>Dead and redirected links</h3><p>Links inside the bot's answers that fail or land somewhere other than the page they name.</p></div>
+          <div class="row"><h3>Walkthrough</h3><p>One hour with your team, and one round of corrections to the report.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="wrap cols cols--2 split">
+        <div><p class="eyebrow">The four verdicts</p><h2>What each status means.</h2></div>
+        <div class="verdicts">
+          <p><span class="verdict verdict--current">Current</span> The live source states the same value the answer gave.</p>
+          <p><span class="verdict verdict--changed">Changed</span> The live source states a different value. We quote it.</p>
+          <p><span class="verdict verdict--gone">Gone</span> The page no longer exists, or now lands somewhere else.</p>
+          <p><span class="verdict verdict--unclear">Unclear</span> We read the page, but it doesn't settle the claim. Never counted as current.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="band band--tint" id="snapshot-method">
+      <div class="wrap cols cols--2 split">
+        <div><p class="eyebrow">The free Snapshot</p><h2>How we read your help centre.</h2></div>
+        <div class="stack">
+          <p>We start from the public URL you send and read at most 150 pages, one per second, obeying your robots.txt. If your site refuses our reader, we stop and tell you.</p>
+          <p>We look for broken links, links that redirect to the home page, retired pages still being linked to, and price or version contradictions where two pages state them plainly. A person checks each one; you get at most 10.</p>
+          <p>Some help centres build their pages with JavaScript in the browser. Our reader can't see those pages yet, and if yours is one of them we'll say so rather than send you an empty report.</p>
+          <p class="note"><strong>What a Snapshot is not:</strong> it reads public pages only, so it can't show what your bot actually said. That is what the audit is for.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="wrap cols cols--2 split">
+        <div><p class="eyebrow">Limits, stated plainly</p><h2>What the result means, and doesn't.</h2></div>
+        <ul class="plain-list">
+          <li>It covers the agreed sample and sources, at the times we read them.</li>
+          <li>It checks claims our rules can extract: prices, percentages, versions, dates, plan names and links. It doesn't judge tone, reasoning or advice.</li>
+          <li>It does not certify accuracy or compliance, and it is not legal or regulatory advice.</li>
+          <li>It doesn't change your bot or your content. You decide what to fix.</li>
+          <li>A page we couldn't read is not evidence that its facts are wrong.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="band band--tint">
+      <div class="wrap cta">
+        <div><h2>Ready to see it on your own pages?</h2><p class="sub">Start with the free Snapshot, or tell us about your bot.</p></div>
+        <div class="actions">
+          <a class="btn btn--large" href="/snapshot">Request a free Snapshot</a>
+          <a class="btn btn--ghost btn--large" href="/contact#audit">Ask about an audit</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-inner">
+        <div>
+          <b>FreshContext</b>
+          <span class="sub">Checks whether your support bot's answers still match the sources they came from.</span>
+        </div>
+        <nav aria-label="Footer">
+          <a href="/snapshot">Free Snapshot</a>
+          <a href="/how-it-works">How it works</a>
+          <a href="/pricing">Pricing</a>
+          <a href="/contact">Contact</a>
+          <a href="/legacy">Legacy package</a>
+          <a href="/spec">Specification</a>
+          <a href="/terms">Terms</a>
+          <a href="/privacy">Privacy</a>
+          <a href="/accessibility">Accessibility</a>
+          <a href="mailto:security@freshcontext.dev">Security</a>
+        </nav>
+      </div>
+      <p class="footer-legal">Immanuel Gabriel, trading as FreshContext · Tsumeb, Namibia · <a href="mailto:immanuel@freshcontext.dev">immanuel@freshcontext.dev</a></p>
+    </div>
+  </footer>
+
+  <script src="/site.js"></script>
+</body>
+</html>

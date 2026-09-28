@@ -7,13 +7,12 @@ const { extname, isAbsolute, join, normalize, relative } = require("node:path");
 const root = join(__dirname, "..");
 const pages = [
   "/",
-  "/spec",
-  "/context-integrity",
-  "/context-integrity-demo",
+  "/snapshot",
+  "/how-it-works",
+  "/pricing",
   "/contact",
-  "/services",
-  "/sample-assessment",
-  "/apply",
+  "/legacy",
+  "/spec",
   "/terms",
   "/privacy",
   "/accessibility",
@@ -71,6 +70,13 @@ test.beforeAll(async () => {
 
 test.afterAll(async () => {
   await new Promise((resolve) => server.close(resolve));
+});
+
+// The forms load Cloudflare Turnstile. Blocked here so every run scans the same page
+// (the email fallback state) whatever the network allows.
+test.beforeEach(async ({ page }) => {
+  await page.route("https://challenges.cloudflare.com/**", (route) => route.abort());
+  await page.route("https://intake.freshcontext.dev/**", (route) => route.abort());
 });
 
 for (const path of pages) {

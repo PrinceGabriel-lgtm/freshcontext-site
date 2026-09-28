@@ -1,22 +1,17 @@
 # FreshContext
 
-> Context integrity infrastructure for AI systems and agents.
+> Checks whether a company's support bot answers still match the live sources they came from.
 
 Canonical: https://freshcontext.dev/
-Integration: https://freshcontext.dev/integration
-Services: https://freshcontext.dev/services
-Sample assessment: https://freshcontext.dev/sample-assessment
-Commercial application: https://freshcontext.dev/apply
-RAG: https://freshcontext.dev/for-rag
-Agents: https://freshcontext.dev/for-agents
-Governance: https://freshcontext.dev/for-governance
-Demo: https://freshcontext.dev/context-integrity-demo
-Specification: https://freshcontext.dev/spec
-Repository: https://github.com/PrinceGabriel-lgtm/freshcontext-mcp
-Package: https://www.npmjs.com/package/freshcontext-mcp
+Free Help-centre Snapshot: https://freshcontext.dev/snapshot
+How the audit works: https://freshcontext.dev/how-it-works
+Pricing: https://freshcontext.dev/pricing
+Contact: https://freshcontext.dev/contact
+Legacy open-source package: https://freshcontext.dev/legacy
+Specification (legacy): https://freshcontext.dev/spec
 
-FreshContext evaluates candidate context before model or agent use. It scores context-integrity signals such as freshness, source/date confidence, utility and provenance, then returns a reasoned decision about whether context should be used, verified, refreshed, treated as background, watched or excluded.
+FreshContext sells the Stale Answer Audit: a fixed-price service that checks up to 200 (or 500) of a support bot's real answers against the live pages they rely on (prices, versions, dates, plan names, links). Each finding is checked by a person and carries the source passage and the time it was read. A claim the source cannot settle is reported as unclear, never as current. Monitoring re-checks the same sources monthly after an audit.
 
-FreshContext does not certify truth. It does not replace legal, compliance, model-risk, security or organizational governance.
+The free Help-centre Snapshot reads a company's public help centre (at most 150 pages, obeying robots.txt) and reports up to 10 person-checked issues such as broken links, retired pages and plain contradictions.
 
-The public FreshContext implementation and specification include MIT-licensed material. Current commercial work focuses on integration, implementation, operation, verification infrastructure and strategic deployment.
+FreshContext does not certify accuracy or compliance, and is not legal advice. The earlier open-source package, freshcontext-mcp, is MIT-licensed and frozen.
