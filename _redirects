@@ -1,14 +1,30 @@
+# .html addresses to their clean paths
 /contact.html /contact 301
 /spec.html /spec 301
 /privacy.html /privacy 301
 /accessibility.html /accessibility 301
-/context-integrity.html /context-integrity 301
-/context-integrity-demo.html /context-integrity-demo 301
 /terms.html /terms 301
-/integration.html /integration 301
-/for-rag.html /for-rag 301
-/for-agents.html /for-agents 301
-/for-governance.html /for-governance 301
-/services.html /services 301
-/apply.html /apply 301
-/sample-assessment.html /sample-assessment 301
+/snapshot.html /snapshot 301
+/pricing.html /pricing 301
+/how-it-works.html /how-it-works 301
+/legacy.html /legacy 301
+
+# Pages retired in the September 2026 redesign, sent to their nearest replacement
+/services /pricing 301
+/services.html /pricing 301
+/apply /snapshot 301
+/apply.html /snapshot 301
+/sample-assessment /how-it-works 301
+/sample-assessment.html /how-it-works 301
+/integration /how-it-works 301
+/integration.html /how-it-works 301
+/context-integrity /legacy 301
+/context-integrity.html /legacy 301
+/context-integrity-demo /legacy 301
+/context-integrity-demo.html /legacy 301
+/for-rag /legacy 301
+/for-rag.html /legacy 301
+/for-agents /legacy 301
+/for-agents.html /legacy 301
+/for-governance /legacy 301
+/for-governance.html /legacy 301

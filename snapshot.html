@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Free Help-centre Snapshot | FreshContext</title>
+  <meta name="description" content="Send your public help-centre URL and get up to 10 issues checked by a person: broken links, retired pages, plain contradictions." />
+  <link rel="canonical" href="https://freshcontext.dev/snapshot" />
+  <meta name="theme-color" content="#0b3325" />
+  <meta property="og:site_name" content="FreshContext" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://freshcontext.dev/snapshot" />
+  <meta property="og:title" content="Free Help-centre Snapshot | FreshContext" />
+  <meta property="og:description" content="Send your public help-centre URL and get up to 10 issues checked by a person: broken links, retired pages, plain contradictions." />
+  <meta property="og:image" content="https://freshcontext.dev/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="FreshContext: check whether your support bot's answers still match your sources" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Free Help-centre Snapshot | FreshContext" />
+  <meta name="twitter:description" content="Send your public help-centre URL and get up to 10 issues checked by a person: broken links, retired pages, plain contradictions." />
+  <meta name="twitter:image" content="https://freshcontext.dev/og.png" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b3325'/%3E%3Cpath d='M15 20h34M15 32h22M15 44h30' stroke='%23ffffff' stroke-width='4.5' stroke-linecap='round'/%3E%3Ccircle cx='43' cy='32' r='5' fill='%237fd8ae'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="/site.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="nav">
+    <nav class="nav-inner" aria-label="Primary">
+      <a href="/" class="brand" aria-label="FreshContext home">
+        <span class="brand-mark" aria-hidden="true">FC</span>
+        <span>FreshContext</span>
+      </a>
+      <div class="nav-links">
+        <a href="/how-it-works">How it works</a>
+        <a href="/pricing">Pricing</a>
+        <a href="/legacy">Legacy</a>
+        <a href="/contact">Contact</a>
+        <a class="btn btn--small" href="/snapshot" aria-current="page">Free Snapshot</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="band page-hd">
+      <div class="wrap request-layout">
+        <div>
+          <p class="eyebrow">Free Help-centre Snapshot</p>
+          <h1>Find out what your help centre is telling your bot.</h1>
+          <p class="lede">Send us your public help-centre URL. We read the public pages, check what we find by hand, and send you up to 10 issues with the links to see each one yourself.</p>
+          <ul class="ticks mt-l">
+            <li>Broken links, and links that now land on the home page</li>
+            <li>Retired pages that are still being linked to</li>
+            <li>Price or version contradictions, where two pages state them plainly</li>
+            <li>Free, with no obligation. Public pages only.</li>
+          </ul>
+          <p class="note mt-l"><strong>An honest result, not a sales result.</strong> A clean Snapshot is possible, and we'll tell you if your help centre builds its pages in a way our reader can't see yet. A public-page issue doesn't prove your bot repeated it; that is what the audit checks.</p>
+        </div>
+
+        <div class="form-card">
+          <form class="request-form" id="snapshot-form" novalidate data-service="snapshot" data-intake-url="https://intake.freshcontext.dev/applications" data-turnstile-sitekey="0x4AAAAAAFDeJSTJAjVtkajh">
+            <h2 class="form-title">Request my Snapshot</h2>
+            <div class="form-grid">
+              <div><label for="s-name">Your name</label><input id="s-name" name="name" type="text" autocomplete="name" required maxlength="120" /></div>
+              <div><label for="s-email">Work email</label><input id="s-email" name="email" type="email" autocomplete="email" required maxlength="254" /></div>
+              <div><label for="s-company">Company</label><input id="s-company" name="company" type="text" autocomplete="organization" required maxlength="160" /></div>
+              <div><label for="s-role">Your role</label><input id="s-role" name="role" type="text" autocomplete="organization-title" required maxlength="120" placeholder="e.g. Head of Support" /></div>
+            </div>
+            <label for="s-url">Public help-centre URL</label>
+            <input id="s-url" name="url" type="url" inputmode="url" required maxlength="300" pattern="https://.+" placeholder="https://help.yourcompany.com/" aria-describedby="s-url-help" />
+            <p class="field-help" id="s-url-help">Starts with https://. Public pages only: no logins, passwords or private links.</p>
+            <label for="s-note">Anything we should focus on? <span class="optional">(optional)</span></label>
+            <textarea id="s-note" name="note" rows="3" maxlength="500" placeholder="e.g. our pricing and plan pages changed in August"></textarea>
+            <label class="check-row"><input id="s-ack" name="acknowledgement" type="checkbox" required /> <span>I'm asking about a help centre I'm allowed to ask about, and I understand the Snapshot is free and creates no obligation.</span></label>
+            <div class="challenge" data-challenge hidden></div>
+            <p class="field-help" data-help aria-live="polite">Sent over HTTPS to FreshContext. See the <a href="/privacy">privacy notice</a> for how requests are stored and when they are deleted.</p>
+            <div class="actions"><button class="btn btn--large" type="submit" data-submit data-label="Request my Snapshot">Request my Snapshot</button></div>
+          </form>
+          <div class="form-done" data-done hidden tabindex="-1">
+            <p class="eyebrow">Received</p>
+            <h2 data-done-title>Your Snapshot request is in.</h2>
+            <p data-done-text>We'll check whether the public pages are suitable and reply to your work email. There is nothing else you need to do.</p>
+            <p class="sub small">Your reference: <span class="mono" data-reference></span></p>
+            <div class="actions" data-mail-actions hidden><a class="btn" data-mail href="mailto:immanuel@freshcontext.dev">Open the email</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band band--tint">
+      <div class="wrap">
+        <div class="head"><div><p class="eyebrow">What happens next</p><h2>Three steps, all on our side.</h2></div></div>
+        <ol class="track">
+          <li class="track-step"><p class="track-label">1</p><h3>We read your public pages</h3><p>At most 150 pages, one per second, obeying your robots.txt. If your site refuses our reader, we stop.</p></li>
+          <li class="track-step"><p class="track-label">2</p><h3>A person checks every finding</h3><p>We open every page and delete anything we can't confirm ourselves.</p></li>
+          <li class="track-step"><p class="track-label">3</p><h3>You get it by email</h3><p>Up to 10 findings with their links, or an honest note that we found nothing worth your time.</p></li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-inner">
+        <div>
+          <b>FreshContext</b>
+          <span class="sub">Checks whether your support bot's answers still match the sources they came from.</span>
+        </div>
+        <nav aria-label="Footer">
+          <a href="/snapshot">Free Snapshot</a>
+          <a href="/how-it-works">How it works</a>
+          <a href="/pricing">Pricing</a>
+          <a href="/contact">Contact</a>
+          <a href="/legacy">Legacy package</a>
+          <a href="/spec">Specification</a>
+          <a href="/terms">Terms</a>
+          <a href="/privacy">Privacy</a>
+          <a href="/accessibility">Accessibility</a>
+          <a href="mailto:security@freshcontext.dev">Security</a>
+        </nav>
+      </div>
+      <p class="footer-legal">Immanuel Gabriel, trading as FreshContext · Tsumeb, Namibia · <a href="mailto:immanuel@freshcontext.dev">immanuel@freshcontext.dev</a></p>
+    </div>
+  </footer>
+
+  <script src="/site.js"></script>
+  <script src="/request.js"></script>
+</body>
+</html>

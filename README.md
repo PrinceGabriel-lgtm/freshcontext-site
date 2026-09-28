@@ -6,14 +6,16 @@ Production:
 https://freshcontext.dev/
 
 Key pages:
-- /
-- /contact
-- /spec
-- /context-integrity
-- /context-integrity-demo
-- /privacy
-- /terms
-- /accessibility
+- / (the Stale Answer Audit)
+- /snapshot (free Help-centre Snapshot request form)
+- /how-it-works, /pricing, /contact (audit enquiry form)
+- /legacy (the frozen open-source package), /spec
+- /privacy, /terms, /accessibility
+
+The two forms (request.js) post to the private intake Worker at
+intake.freshcontext.dev as service `snapshot` or `audit`, behind Cloudflare
+Turnstile. If the intake cannot be reached they prepare an email instead.
+Retired pages redirect to their nearest replacement (see _redirects).
 
 This repo contains only the static public site. It does not contain FreshContext MCP runtime code, Worker secrets, feed workers, Ops Pulse, or private deployment credentials.
 

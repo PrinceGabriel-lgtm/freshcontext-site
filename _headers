@@ -5,7 +5,8 @@
 # so a future change that needs something new has to say so here rather than
 # inherit it. Outbound requests: the npm registry (version badge), the application
 # intake (intake.freshcontext.dev, fetch only), and Cloudflare Turnstile
-# (challenges.cloudflare.com: its script and its challenge frame) on /apply.
+# (challenges.cloudflare.com: its script and its challenge frame) on the two request
+# forms, /snapshot and /contact.
 
 /*
   X-Content-Type-Options: nosniff

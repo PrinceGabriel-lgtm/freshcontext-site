@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Legacy: the open-source package | FreshContext</title>
+  <meta name="description" content="freshcontext-mcp, FreshContext's earlier MIT-licensed package, frozen and still available." />
+  <link rel="canonical" href="https://freshcontext.dev/legacy" />
+  <meta name="theme-color" content="#0b3325" />
+  <meta property="og:site_name" content="FreshContext" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://freshcontext.dev/legacy" />
+  <meta property="og:title" content="Legacy: the open-source package | FreshContext" />
+  <meta property="og:description" content="freshcontext-mcp, FreshContext's earlier MIT-licensed package, frozen and still available." />
+  <meta property="og:image" content="https://freshcontext.dev/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="FreshContext: check whether your support bot's answers still match your sources" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Legacy: the open-source package | FreshContext" />
+  <meta name="twitter:description" content="freshcontext-mcp, FreshContext's earlier MIT-licensed package, frozen and still available." />
+  <meta name="twitter:image" content="https://freshcontext.dev/og.png" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b3325'/%3E%3Cpath d='M15 20h34M15 32h22M15 44h30' stroke='%23ffffff' stroke-width='4.5' stroke-linecap='round'/%3E%3Ccircle cx='43' cy='32' r='5' fill='%237fd8ae'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="/site.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="nav">
+    <nav class="nav-inner" aria-label="Primary">
+      <a href="/" class="brand" aria-label="FreshContext home">
+        <span class="brand-mark" aria-hidden="true">FC</span>
+        <span>FreshContext</span>
+      </a>
+      <div class="nav-links">
+        <a href="/how-it-works">How it works</a>
+        <a href="/pricing">Pricing</a>
+        <a href="/legacy" aria-current="page">Legacy</a>
+        <a href="/contact">Contact</a>
+        <a class="btn btn--small" href="/snapshot">Free Snapshot</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="band page-hd">
+      <div class="wrap prose">
+        <p class="eyebrow">Legacy</p>
+        <h1>The open-source package.</h1>
+        <p class="lede">Before the Stale Answer Audit, FreshContext published an open-source context engine for AI agents. It stays available under its MIT licence, but gets no new development.</p>
+      </div>
+    </section>
+
+    <section class="band flush-top">
+      <div class="wrap prose">
+        <h2>What it is</h2>
+        <p><code>freshcontext-mcp</code> is an MIT-licensed Model Context Protocol server and library. It scores context an agent is about to use (freshness, source and date confidence, provenance) from signals the caller supplies, and returns a reasoned decision about whether to use it. Its latest published version is <code data-npm-version>latest</code>.</p>
+        <p>The package is frozen: it receives no new features. The hosted verification endpoint at <code>api.freshcontext.dev</code> is still online today, as published, without new development.</p>
+
+        <h2>How it relates to the audit</h2>
+        <p>The package scores metadata it is given. It never reads the source. The Stale Answer Audit uses a separate, private engine that reads the live source and checks each claim in an answer against it, with a person reviewing every finding.</p>
+        <p>Buying an audit doesn't transfer the private engine or its methods. Rights already granted under the MIT licence are unaffected and continue on their own terms.</p>
+
+        <h2>Links</h2>
+        <ul>
+          <li><a href="https://www.npmjs.com/package/freshcontext-mcp">The package on npm</a></li>
+          <li><a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">Source code on GitHub</a></li>
+          <li><a href="/spec">The FreshContext specification</a> and its <a href="/freshcontext.schema.json">JSON Schema</a></li>
+        </ul>
+
+        <div class="actions mt-l"><a class="btn" href="/">See what FreshContext does now</a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-inner">
+        <div>
+          <b>FreshContext</b>
+          <span class="sub">Checks whether your support bot's answers still match the sources they came from.</span>
+        </div>
+        <nav aria-label="Footer">
+          <a href="/snapshot">Free Snapshot</a>
+          <a href="/how-it-works">How it works</a>
+          <a href="/pricing">Pricing</a>
+          <a href="/contact">Contact</a>
+          <a href="/legacy">Legacy package</a>
+          <a href="/spec">Specification</a>
+          <a href="/terms">Terms</a>
+          <a href="/privacy">Privacy</a>
+          <a href="/accessibility">Accessibility</a>
+          <a href="mailto:security@freshcontext.dev">Security</a>
+        </nav>
+      </div>
+      <p class="footer-legal">Immanuel Gabriel, trading as FreshContext · Tsumeb, Namibia · <a href="mailto:immanuel@freshcontext.dev">immanuel@freshcontext.dev</a></p>
+    </div>
+  </footer>
+
+  <script src="/site.js"></script>
+</body>
+</html>

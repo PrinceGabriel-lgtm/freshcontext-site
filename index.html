@@ -3,463 +3,172 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FreshContext — Context Integrity Infrastructure for AI Agents</title>
-  <meta name="description" content="FreshContext evaluates whether context entering an AI system is fresh, attributable and coherent enough to rely on, and returns a signed, ledger-backed verdict anyone can verify offline." />
+  <title>FreshContext: the Stale Answer Audit for support bots</title>
+  <meta name="description" content="Check whether your support bot's answers still match the live sources they came from. Free Help-centre Snapshot; fixed-price Stale Answer Audit with evidence for every finding." />
   <link rel="canonical" href="https://freshcontext.dev/" />
-  <meta name="theme-color" content="#12140f" />
+  <meta name="theme-color" content="#0b3325" />
   <meta property="og:site_name" content="FreshContext" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://freshcontext.dev/" />
-  <meta property="og:title" content="FreshContext — Context Integrity Infrastructure for AI Agents" />
-  <meta property="og:description" content="Signed, ledger-backed verdicts on the context your agents act on. Independently verifiable with no FreshContext account." />
+  <meta property="og:title" content="FreshContext: the Stale Answer Audit for support bots" />
+  <meta property="og:description" content="Check whether your support bot's answers still match the live sources they came from. Free Help-centre Snapshot; fixed-price Stale Answer Audit with evidence for every finding." />
   <meta property="og:image" content="https://freshcontext.dev/og.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="FreshContext — context integrity infrastructure for AI agents" />
+  <meta property="og:image:alt" content="FreshContext: check whether your support bot's answers still match your sources" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="FreshContext — Context Integrity Infrastructure for AI Agents" />
-  <meta name="twitter:description" content="Signed, ledger-backed verdicts on the context your agents act on. Independently verifiable with no FreshContext account." />
+  <meta name="twitter:title" content="FreshContext: the Stale Answer Audit for support bots" />
+  <meta name="twitter:description" content="Check whether your support bot's answers still match the live sources they came from. Free Help-centre Snapshot; fixed-price Stale Answer Audit with evidence for every finding." />
   <meta name="twitter:image" content="https://freshcontext.dev/og.png" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2312140f'/%3E%3Cpath d='M15 20h34M15 32h22M15 44h30' stroke='%23f4efe2' stroke-width='4.5' stroke-linecap='round'/%3E%3Ccircle cx='43' cy='32' r='5' fill='%230f6e55'/%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b3325'/%3E%3Cpath d='M15 20h34M15 32h22M15 44h30' stroke='%23ffffff' stroke-width='4.5' stroke-linecap='round'/%3E%3Ccircle cx='43' cy='32' r='5' fill='%237fd8ae'/%3E%3C/svg%3E" />
   <link rel="stylesheet" href="/site.css" />
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebSite",
-        "@id": "https://freshcontext.dev/#website",
-        "url": "https://freshcontext.dev/",
-        "name": "FreshContext",
-        "description": "Context integrity infrastructure for AI systems and agents.",
-        "publisher": { "@id": "https://freshcontext.dev/#org" },
-        "inLanguage": "en"
-      },
-      {
-        "@type": "Organization",
-        "@id": "https://freshcontext.dev/#org",
-        "name": "FreshContext",
-        "url": "https://freshcontext.dev/",
-        "email": "hello@freshcontext.dev",
-        "founder": { "@type": "Person", "name": "Immanuel Gabriel" }
-      },
-      {
-        "@type": "SoftwareSourceCode",
-        "name": "freshcontext-mcp",
-        "description": "Context integrity engine and Model Context Protocol server. Evaluates candidate context and returns signed, ledger-backed verdicts verifiable offline with Ed25519.",
-        "codeRepository": "https://github.com/PrinceGabriel-lgtm/freshcontext-mcp",
-        "programmingLanguage": "TypeScript",
-        "license": "https://opensource.org/licenses/MIT",
-        "author": { "@id": "https://freshcontext.dev/#org" }
-      }
-    ]
-  }
-  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
 
-  <nav class="nav" aria-label="Primary">
-    <div class="nav-inner">
+  <header class="nav">
+    <nav class="nav-inner" aria-label="Primary">
       <a href="/" class="brand" aria-label="FreshContext home">
         <span class="brand-mark" aria-hidden="true">FC</span>
         <span>FreshContext</span>
       </a>
       <div class="nav-links">
-        <a href="/" aria-current="page">Product</a>
-        <a href="/integration">Integration</a>
-        <a href="/services">Services</a>
-        <a href="/context-integrity">Context integrity</a>
-        <a href="/context-integrity-demo">Demo</a>
-        <a href="/spec">Spec</a>
+        <a href="/how-it-works">How it works</a>
+        <a href="/pricing">Pricing</a>
+        <a href="/legacy">Legacy</a>
         <a href="/contact">Contact</a>
-        <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">GitHub</a>
+        <a class="btn btn--small" href="/snapshot">Free Snapshot</a>
       </div>
-    </div>
-  </nav>
+    </nav>
+  </header>
 
   <main id="main">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <p class="eyebrow">The Stale Answer Audit</p>
+          <h1>Check whether your support bot's answers still match your sources.</h1>
+          <p class="lede">Your help centre changes. Prices move, plans are renamed, pages are retired. An answer that was right last quarter can be wrong today, and the bot keeps giving it. We check a sample of your bot's real answers against the live pages they rely on, and show you the evidence for each finding.</p>
+          <div class="actions mt-l">
+            <a class="btn btn--large" href="/snapshot">Request a free Snapshot</a>
+            <a class="btn btn--ghost btn--large" href="/how-it-works">See how the audit works</a>
+          </div>
+          <p class="hero-note">Free, from your public help centre only. A person checks every finding before you see it.</p>
+        </div>
 
-    <!-- ── hero ─────────────────────────────────────────────────────────── -->
+        <figure class="evidence" aria-labelledby="evidence-caption">
+          <div class="evidence-hd">
+            <span>Example finding</span>
+            <span class="verdict verdict--changed">Changed</span>
+          </div>
+          <dl class="evidence-body">
+            <div><dt>Customer asked</dt><dd>How much is the Pro plan?</dd></div>
+            <div><dt>Bot answered</dt><dd>Pro is <mark class="was">$49</mark> per user per month.</dd></div>
+            <div><dt>Live source says</dt><dd>&ldquo;Pro &mdash; <mark class="now">$59</mark> per seat / month, billed annually&rdquo;</dd></div>
+            <div><dt>Source</dt><dd class="mono">help.example.com/pricing</dd></div>
+            <div><dt>Read at</dt><dd class="mono">2026-09-28 09:14 UTC</dd></div>
+            <div><dt>Checked by</dt><dd>A person, against the page</dd></div>
+          </dl>
+          <figcaption id="evidence-caption">An illustrative finding, not a real customer's. Every finding in a report has this shape: the answer, the claim, the passage that decides it, and when we read it.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="band band--tint">
+      <div class="wrap">
+        <div class="head">
+          <div>
+            <p class="eyebrow">Why answers go stale</p>
+            <h2>The bot didn't change. The pages under it did.</h2>
+          </div>
+          <p class="sub">Support bots answer from help-centre articles, docs and policy pages. Nobody tells the bot when those pages change, and nobody tells you which answers the change broke.</p>
+        </div>
+        <div class="cols cols--3">
+          <div class="point"><span class="point-n" aria-hidden="true">01</span><h3>Prices and limits move</h3><p>A plan goes from $49 to $59, a free tier drops from 5 seats to 3. The old number lives on in answers.</p></div>
+          <div class="point"><span class="point-n" aria-hidden="true">02</span><h3>Plans and versions are renamed</h3><p>&ldquo;Pro&rdquo; becomes &ldquo;Growth&rdquo;, v2 is retired. The bot still recommends what no longer exists.</p></div>
+          <div class="point"><span class="point-n" aria-hidden="true">03</span><h3>Pages retire and links die</h3><p>Answers point customers at pages that now 404, or quietly redirect to the home page.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="wrap">
+        <div class="head">
+          <div>
+            <p class="eyebrow">Three steps, each one optional</p>
+            <h2>Start free. Go deeper only if it's worth it.</h2>
+          </div>
+          <p class="sub">The Snapshot costs you nothing and shows you what kind of problems your pages have. The audit checks what your bot actually said.</p>
+        </div>
+        <ol class="track">
+          <li class="track-step">
+            <p class="track-label">Step 1 · Free</p>
+            <h3>Help-centre Snapshot</h3>
+            <p>We read your public help centre and send up to 10 issues a person has checked: broken links, links that now land on the home page, retired pages still linked, and plain contradictions between pages.</p>
+            <a href="/snapshot">Request a Snapshot</a>
+          </li>
+          <li class="track-step track-step--main">
+            <p class="track-label">Step 2 · From US$4,500 (US$2,500 founding)</p>
+            <h3>Stale Answer Audit</h3>
+            <p>Up to 200 (or 500) of your bot's real answers, each checked against the live sources it relies on. You get your stale answer rate, the evidence for every finding, and a source register with re-check dates.</p>
+            <a href="/pricing">See scope and prices</a>
+          </li>
+          <li class="track-step">
+            <p class="track-label">Step 3 · After an audit</p>
+            <h3>Monitoring</h3>
+            <p>Each month we re-check the same sources and send a short report of what changed, so you fix answers before customers find them.</p>
+            <a href="/pricing#monitoring">How monitoring works</a>
+          </li>
+        </ol>
+      </div>
+    </section>
+
     <section class="band band--dark">
       <div class="wrap">
         <div class="head">
           <div>
-            <p class="eyebrow">Context integrity infrastructure</p>
-            <h1>Context that earns its place.</h1>
-            <p class="lede">
-              AI systems increasingly act on context whose source, age or provenance needs
-              checking. FreshContext evaluates the candidate context supplied at the handoff
-              to an agent, returning a signed, ledger-backed verdict with explicit warnings.
-              Detecting a source change after retrieval requires the integration to provide
-              current source or version evidence; the caller decides whether to enforce the verdict.
-            </p>
-            <div class="actions mt-l">
-              <a class="btn" href="#proof">Inspect the proof</a>
-              <a class="btn btn--ghost" href="/services">Commercial services</a>
-            </div>
+            <p class="eyebrow">Rules we don't bend</p>
+            <h2>An answer we can't settle is never called fine.</h2>
           </div>
-
-          <div class="spec">
-            <div class="spec-hd">
-              <b>Verdict record</b>
-              <span class="state state--live">verified offline</span>
-            </div>
-            <dl>
-              <div><dt>status</dt><dd>valid</dd></div>
-              <div><dt>verdict_id</dt><dd>8fd9ead8&hellip;2fa5584b</dd></div>
-              <div><dt>engine_version</dt><dd>0.5.1 (captured record)</dd></div>
-              <div><dt>signature_version</dt><dd>FRESHCONTEXT_HA_PRI_V4</dd></div>
-              <div><dt>key_id</dt><dd>fc-2026-09-ceced1ab</dd></div>
-              <div><dt>verification_method</dt><dd>ed25519</dd></div>
-              <div><dt>reasons</dt><dd>[]</dd></div>
-            </dl>
-          </div>
+          <p class="sub">An audit is only useful if you can trust its &ldquo;all clear&rdquo;. So the method is built to say &ldquo;we couldn't tell&rdquo; rather than guess.</p>
         </div>
-        <p class="small sub mt-s">
-          A real historical record from the live ledger, checked by the verifiers that ship
-          in the npm package rather than by us. The record keeps the engine version it was
-          created under; it is not a claim about the latest package version.
-        </p>
-      </div>
-    </section>
-
-    <!-- ── architecture ─────────────────────────────────────────────────── -->
-    <section class="band" id="architecture">
-      <div class="wrap">
-        <div class="head">
-          <div>
-            <p class="eyebrow">Where it sits</p>
-            <h2>Between acquisition and action.</h2>
-          </div>
-          <p class="sub">
-            FreshContext does not fetch for you and does not replace the model. It judges
-            candidate context on the way in, and leaves evidence behind that someone else can
-            check.
-          </p>
-        </div>
-
-        <div class="tablewrap">
-          <table>
-            <caption class="visually-hidden">The path a candidate signal takes through FreshContext</caption>
-            <thead>
-              <tr><th scope="col">Stage</th><th scope="col">Component</th><th scope="col">What it produces</th></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Candidate context</strong></td>
-                <td><code>evaluate_context</code>, adapters, your own payload</td>
-                <td>Signals with a source, a timestamp and a claim</td>
-              </tr>
-              <tr>
-                <td><strong>Evaluation</strong></td>
-                <td>Core, Source Profiles, decay-adjusted relevancy</td>
-                <td>Freshness, confidence, provenance, failure honesty</td>
-              </tr>
-              <tr>
-                <td><strong>Verdict</strong></td>
-                <td>Decision layer</td>
-                <td>Use, cite, refresh, verify, background, watch or exclude</td>
-              </tr>
-              <tr>
-                <td><strong>Attestation</strong></td>
-                <td>Ha-Pri v4 signing, D1 verdict ledger</td>
-                <td>An Ed25519-signed record with a <code>verdict_id</code></td>
-              </tr>
-              <tr>
-                <td><strong>Verification</strong></td>
-                <td><code>/v1/verify</code>, published key document, offline verifiers</td>
-                <td>A third party&rsquo;s own yes or no</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="note mt-m">
-          <strong>Exclusion is not enforcement.</strong> A signal the engine judges unusable is
-          excluded from the trusted context it returns, and the reason is recorded. That is a
-          judgment the caller is free to act on. It is not a policy firewall standing in front
-          of your agent &mdash; see <a href="#open">open surfaces</a>.
+        <div class="rules">
+          <div><h3>Unclear stays unclear</h3><p>If the source can't settle a claim, the report says so. It is never counted as current.</p></div>
+          <div><h3>A person checks every finding</h3><p>Nothing reaches you that we haven't opened and checked against the page ourselves.</p></div>
+          <div><h3>Every read is logged</h3><p>Each finding carries the page, the passage and the time we read it, so you can check it yourself.</p></div>
+          <div><h3>No AI judge unless you allow it</h3><p>Checks are rule-based. An optional Anthropic-only AI step for unclear answers stays off unless your signed Order allows it.</p></div>
+          <div><h3>Public pages, your permission</h3><p>The Snapshot reads only public pages and respects robots.txt. We never query your bot without permission.</p></div>
+          <div><h3>Independent of your vendor</h3><p>We don't sell the bot, so we have no reason to grade it kindly.</p></div>
         </div>
       </div>
     </section>
 
-    <!-- ── proof ────────────────────────────────────────────────────────── -->
-    <section class="band band--tint" id="proof">
-      <div class="wrap">
-        <div class="head">
-          <div>
-            <p class="eyebrow">Proof, not promises</p>
-            <h2>Check it without asking us.</h2>
-          </div>
-          <p class="sub">
-            Every verdict written to the ledger is signed with Ed25519. The public half of the
-            key is published, and both verifiers ship inside the npm package &mdash; so
-            verification needs no account, no API key and no call to FreshContext.
-          </p>
+    <section class="band">
+      <div class="wrap cols cols--2 split">
+        <div>
+          <p class="eyebrow">Why not your help desk's own tool?</p>
+          <h2>They check the articles. We check the answers.</h2>
         </div>
-
-        <div class="rows">
-          <div class="row">
-            <h3>Published signing key</h3>
-            <p>
-              <a href="https://api.freshcontext.dev/.well-known/freshcontext-signing-keys.json"><code>/.well-known/freshcontext-signing-keys.json</code></a>
-              serves the active key and every retired one. Keys are append-only, so a rotation
-              never invalidates a verdict signed under an older key.
-            </p>
-          </div>
-          <div class="row">
-            <h3>Offline verifiers</h3>
-            <p>
-              <code>scripts/verify-offline.mjs</code> (Node, standard library) and
-              <code>scripts/verify_offline.py</code> (Python, no dependencies at all) are both
-              in the published tarball. Method and worked examples in
-              <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp/blob/main/docs/VERIFYING.md">VERIFYING.md</a>.
-            </p>
-          </div>
-          <div class="row">
-            <h3>Ledger lookup</h3>
-            <p>
-              <code>POST /v1/verify</code> resolves a <code>verdict_id</code> against the stored
-              record and reports which method answered it. Legacy records verify through the
-              HMAC path and say so; new records are Ed25519 and independently checkable.
-            </p>
-          </div>
-          <div class="row">
-            <h3>Specification and schema</h3>
-            <p>
-              The <a href="/spec">FreshContext Specification</a> is MIT-licensed, and
-              <a href="/freshcontext.schema.json"><code>freshcontext.schema.json</code></a> is
-              served at the identifier it declares.
-            </p>
-          </div>
-          <div class="row">
-            <h3>Source and package</h3>
-            <p>
-              <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">GitHub</a> and
-              <a href="https://www.npmjs.com/package/freshcontext-mcp">npm</a>, currently
-              <code data-npm-version>latest</code>. The engine, the adapters, the tests and the
-              verifiers are the same tree.
-            </p>
-          </div>
+        <div class="stack">
+          <p>Intercom's Fin and Zendesk's knowledge tools now flag outdated or conflicting articles inside their own knowledge base. That is useful, and we recommend it.</p>
+          <p>We check something different: what your bot actually told customers, against the live sources it relied on, including pricing pages, docs and policies outside the help centre. And we are independent of the vendor whose bot is being checked.</p>
+          <p><a href="/how-it-works">Read the method</a></p>
         </div>
       </div>
     </section>
 
-    <!-- ── live ─────────────────────────────────────────────────────────── -->
-    <section class="band" id="live">
-      <div class="wrap">
-        <div class="head">
-          <div>
-            <p class="eyebrow">State of the system</p>
-            <h2>What runs today.</h2>
-          </div>
-          <p class="sub">
-            One list, with the evidence attached. Anything not on it is on the
-            <a href="#open">open surfaces</a> list instead.
-          </p>
-        </div>
-
-        <div class="tablewrap">
-          <table>
-            <thead>
-              <tr><th scope="col">Surface</th><th scope="col">State</th><th scope="col">Evidence</th></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Context evaluation</strong><br /><span class="small sub"><code>evaluate_context</code> over caller-provided context</span></td>
-                <td><span class="state state--live">live</span></td>
-                <td><a href="https://www.npmjs.com/package/freshcontext-mcp">npm package</a>, <a href="/context-integrity-demo">demo</a></td>
-              </tr>
-              <tr>
-                <td><strong>MCP interface</strong><br /><span class="small sub">22 registered tools; 21 read-only reference adapters</span></td>
-                <td><span class="state state--live">live</span></td>
-                <td><a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp/blob/main/docs/CLIENT_SETUP.md">Client setup</a></td>
-              </tr>
-              <tr>
-                <td><strong>Ed25519 attestation</strong><br /><span class="small sub">every new ledger record signed <code>HA_PRI_V4</code></span></td>
-                <td><span class="state state--live">live</span></td>
-                <td><a href="https://api.freshcontext.dev/.well-known/freshcontext-signing-keys.json">Key document</a></td>
-              </tr>
-              <tr>
-                <td><strong>Verdict ledger and lookup</strong><br /><span class="small sub"><code>/v1/verify</code>, D1-backed</span></td>
-                <td><span class="state state--live">live</span></td>
-                <td><a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp/blob/main/docs/VERIFYING.md">VERIFYING.md</a></td>
-              </tr>
-              <tr>
-                <td><strong>Edge deployment</strong><br /><span class="small sub">Cloudflare Workers, KV cache, atomic rate limiting, 6-hour cron</span></td>
-                <td><span class="state state--live">live</span></td>
-                <td><code>api.freshcontext.dev</code></td>
-              </tr>
-              <tr>
-                <td><strong>Open specification</strong><br /><span class="small sub">envelope format, decay model, adapter contract</span></td>
-                <td><span class="state state--live">live</span></td>
-                <td><a href="/spec">Specification</a>, <a href="/freshcontext.schema.json">JSON Schema</a></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── use ──────────────────────────────────────────────────────────── -->
-    <section class="band band--tint" id="use">
-      <div class="wrap">
-        <div class="head">
-          <div>
-            <p class="eyebrow">Use it</p>
-            <h2>Run it through MCP, or call the engine directly.</h2>
-          </div>
-          <p class="sub">
-            The published package is the shortest path. Core does not depend on being reached
-            through MCP &mdash; that is the seam that keeps this a primitive rather than a
-            single-integration tool.
-          </p>
-        </div>
-
-        <div class="cols cols--2">
-          <div class="stack">
-            <div class="cmd">
-              <div class="cmd-bar">
-                <span>stdio client</span>
-                <button class="copy" type="button">Copy</button>
-              </div>
-              <pre>npx -y freshcontext-mcp@latest</pre>
-            </div>
-            <p class="small sub">
-              For Claude Desktop, Codex, or any MCP stdio client. Prefer a global install?
-              <code>npm install -g freshcontext-mcp@latest</code>.
-            </p>
-            <div class="cmd">
-              <div class="cmd-bar">
-                <span>remote endpoint</span>
-                <button class="copy" type="button">Copy</button>
-              </div>
-              <pre>https://api.freshcontext.dev/mcp</pre>
-            </div>
-          </div>
-
-          <div class="rows flush-top">
-            <div class="row">
-              <h3>Standalone</h3>
-              <p><span class="state state--live">live</span> Its own context-integrity service, which is how it runs at <code>api.freshcontext.dev</code>.</p>
-            </div>
-            <div class="row">
-              <h3>MCP layer</h3>
-              <p><span class="state state--live">live</span> Evaluating and governing context around MCP-enabled workflows. The path in this repository.</p>
-            </div>
-            <div class="row">
-              <h3>SDK and API</h3>
-              <p><span class="state state--seam">seam</span> Integrity primitives consumed programmatically, with no MCP in the path. The Core import boundary supports it.</p>
-            </div>
-            <div class="row">
-              <h3>Embedded or white-label</h3>
-              <p><span class="state state--seam">seam</span> Core as a subsystem of another platform, under its branding. Nothing in Core assumes the FreshContext name.</p>
-            </div>
-          </div>
-        </div>
-
-        <p class="small sub mt-m">
-          Only standalone and MCP are exercised in production. The rest are integration seams
-          the architecture supports &mdash; not shipped configurations, and not claims.
-        </p>
-      </div>
-    </section>
-
-    <!-- ── implementation ─────────────────────────────────────────────── -->
-    <section class="band band--tint" id="integration">
-      <div class="wrap">
-        <div class="head">
-          <div>
-            <p class="eyebrow">Implementation</p>
-            <h2>Put the judgment layer inside your existing stack.</h2>
-          </div>
-          <p class="sub">
-            FreshContext can be integrated into an existing RAG, retrieval, agent or governance
-            workflow without replacing the retriever or the model. Start with one bounded
-            workflow and objective acceptance criteria.
-          </p>
+    <section class="band band--tint">
+      <div class="wrap cta">
+        <div>
+          <h2>See what your help centre is hiding.</h2>
+          <p class="sub">Send us one public URL. If we find issues worth your time, you get up to 10, each checked by a person, with the link to see it yourself.</p>
         </div>
         <div class="actions">
-          <a class="btn" href="/integration">Explore integration</a>
-          <a class="btn btn--ghost" href="#proof">Inspect the proof</a>
+          <a class="btn btn--large" href="/snapshot">Request a free Snapshot</a>
+          <a class="btn btn--ghost btn--large" href="/pricing">Prices</a>
         </div>
       </div>
     </section>
-
-    <!-- ── open surfaces ────────────────────────────────────────────────── -->
-    <section class="band" id="open">
-      <div class="wrap">
-        <div class="head">
-          <div>
-            <p class="eyebrow">Open surfaces</p>
-            <h2>Built substrate, unbuilt interface.</h2>
-          </div>
-          <p class="sub">
-            Stated in future tense because none of it ships today. A defect in the core is a
-            liability; an unbuilt surface is a choice. These are choices, and each one already
-            has something under it.
-          </p>
-        </div>
-
-        <div class="tablewrap">
-          <table>
-            <thead>
-              <tr><th scope="col">Surface</th><th scope="col">Existing substrate</th><th scope="col">Remaining work</th></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Safety harness</strong></td>
-                <td>Decisions and warnings already emitted per signal, with reasons</td>
-                <td>The pass / warn / refresh / quarantine / block state machine. <code>quarantine</code> and <code>block</code> appear nowhere in the codebase.</td>
-              </tr>
-              <tr>
-                <td><strong>Control plane</strong></td>
-                <td>The verdict ledger is the data contract it would read from</td>
-                <td>The interface over it. There is no dashboard.</td>
-              </tr>
-              <tr>
-                <td><strong>Integrity telemetry</strong></td>
-                <td>Per-verdict evaluation records with timestamps</td>
-                <td>Historical state, incident history, upstream degradation tracking</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <p class="small sub mt-s">
-          Tracked in full in the
-          <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp#roadmap">repository roadmap</a>,
-          split into production core, expansion surfaces and research frontier.
-        </p>
-      </div>
-    </section>
-
-    <!-- ── contact ──────────────────────────────────────────────────────── -->
-    <section class="band band--dark" id="contact">
-      <div class="wrap">
-        <div class="head">
-          <div>
-            <p class="eyebrow">Get in touch</p>
-            <h2>Technical walkthrough, integration, or architecture review.</h2>
-          </div>
-          <p class="sub">
-            Questions about the evaluation model, the attestation path, or how FreshContext
-            would sit in an existing stack are welcome.
-          </p>
-        </div>
-        <div class="actions">
-          <a class="btn" href="mailto:hello@freshcontext.dev">hello@freshcontext.dev</a>
-          <a class="btn btn--ghost" href="/contact">Contact page</a>
-        </div>
-        <p class="small sub mt-s">
-          Strategic partnership and acquisition discussions:
-          <a href="mailto:corpdev@freshcontext.dev">corpdev@freshcontext.dev</a>.
-          Vulnerability reports: <a href="mailto:security@freshcontext.dev">security@freshcontext.dev</a>.
-        </p>
-      </div>
-    </section>
-
   </main>
 
   <footer class="footer">
@@ -467,24 +176,22 @@
       <div class="footer-inner">
         <div>
           <b>FreshContext</b>
-          <span class="sub">Context integrity infrastructure for AI systems and agents.</span>
+          <span class="sub">Checks whether your support bot's answers still match the sources they came from.</span>
         </div>
         <nav aria-label="Footer">
-          <a href="/context-integrity">Context integrity</a>
+          <a href="/snapshot">Free Snapshot</a>
+          <a href="/how-it-works">How it works</a>
+          <a href="/pricing">Pricing</a>
+          <a href="/contact">Contact</a>
+          <a href="/legacy">Legacy package</a>
           <a href="/spec">Specification</a>
-          <a href="/context-integrity-demo">Demo</a>
-          <a href="https://github.com/PrinceGabriel-lgtm/freshcontext-mcp">GitHub</a>
-          <a href="https://www.npmjs.com/package/freshcontext-mcp">npm</a>
-          <a href="mailto:security@freshcontext.dev">Security</a>
           <a href="/terms">Terms</a>
           <a href="/privacy">Privacy</a>
           <a href="/accessibility">Accessibility</a>
-          <a href="/contact">Contact</a>
+          <a href="mailto:security@freshcontext.dev">Security</a>
         </nav>
       </div>
-      <p class="footer-legal">
-        MIT licensed. Built by Immanuel Gabriel.
-      </p>
+      <p class="footer-legal">Immanuel Gabriel, trading as FreshContext · Tsumeb, Namibia · <a href="mailto:immanuel@freshcontext.dev">immanuel@freshcontext.dev</a></p>
     </div>
   </footer>
 
