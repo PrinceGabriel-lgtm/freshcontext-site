@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Security and Evidence Pack verification | FreshContext</title>
+  <meta name="description" content="Verify FreshContext Evidence Pack signatures and understand what the verification does and does not prove." />
+  <link rel="canonical" href="https://freshcontext.dev/security" />
+  <meta name="theme-color" content="#0b3325" />
+  <meta property="og:site_name" content="FreshContext" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://freshcontext.dev/security" />
+  <meta property="og:title" content="Security and Evidence Pack verification | FreshContext" />
+  <meta property="og:description" content="Verify FreshContext Evidence Pack signatures and understand the trust model." />
+  <meta property="og:image" content="https://freshcontext.dev/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Security and Evidence Pack verification | FreshContext" />
+  <meta name="twitter:description" content="Verify FreshContext Evidence Pack signatures and understand the trust model." />
+  <meta name="twitter:image" content="https://freshcontext.dev/og.png" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b3325'/%3E%3Cpath d='M15 20h34M15 32h22M15 44h30' stroke='%23ffffff' stroke-width='4.5' stroke-linecap='round'/%3E%3Ccircle cx='43' cy='32' r='5' fill='%237fd8ae'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="/site.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="nav">
+    <nav class="nav-inner" aria-label="Primary">
+      <a href="/" class="brand" aria-label="FreshContext home">
+        <span class="brand-mark" aria-hidden="true">FC</span>
+        <span>FreshContext</span>
+      </a>
+      <div class="nav-links">
+        <a href="/how-it-works">How it works</a>
+        <a href="/pricing">Pricing</a>
+        <a href="/legacy">Legacy</a>
+        <a href="/contact">Contact</a>
+        <a class="btn btn--small" href="/snapshot">Free Snapshot</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="band">
+      <div class="wrap prose">
+        <div class="eyebrow">Security and verification</div>
+        <h1>Verify a FreshContext Evidence Pack.</h1>
+        <p class="lede">FreshContext Evidence Packs use Ed25519 signatures. The signature proves integrity relative to the signing key. The public fingerprint on this page is the independent trust anchor that lets you check that the key in a pack is the FreshContext key we published.</p>
+        <p class="sub">Published: 29 September 2026.</p>
+
+        <section>
+          <h2>Current Evidence Pack signing fingerprint</h2>
+          <div class="card">
+            <p class="small sub">Algorithm</p>
+            <p><strong>Ed25519</strong></p>
+            <p class="small sub">Fingerprint</p>
+            <pre><code>bcf5 ec32 3a79 1129 b0bf c262 9cb3 979a</code></pre>
+          </div>
+        </section>
+
+        <section>
+          <h2>How to verify a pack</h2>
+          <p>Put every file from the Evidence Pack in one folder and run the verifier included in the pack with Node.js 18 or later:</p>
+          <div class="cmd">
+            <div class="cmd-bar"><span>Strict fingerprint check</span></div>
+            <pre><code>node verify-evidence.mjs . --expect "bcf5 ec32 3a79 1129 b0bf c262 9cb3 979a"</code></pre>
+          </div>
+          <p>The verifier needs no network connection. A valid result should show that the signed manifest matches the key and that every file covered by the manifest is unchanged.</p>
+        </section>
+
+        <section>
+          <h2>What VERIFIED means</h2>
+          <div class="rows">
+            <div class="row">
+              <h3>Signature integrity</h3>
+              <p>The Evidence Pack manifest verifies with the Ed25519 key whose fingerprint appears above, and the signed files match the hashes and sizes recorded in that manifest.</p>
+            </div>
+            <div class="row">
+              <h3>Evidence trace</h3>
+              <p>When the observation log is included, the verifier also checks the exact source URL, recorded fetch time and page fingerprint used by the report, and checks quoted evidence against the normalized visible page text FreshContext recorded.</p>
+            </div>
+            <div class="row">
+              <h3>Identity</h3>
+              <p>The key inside a pack does not authenticate itself. Comparing its fingerprint with this independently published page is what binds that key to FreshContext.</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Verification outcomes</h2>
+          <div class="tablewrap">
+            <table>
+              <thead><tr><th>Result</th><th>Meaning</th></tr></thead>
+              <tbody>
+                <tr><td><strong>VERIFIED</strong></td><td>Signed-file integrity passed and the included evidence trace passed.</td></tr>
+                <tr><td><strong>VERIFIED-INTEGRITY ONLY</strong></td><td>The signed files are intact, but the pack did not include enough observation evidence for full quote tracing.</td></tr>
+                <tr><td><strong>FAILED</strong></td><td>The signature, expected key, file integrity or evidence trace failed. Do not rely on the pack without investigation.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h2>What an Evidence Pack does not prove</h2>
+          <ul>
+            <li>It is not an independent timestamp authority.</li>
+            <li>It is not an independent archive of the public web.</li>
+            <li>It does not prove what a source said before or after FreshContext's recorded read.</li>
+            <li>It does not establish the truth of unsupported reasoning, opinions, or claim types outside the audit's scope.</li>
+            <li>A pack received together with a substituted key and substituted verifier is not self-authenticating; the published fingerprint above is the independent check.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Report a security issue</h2>
+          <p>Email <a href="mailto:security@freshcontext.dev">security@freshcontext.dev</a>. Please do not include passwords, API keys, private customer data or exploit payloads in the first message. We can arrange an appropriate secure channel if needed.</p>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-inner">
+        <div>
+          <b>FreshContext</b>
+          <span class="sub">Checks whether your support bot's answers still match the sources they came from.</span>
+        </div>
+        <nav aria-label="Footer">
+          <a href="/snapshot">Free Snapshot</a>
+          <a href="/how-it-works">How it works</a>
+          <a href="/pricing">Pricing</a>
+          <a href="/contact">Contact</a>
+          <a href="/legacy">Legacy package</a>
+          <a href="/spec">Specification</a>
+          <a href="/terms">Terms</a>
+          <a href="/privacy">Privacy</a>
+          <a href="/accessibility">Accessibility</a>
+          <a href="/security">Security</a>
+        </nav>
+      </div>
+      <p class="footer-legal">Immanuel Gabriel, trading as FreshContext · Tsumeb, Namibia · <a href="mailto:immanuel@freshcontext.dev">immanuel@freshcontext.dev</a></p>
+    </div>
+  </footer>
+
+  <script src="/site.js"></script>
+</body>
+</html>
