@@ -1,0 +1,245 @@
+/* Context Integrity Proof — page-local styles. */
+
+.proof-hero {
+  padding-block: clamp(64px, 8vw, 108px);
+  background:
+    linear-gradient(135deg, rgba(14, 90, 64, 0.04), transparent 42%),
+    var(--paper);
+  border-bottom: 1px solid var(--line);
+}
+
+.proof-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.65fr);
+  gap: 48px;
+  align-items: center;
+}
+
+.proof-callout {
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r);
+  background: var(--panel);
+  padding: 22px;
+}
+
+.proof-callout p { color: var(--muted); }
+.proof-callout strong { color: var(--ink); }
+.proof-kicker {
+  margin: 0 0 8px;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--green-deep) !important;
+}
+
+.proof-scenarios {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.proof-scenario {
+  appearance: none;
+  text-align: left;
+  font: inherit;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 15px;
+  cursor: pointer;
+}
+
+.proof-scenario:hover { border-color: var(--line-strong); }
+.proof-scenario.is-active {
+  border-color: var(--green);
+  box-shadow: inset 0 0 0 1px var(--green);
+  background: var(--green-wash);
+}
+.proof-scenario > span {
+  display: block;
+  font-family: var(--mono);
+  color: var(--muted);
+  font-size: 11px;
+  margin-bottom: 8px;
+}
+.proof-scenario strong { display: block; margin-bottom: 4px; }
+.proof-scenario small { display: block; color: var(--muted); line-height: 1.35; }
+
+.proof-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.15fr) minmax(260px, 0.8fr);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  overflow: hidden;
+  background: var(--paper);
+}
+
+.proof-stage > section {
+  padding: 22px;
+  min-width: 0;
+}
+.proof-stage > section + section { border-left: 1px solid var(--line); }
+
+.proof-step-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.proof-step-label > span {
+  display: inline-grid;
+  place-items: center;
+  width: 21px;
+  height: 21px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--green-deep);
+}
+
+.proof-facts,
+.proof-source-meta {
+  margin: 0;
+}
+.proof-facts > div,
+.proof-source-meta > div {
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr);
+  gap: 12px;
+  padding: 8px 0;
+  border-top: 1px solid var(--line);
+}
+.proof-facts dt,
+.proof-source-meta dt {
+  font-size: 12px;
+  color: var(--muted);
+}
+.proof-facts dd,
+.proof-source-meta dd {
+  margin: 0;
+  font-size: 13.5px;
+}
+
+.proof-context blockquote {
+  margin: 0 0 18px;
+  padding: 14px 16px;
+  border-left: 3px solid var(--green);
+  background: var(--panel);
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.45;
+}
+
+.proof-source {
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+}
+.proof-source > p { font-size: 14px; color: var(--muted); }
+.proof-source-name {
+  margin-bottom: 4px;
+  color: var(--ink) !important;
+  font-weight: 600;
+}
+
+.proof-verdict {
+  background: var(--graphite);
+  color: var(--ink-invert);
+}
+.proof-verdict .proof-step-label { color: var(--muted-invert); }
+.proof-verdict .proof-step-label > span { border-color: var(--line-invert); color: var(--green-lift); }
+.proof-verdict h3 { color: var(--ink-invert); }
+.proof-verdict p { color: var(--muted-invert); }
+.proof-verdict-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.proof-verdict-state {
+  display: inline-block;
+  padding: 4px 9px;
+  border: 1px solid var(--line-invert);
+  border-radius: 4px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
+.proof-verdict-state[data-state="CURRENT"] { color: var(--green-lift); border-color: rgba(127, 216, 174, 0.55); }
+.proof-verdict-state[data-state="CHANGED"] { color: #f4d98d; border-color: rgba(244, 217, 141, 0.5); }
+.proof-verdict-state[data-state="UNRESOLVED"] { color: #f3b3ae; border-color: rgba(243, 179, 174, 0.5); }
+.proof-next {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line-invert);
+  font-size: 13.5px;
+}
+
+.proof-checks,
+.proof-record {
+  margin-top: 18px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--paper);
+}
+.proof-checks h3,
+.proof-record h3 { margin-bottom: 16px; }
+
+.proof-check-state {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 3px;
+  border: 1px solid var(--line-strong);
+  white-space: nowrap;
+}
+.proof-check-state[data-state="PASS"] { color: var(--green-deep); background: var(--green-wash); }
+.proof-check-state[data-state="FAIL"] { color: var(--red); background: rgba(163, 55, 47, 0.06); border-color: rgba(163, 55, 47, 0.25); }
+.proof-check-state[data-state="REVIEW"] { color: var(--gold-deep); background: var(--gold-wash); border-color: rgba(125, 98, 32, 0.26); }
+
+.proof-record-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+.proof-record pre { max-height: 360px; }
+
+.proof-boundary-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 48px;
+  align-items: start;
+}
+.proof-boundary-list p { color: var(--muted-invert); }
+.proof-boundary-list strong { color: var(--ink-invert); }
+
+.mt-l { margin-top: 24px; }
+
+@media (max-width: 940px) {
+  .proof-hero-grid,
+  .proof-boundary-grid { grid-template-columns: 1fr; }
+  .proof-scenarios { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .proof-stage { grid-template-columns: 1fr; }
+  .proof-stage > section + section { border-left: 0; border-top: 1px solid var(--line); }
+}
+
+@media (max-width: 560px) {
+  .proof-scenarios { grid-template-columns: 1fr; }
+  .proof-record-head { align-items: stretch; flex-direction: column; }
+  .proof-facts > div,
+  .proof-source-meta > div { grid-template-columns: 1fr; gap: 2px; }
+}
