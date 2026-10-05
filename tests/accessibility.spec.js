@@ -8,6 +8,7 @@ const root = join(__dirname, "..");
 const pages = [
   "/",
   "/proof",
+  "/failure-atlas",
   "/snapshot",
   "/how-it-works",
   "/pricing",
