@@ -4,21 +4,21 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Contact | FreshContext</title>
-  <meta name="description" content="Talk to FreshContext about a Stale Answer Audit or Monitoring. Mail reaches a person." />
+  <meta name="description" content="Request a FreshContext Context Integrity Assessment or discuss an integration. Mail reaches the founder directly." />
   <link rel="canonical" href="https://freshcontext.dev/contact" />
   <meta name="theme-color" content="#0b3325" />
   <meta property="og:site_name" content="FreshContext" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://freshcontext.dev/contact" />
   <meta property="og:title" content="Contact | FreshContext" />
-  <meta property="og:description" content="Talk to FreshContext about a Stale Answer Audit or Monitoring. Mail reaches a person." />
+  <meta property="og:description" content="Request a Context Integrity Assessment or discuss an integration with FreshContext." />
   <meta property="og:image" content="https://freshcontext.dev/og.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="FreshContext: check whether your support bot's answers still match your sources" />
+  <meta property="og:image:alt" content="FreshContext context integrity for AI workflows" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Contact | FreshContext" />
-  <meta name="twitter:description" content="Talk to FreshContext about a Stale Answer Audit or Monitoring. Mail reaches a person." />
+  <meta name="twitter:description" content="Request a Context Integrity Assessment or discuss an integration with FreshContext." />
   <meta name="twitter:image" content="https://freshcontext.dev/og.png" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b3325'/%3E%3Cpath d='M15 20h34M15 32h22M15 44h30' stroke='%23ffffff' stroke-width='4.5' stroke-linecap='round'/%3E%3Ccircle cx='43' cy='32' r='5' fill='%237fd8ae'/%3E%3C/svg%3E" />
   <link rel="stylesheet" href="/site.css" />
@@ -37,7 +37,7 @@
         <a href="/pricing">Pricing</a>
         <a href="/legacy">Legacy</a>
         <a href="/contact" aria-current="page">Contact</a>
-        <a class="btn btn--small" href="/snapshot">Free Snapshot</a>
+        <a class="btn btn--small" href="/contact#audit">Request assessment</a>
       </div>
     </nav>
   </header>
@@ -46,32 +46,33 @@
     <section class="band page-hd">
       <div class="wrap request-layout">
         <div>
-          <p class="eyebrow">Contact</p>
-          <h1>Talk to a person.</h1>
-          <p class="lede">FreshContext is run by its founder. Mail reaches a person, not a queue.</p>
+          <p class="eyebrow">Commercial enquiry</p>
+          <h1>Tell us the workflow you want to assess.</h1>
+          <p class="lede">FreshContext is founder-led. Qualified commercial enquiries reach the person who will scope the work, not a sales queue.</p>
           <h2 class="form-title mt-l">Write to us</h2>
           <div class="rows">
-            <div class="row"><h3>Audits and monitoring</h3><p><a href="mailto:immanuel@freshcontext.dev">immanuel@freshcontext.dev</a>, or the form on this page.</p></div>
+            <div class="row"><h3>Assessments and integrations</h3><p><a href="mailto:immanuel@freshcontext.dev">immanuel@freshcontext.dev</a>, or use the form on this page.</p></div>
             <div class="row"><h3>General</h3><p><a href="mailto:hello@freshcontext.dev">hello@freshcontext.dev</a></p></div>
-            <div class="row"><h3>Security reports</h3><p><a href="mailto:security@freshcontext.dev">security@freshcontext.dev</a>. Please don't put exploit details in public issues.</p></div>
-            <div class="row"><h3>Partnerships</h3><p><a href="mailto:corpdev@freshcontext.dev">corpdev@freshcontext.dev</a></p></div>
+            <div class="row"><h3>Security reports</h3><p><a href="mailto:security@freshcontext.dev">security@freshcontext.dev</a>. Please do not put exploit details in public issues.</p></div>
+            <div class="row"><h3>Partnerships and strategic discussions</h3><p><a href="mailto:corpdev@freshcontext.dev">corpdev@freshcontext.dev</a></p></div>
           </div>
-          <p class="note mt-l"><strong>Please don't send customer data here.</strong> Bot exports and customer conversations go through a private upload once an Order is agreed, never by email or this form.</p>
+          <p class="note mt-l"><strong>Please do not send customer data here.</strong> Customer conversations, exports, private documents and credentials belong only in an agreed secure route after scope and permissions are established.</p>
         </div>
 
         <div class="form-card" id="audit">
           <form class="request-form" id="audit-form" novalidate data-service="audit" data-intake-url="https://intake.freshcontext.dev/applications" data-turnstile-sitekey="0x4AAAAAAFDeJSTJAjVtkajh">
-            <h2 class="form-title">Ask about an audit</h2>
+            <h2 class="form-title">Request a Context Integrity Assessment</h2>
+            <p class="sub small">Current fixed scope starts at US$25,000 for one defined workflow. See <a href="/pricing">pricing and scope</a>.</p>
             <div class="form-grid">
               <div><label for="a-name">Your name</label><input id="a-name" name="name" type="text" autocomplete="name" required maxlength="120" /></div>
               <div><label for="a-email">Work email</label><input id="a-email" name="email" type="email" autocomplete="email" required maxlength="254" /></div>
               <div><label for="a-company">Company</label><input id="a-company" name="company" type="text" autocomplete="organization" required maxlength="160" /></div>
-              <div><label for="a-role">Your role</label><input id="a-role" name="role" type="text" autocomplete="organization-title" required maxlength="120" placeholder="e.g. Head of Support" /></div>
+              <div><label for="a-role">Your role</label><input id="a-role" name="role" type="text" autocomplete="organization-title" required maxlength="120" placeholder="e.g. VP Support, Head of AI, CTO" /></div>
             </div>
-            <label for="a-about">Tell us about your bot</label>
-            <textarea id="a-about" name="workflow" rows="5" required maxlength="900" placeholder="Which bot (e.g. Intercom Fin), roughly how many conversations a month, and where its answers come from." aria-describedby="a-about-help"></textarea>
-            <p class="field-help" id="a-about-help">A few sentences is plenty. No customer conversations or exports, please.</p>
-            <label class="check-row"><input id="a-ack" name="acknowledgement" type="checkbox" required /> <span>I understand this is an enquiry, not an order. Work starts only after a signed Order and the first invoice is paid.</span></label>
+            <label for="a-about">Describe the workflow and the consequence of bad context</label>
+            <textarea id="a-about" name="workflow" rows="5" required maxlength="900" placeholder="Where does context come from, what system or person relies on it next, and what happens if it is stale, mismatched, conflicted or unsupported?" aria-describedby="a-about-help"></textarea>
+            <p class="field-help" id="a-about-help">A few sentences is enough. Do not paste customer conversations, credentials or private data.</p>
+            <label class="check-row"><input id="a-ack" name="acknowledgement" type="checkbox" required /> <span>I understand this is an enquiry, not an order. Work starts only after an agreed scope, signed commercial terms and the required commencement payment or approved procurement arrangement.</span></label>
             <div class="challenge" data-challenge hidden></div>
             <p class="field-help" data-help aria-live="polite">Sent over HTTPS to FreshContext. See the <a href="/privacy">privacy notice</a> for how requests are stored and when they are deleted.</p>
             <div class="actions"><button class="btn btn--large" type="submit" data-submit data-label="Send enquiry">Send enquiry</button></div>
@@ -79,7 +80,7 @@
           <div class="form-done" data-done hidden tabindex="-1">
             <p class="eyebrow">Received</p>
             <h2 data-done-title>Your enquiry is in.</h2>
-            <p data-done-text>We'll reply to your work email, usually with a few questions and a draft scope.</p>
+            <p data-done-text>We will reply to your work email, usually with qualification questions or a draft scope if the workflow fits.</p>
             <p class="sub small">Your reference: <span class="mono" data-reference></span></p>
             <div class="actions" data-mail-actions hidden><a class="btn" data-mail href="mailto:immanuel@freshcontext.dev">Open the email</a></div>
           </div>
@@ -93,10 +94,9 @@
       <div class="footer-inner">
         <div>
           <b>FreshContext</b>
-          <span class="sub">Checks whether your support bot's answers still match the sources they came from.</span>
+          <span class="sub">Context integrity for AI-assisted workflows before downstream reliance.</span>
         </div>
         <nav aria-label="Footer">
-          <a href="/snapshot">Free Snapshot</a>
           <a href="/how-it-works">How it works</a>
           <a href="/pricing">Pricing</a>
           <a href="/contact">Contact</a>

@@ -3,22 +3,22 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FreshContext: the Stale Answer Audit for support bots</title>
-  <meta name="description" content="Check whether your support bot's answers still match the live sources they came from. Free Help-centre Snapshot; fixed-price Stale Answer Audit with evidence for every finding." />
+  <title>FreshContext — Context Integrity for AI Workflows</title>
+  <meta name="description" content="FreshContext evaluates whether context entering an AI-assisted workflow remains appropriate to rely on for the exact task being performed." />
   <link rel="canonical" href="https://freshcontext.dev/" />
   <meta name="theme-color" content="#0b3325" />
   <meta property="og:site_name" content="FreshContext" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://freshcontext.dev/" />
-  <meta property="og:title" content="FreshContext: the Stale Answer Audit for support bots" />
-  <meta property="og:description" content="Check whether your support bot's answers still match the live sources they came from. Free Help-centre Snapshot; fixed-price Stale Answer Audit with evidence for every finding." />
+  <meta property="og:title" content="FreshContext — Context Integrity for AI Workflows" />
+  <meta property="og:description" content="Evaluate whether retrieved, stored or tool-produced context is still appropriate to rely on before a model, agent, workflow or human decision uses it." />
   <meta property="og:image" content="https://freshcontext.dev/og.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="FreshContext: check whether your support bot's answers still match your sources" />
+  <meta property="og:image:alt" content="FreshContext context integrity for AI workflows" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="FreshContext: the Stale Answer Audit for support bots" />
-  <meta name="twitter:description" content="Check whether your support bot's answers still match the live sources they came from. Free Help-centre Snapshot; fixed-price Stale Answer Audit with evidence for every finding." />
+  <meta name="twitter:title" content="FreshContext — Context Integrity for AI Workflows" />
+  <meta name="twitter:description" content="Evaluate context before downstream AI or human reliance." />
   <meta name="twitter:image" content="https://freshcontext.dev/og.png" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b3325'/%3E%3Cpath d='M15 20h34M15 32h22M15 44h30' stroke='%23ffffff' stroke-width='4.5' stroke-linecap='round'/%3E%3Ccircle cx='43' cy='32' r='5' fill='%237fd8ae'/%3E%3C/svg%3E" />
   <link rel="stylesheet" href="/site.css" />
@@ -37,7 +37,7 @@
         <a href="/pricing">Pricing</a>
         <a href="/legacy">Legacy</a>
         <a href="/contact">Contact</a>
-        <a class="btn btn--small" href="/snapshot">Free Snapshot</a>
+        <a class="btn btn--small" href="/contact#audit">Request assessment</a>
       </div>
     </nav>
   </header>
@@ -46,30 +46,30 @@
     <section class="hero">
       <div class="wrap hero-grid">
         <div>
-          <p class="eyebrow">The Stale Answer Audit</p>
-          <h1>Check whether your support bot's answers still match your sources.</h1>
-          <p class="lede">Your help centre changes. Prices move, plans are renamed, pages are retired. An answer that was right last quarter can be wrong today, and the bot keeps giving it. We check a sample of your bot's real answers against the live pages they rely on, and show you the evidence for each finding.</p>
+          <p class="eyebrow">Context integrity before reliance</p>
+          <h1>Check whether the context entering your AI workflow is still appropriate to rely on.</h1>
+          <p class="lede">FreshContext evaluates retrieved, stored and tool-produced information against explicit identity, applicability, time, provenance, source and policy boundaries before a model, agent, workflow or human decision depends on it.</p>
           <div class="actions mt-l">
-            <a class="btn btn--large" href="/snapshot">Request a free Snapshot</a>
-            <a class="btn btn--ghost btn--large" href="/how-it-works">See how the audit works</a>
+            <a class="btn btn--large" href="/contact#audit">Request a Context Integrity Assessment</a>
+            <a class="btn btn--ghost btn--large" href="/how-it-works">See how it works</a>
           </div>
-          <p class="hero-note">Free, from your public help centre only. A person checks every finding before you see it.</p>
+          <p class="hero-note">Fixed-scope, human-reviewed engagements. No platform migration is required for the initial assessment.</p>
         </div>
 
         <figure class="evidence" aria-labelledby="evidence-caption">
           <div class="evidence-hd">
-            <span>Example finding</span>
+            <span>Example context finding</span>
             <span class="verdict verdict--changed">Changed</span>
           </div>
           <dl class="evidence-body">
-            <div><dt>Customer asked</dt><dd>How much is the Pro plan?</dd></div>
-            <div><dt>Bot answered</dt><dd>Pro is <mark class="was">$49</mark> per user per month.</dd></div>
-            <div><dt>Live source says</dt><dd>&ldquo;Pro &mdash; <mark class="now">$59</mark> per seat / month, billed annually&rdquo;</dd></div>
+            <div><dt>Task context</dt><dd>Customer asks for the current Pro-plan price.</dd></div>
+            <div><dt>Carried answer</dt><dd>Pro is <mark class="was">$49</mark> per user per month.</dd></div>
+            <div><dt>Current source</dt><dd>&ldquo;Pro — <mark class="now">$59</mark> per seat / month, billed annually&rdquo;</dd></div>
+            <div><dt>Applicability</dt><dd>Same product and plan; current pricing period.</dd></div>
             <div><dt>Source</dt><dd class="mono">help.example.com/pricing</dd></div>
-            <div><dt>Read at</dt><dd class="mono">2026-09-28 09:14 UTC</dd></div>
-            <div><dt>Checked by</dt><dd>A person, against the page</dd></div>
+            <div><dt>Review state</dt><dd>Changed — evidence preserved for review</dd></div>
           </dl>
-          <figcaption id="evidence-caption">An illustrative finding, not a real customer's. Every finding in a report has this shape: the answer, the claim, the passage that decides it, and when we read it.</figcaption>
+          <figcaption id="evidence-caption">Illustrative only. FreshContext separates the observed source, the supported claim, the applicable task context and the decision made from that evidence.</figcaption>
         </figure>
       </div>
     </section>
@@ -78,15 +78,15 @@
       <div class="wrap">
         <div class="head">
           <div>
-            <p class="eyebrow">Why answers go stale</p>
-            <h2>The bot didn't change. The pages under it did.</h2>
+            <p class="eyebrow">The problem</p>
+            <h2>Relevant is not the same as ready to rely on.</h2>
           </div>
-          <p class="sub">Support bots answer from help-centre articles, docs and policy pages. Nobody tells the bot when those pages change, and nobody tells you which answers the change broke.</p>
+          <p class="sub">A retrieval result can be semantically relevant and still belong to the wrong product, plan, version, geography, time period or source state. FreshContext evaluates that boundary explicitly.</p>
         </div>
         <div class="cols cols--3">
-          <div class="point"><span class="point-n" aria-hidden="true">01</span><h3>Prices and limits move</h3><p>A plan goes from $49 to $59, a free tier drops from 5 seats to 3. The old number lives on in answers.</p></div>
-          <div class="point"><span class="point-n" aria-hidden="true">02</span><h3>Plans and versions are renamed</h3><p>&ldquo;Pro&rdquo; becomes &ldquo;Growth&rdquo;, v2 is retired. The bot still recommends what no longer exists.</p></div>
-          <div class="point"><span class="point-n" aria-hidden="true">03</span><h3>Pages retire and links die</h3><p>Answers point customers at pages that now 404, or quietly redirect to the home page.</p></div>
+          <div class="point"><span class="point-n" aria-hidden="true">01</span><h3>Context changes</h3><p>Prices, plans, policies, releases and source pages move while stored answers and memories remain.</p></div>
+          <div class="point"><span class="point-n" aria-hidden="true">02</span><h3>Scope matters</h3><p>Fresh information can still be wrong for the exact entity, version, region, plan or task being handled.</p></div>
+          <div class="point"><span class="point-n" aria-hidden="true">03</span><h3>Evidence matters</h3><p>A decision should preserve what was observed, when it was read, what it supported and why it was accepted, held or escalated.</p></div>
         </div>
       </div>
     </section>
@@ -95,29 +95,29 @@
       <div class="wrap">
         <div class="head">
           <div>
-            <p class="eyebrow">Three steps, each one optional</p>
-            <h2>Start free. Go deeper only if it's worth it.</h2>
+            <p class="eyebrow">Commercial engagements</p>
+            <h2>Assess first. Integrate where the control is justified.</h2>
           </div>
-          <p class="sub">The Snapshot costs you nothing and shows you what kind of problems your pages have. The audit checks what your bot actually said.</p>
+          <p class="sub">FreshContext engagements are scoped around the workflow and decision being protected, not seat counts.</p>
         </div>
         <ol class="track">
-          <li class="track-step">
-            <p class="track-label">Step 1 · Free</p>
-            <h3>Help-centre Snapshot</h3>
-            <p>We read your public help centre and send up to 10 issues a person has checked: broken links, links that now land on the home page, retired pages still linked, and plain contradictions between pages.</p>
-            <a href="/snapshot">Request a Snapshot</a>
-          </li>
           <li class="track-step track-step--main">
-            <p class="track-label">Step 2 · From US$4,500 (US$2,500 founding)</p>
-            <h3>Stale Answer Audit</h3>
-            <p>Up to 200 (or 500) of your bot's real answers, each checked against the live sources it relies on. You get your stale answer rate, the evidence for every finding, and a source register with re-check dates.</p>
-            <a href="/pricing">See scope and prices</a>
+            <p class="track-label">One workflow · US$25,000 fixed</p>
+            <h3>Context Integrity Assessment</h3>
+            <p>Independent assessment of one defined AI, RAG, agent, support, retrieval or knowledge workflow, including reviewed findings, evidence, remediation priorities and an executive readout.</p>
+            <a href="/pricing">See scope and terms</a>
           </li>
           <li class="track-step">
-            <p class="track-label">Step 3 · After an audit</p>
-            <h3>Monitoring</h3>
-            <p>Each month we re-check the same sources and send a short report of what changed, so you fix answers before customers find them.</p>
-            <a href="/pricing#monitoring">How monitoring works</a>
+            <p class="track-label">Two workflows · US$50,000 fixed</p>
+            <h3>Multi-Workflow Assessment</h3>
+            <p>Compare two materially distinct workflows, map common and workflow-specific integrity risks, and receive an integration architecture recommendation.</p>
+            <a href="/pricing">See scope and terms</a>
+          </li>
+          <li class="track-step">
+            <p class="track-label">Implementation · From US$125,000</p>
+            <h3>Embedded Context Integrity Integration</h3>
+            <p>Place FreshContext at one defined decision point with agreed architecture, configuration, acceptance criteria, testing, documentation and handover.</p>
+            <a href="/pricing">See implementation scope</a>
           </li>
         </ol>
       </div>
@@ -127,18 +127,18 @@
       <div class="wrap">
         <div class="head">
           <div>
-            <p class="eyebrow">Rules we don't bend</p>
-            <h2>An answer we can't settle is never called fine.</h2>
+            <p class="eyebrow">Claim discipline</p>
+            <h2>We keep evidence, uncertainty and capability boundaries explicit.</h2>
           </div>
-          <p class="sub">An audit is only useful if you can trust its &ldquo;all clear&rdquo;. So the method is built to say &ldquo;we couldn't tell&rdquo; rather than guess.</p>
+          <p class="sub">FreshContext is designed to support reviewable decisions, not to manufacture certainty.</p>
         </div>
         <div class="rules">
-          <div><h3>Unclear stays unclear</h3><p>If the source can't settle a claim, the report says so. It is never counted as current.</p></div>
-          <div><h3>A person checks every finding</h3><p>Nothing reaches you that we haven't opened and checked against the page ourselves.</p></div>
-          <div><h3>Every read is logged</h3><p>Each finding carries the page, the passage and the time we read it, so you can check it yourself.</p></div>
-          <div><h3>No AI judge unless you allow it</h3><p>Checks are rule-based. An optional Anthropic-only AI step for unclear answers stays off unless your signed Order allows it.</p></div>
-          <div><h3>Public pages, your permission</h3><p>The Snapshot reads only public pages and respects robots.txt. We never query your bot without permission.</p></div>
-          <div><h3>Independent of your vendor</h3><p>We don't sell the bot, so we have no reason to grade it kindly.</p></div>
+          <div><h3>Unresolved stays unresolved</h3><p>If the available evidence cannot settle a claim, FreshContext does not quietly convert uncertainty into approval.</p></div>
+          <div><h3>Applicability is explicit</h3><p>Identity, version, time, source role and workflow policy can matter independently of semantic similarity.</p></div>
+          <div><h3>Evidence is preserved</h3><p>Where supported, the decision record retains the observation, timing, scope and reasoning needed for later review or replay.</p></div>
+          <div><h3>Human review remains visible</h3><p>The current commercial assessment is human-reviewed. We do not present it as a fully autonomous operating service.</p></div>
+          <div><h3>Signatures do not create truth</h3><p>A signed record can protect integrity and attribution; it does not make the original source factually correct.</p></div>
+          <div><h3>Deployment claims stay bounded</h3><p>Assessment, integration and production acceptance are separate scopes with separate evidence and obligations.</p></div>
         </div>
       </div>
     </section>
@@ -146,12 +146,12 @@
     <section class="band">
       <div class="wrap cols cols--2 split">
         <div>
-          <p class="eyebrow">Why not your help desk's own tool?</p>
-          <h2>They check the articles. We check the answers.</h2>
+          <p class="eyebrow">Where it fits</p>
+          <h2>Between information arriving and the next system relying on it.</h2>
         </div>
         <div class="stack">
-          <p>Intercom's Fin and Zendesk's knowledge tools now flag outdated or conflicting articles inside their own knowledge base. That is useful, and we recommend it.</p>
-          <p>We check something different: what your bot actually told customers, against the live sources it relied on, including pricing pages, docs and policies outside the help centre. And we are independent of the vendor whose bot is being checked.</p>
+          <p>FreshContext is designed as a reusable context-integrity layer that can be integrated into different AI, retrieval, agent and human-review workflows through bounded interfaces and workflow-specific configuration.</p>
+          <p>It does not replace vector databases, agent frameworks, help desks, model guardrails or governance systems. It addresses the narrower question of whether supported context is appropriate to rely on at a defined decision point.</p>
           <p><a href="/how-it-works">Read the method</a></p>
         </div>
       </div>
@@ -160,12 +160,12 @@
     <section class="band band--tint">
       <div class="wrap cta">
         <div>
-          <h2>See what your help centre is hiding.</h2>
-          <p class="sub">Send us one public URL. If we find issues worth your time, you get up to 10, each checked by a person, with the link to see it yourself.</p>
+          <h2>Tell us where context enters the workflow, and what happens if it is wrong.</h2>
+          <p class="sub">We will tell you whether the problem fits a bounded Context Integrity Assessment before any commercial work begins.</p>
         </div>
         <div class="actions">
-          <a class="btn btn--large" href="/snapshot">Request a free Snapshot</a>
-          <a class="btn btn--ghost btn--large" href="/pricing">Prices</a>
+          <a class="btn btn--large" href="/contact#audit">Request an assessment</a>
+          <a class="btn btn--ghost btn--large" href="/pricing">Pricing</a>
         </div>
       </div>
     </section>
@@ -176,10 +176,9 @@
       <div class="footer-inner">
         <div>
           <b>FreshContext</b>
-          <span class="sub">Checks whether your support bot's answers still match the sources they came from.</span>
+          <span class="sub">Context integrity for AI-assisted workflows before downstream reliance.</span>
         </div>
         <nav aria-label="Footer">
-          <a href="/snapshot">Free Snapshot</a>
           <a href="/how-it-works">How it works</a>
           <a href="/pricing">Pricing</a>
           <a href="/contact">Contact</a>
