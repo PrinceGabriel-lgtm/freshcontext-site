@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Context Integrity Failure Atlas — FreshContext</title>
+  <meta name="description" content="A synthetic reference atlas of eight context-integrity failure patterns that can make relevant information inappropriate to rely on for a specific AI-assisted task." />
+  <link rel="canonical" href="https://freshcontext.dev/failure-atlas" />
+  <meta name="theme-color" content="#0b3325" />
+  <meta property="og:site_name" content="FreshContext" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://freshcontext.dev/failure-atlas" />
+  <meta property="og:title" content="Context Integrity Failure Atlas — FreshContext" />
+  <meta property="og:description" content="Eight synthetic patterns showing how context can remain relevant while failing the boundary required for reliance." />
+  <meta property="og:image" content="https://freshcontext.dev/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b3325'/%3E%3Cpath d='M15 20h34M15 32h22M15 44h30' stroke='%23ffffff' stroke-width='4.5' stroke-linecap='round'/%3E%3Ccircle cx='43' cy='32' r='5' fill='%237fd8ae'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="/site.css" />
+  <link rel="stylesheet" href="/failure-atlas.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="nav">
+    <nav class="nav-inner" aria-label="Primary">
+      <a href="/" class="brand" aria-label="FreshContext home">
+        <span class="brand-mark" aria-hidden="true">FC</span>
+        <span>FreshContext</span>
+      </a>
+      <div class="nav-links">
+        <a href="/proof">Proof</a>
+        <a href="/failure-atlas" aria-current="page">Failure Atlas</a>
+        <a href="/how-it-works">How it works</a>
+        <a href="/pricing">Pricing</a>
+        <a href="/contact">Contact</a>
+        <a class="btn btn--small" href="/contact#audit">Request assessment</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="atlas-hero">
+      <div class="wrap atlas-hero-grid">
+        <div>
+          <p class="eyebrow">Context Integrity Failure Atlas</p>
+          <h1>Eight ways relevant context can still fail the decision in front of it.</h1>
+          <p class="lede">This atlas is a reference taxonomy of bounded synthetic scenarios. It shows the kinds of applicability, provenance and authority failures FreshContext is designed to make explicit before downstream reliance.</p>
+          <div class="actions mt-l">
+            <a class="btn btn--large" href="#atlas">Explore the atlas</a>
+            <a class="btn btn--ghost btn--large" href="/proof">Run the interactive proof</a>
+          </div>
+        </div>
+        <aside class="atlas-boundary" aria-label="Atlas boundary">
+          <p class="atlas-boundary-kicker">Reference, not accusation</p>
+          <p><strong>Every example on this page is synthetic.</strong> No named company, customer system or live production workflow is being evaluated here.</p>
+          <p>The atlas demonstrates failure classes and control logic. A real assessment requires an agreed workflow, authorized sources, evidence collection and human review.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="band band--tint" id="atlas">
+      <div class="wrap">
+        <div class="head">
+          <div>
+            <p class="eyebrow">Failure taxonomy</p>
+            <h2>The retrieval can look right while the reliance boundary is wrong.</h2>
+          </div>
+          <p class="sub">Each entry separates the task, the context supplied, the failed boundary, the resulting verdict, the operational consequence and the control point that should catch it.</p>
+        </div>
+
+        <ol class="atlas-list">
+          <li class="atlas-entry" id="wrong-version">
+            <div class="atlas-index" aria-hidden="true">01</div>
+            <article>
+              <div class="atlas-entry-head">
+                <div>
+                  <p class="atlas-pattern">Correct document · wrong version</p>
+                  <h3>Superseded product state</h3>
+                </div>
+                <span class="atlas-verdict atlas-verdict--changed">CHANGED</span>
+              </div>
+              <p class="atlas-thesis">The retrieved documentation describes the exact feature, but it applies to an earlier release than the environment being handled.</p>
+              <dl class="atlas-facts">
+                <div><dt>Task</dt><dd>Can a Pro workspace on v3.4 export audit logs?</dd></div>
+                <div><dt>Carried context</dt><dd>v3.1 administration guide says Pro includes export.</dd></div>
+                <div><dt>Boundary failure</dt><dd>Version and effective product state.</dd></div>
+                <div><dt>Operational risk</dt><dd>A support or agent workflow gives an answer that used to be correct but is no longer applicable.</dd></div>
+                <div><dt>Control point</dt><dd>Require version identity and supersession checks before the context is accepted.</dd></div>
+              </dl>
+            </article>
+          </li>
+
+          <li class="atlas-entry" id="wrong-geography">
+            <div class="atlas-index" aria-hidden="true">02</div>
+            <article>
+              <div class="atlas-entry-head">
+                <div>
+                  <p class="atlas-pattern">Correct policy · wrong geography</p>
+                  <h3>Regional scope mismatch</h3>
+                </div>
+                <span class="atlas-verdict atlas-verdict--changed">CHANGED</span>
+              </div>
+              <p class="atlas-thesis">The policy is current and authoritative, but it governs a different jurisdiction or service region.</p>
+              <dl class="atlas-facts">
+                <div><dt>Task</dt><dd>How long are support transcripts retained for an EU workspace?</dd></div>
+                <div><dt>Carried context</dt><dd>Current US retention policy states 90 days.</dd></div>
+                <div><dt>Boundary failure</dt><dd>Geography and policy scope.</dd></div>
+                <div><dt>Operational risk</dt><dd>The workflow confidently applies a valid rule to the wrong customer population.</dd></div>
+                <div><dt>Control point</dt><dd>Bind policy evidence to explicit region or jurisdiction before reliance.</dd></div>
+              </dl>
+            </article>
+          </li>
+
+          <li class="atlas-entry" id="wrong-plan">
+            <div class="atlas-index" aria-hidden="true">03</div>
+            <article>
+              <div class="atlas-entry-head">
+                <div>
+                  <p class="atlas-pattern">Correct product · wrong plan</p>
+                  <h3>Entitlement mismatch</h3>
+                </div>
+                <span class="atlas-verdict atlas-verdict--changed">CHANGED</span>
+              </div>
+              <p class="atlas-thesis">The source describes the same product and capability but grants it to a different commercial tier.</p>
+              <dl class="atlas-facts">
+                <div><dt>Task</dt><dd>Can a Standard-plan administrator configure SSO?</dd></div>
+                <div><dt>Carried context</dt><dd>Current product documentation says SSO is supported on Enterprise.</dd></div>
+                <div><dt>Boundary failure</dt><dd>Plan or entitlement.</dd></div>
+                <div><dt>Operational risk</dt><dd>The answer is product-correct but customer-wrong, leading to failed setup, support friction or incorrect commitments.</dd></div>
+                <div><dt>Control point</dt><dd>Match the source claim against the customer's actual plan and entitlement state.</dd></div>
+              </dl>
+            </article>
+          </li>
+
+          <li class="atlas-entry" id="changed-source">
+            <div class="atlas-index" aria-hidden="true">04</div>
+            <article>
+              <div class="atlas-entry-head">
+                <div>
+                  <p class="atlas-pattern">Recently changed source</p>
+                  <h3>Freshness transition</h3>
+                </div>
+                <span class="atlas-verdict atlas-verdict--changed">CHANGED</span>
+              </div>
+              <p class="atlas-thesis">A source was authoritative when the answer was created, but the source changed after that answer entered memory, cache or a knowledge base.</p>
+              <dl class="atlas-facts">
+                <div><dt>Task</dt><dd>Quote the current annual cancellation window.</dd></div>
+                <div><dt>Carried context</dt><dd>A cached answer says 30 days; the authorized policy changed yesterday to 14 days.</dd></div>
+                <div><dt>Boundary failure</dt><dd>Time and source state.</dd></div>
+                <div><dt>Operational risk</dt><dd>Stored context remains plausible while silently drifting away from the current authoritative source.</dd></div>
+                <div><dt>Control point</dt><dd>Track source observation time, change state and revalidation requirements for high-consequence claims.</dd></div>
+              </dl>
+            </article>
+          </li>
+
+          <li class="atlas-entry" id="authority-conflict">
+            <div class="atlas-index" aria-hidden="true">05</div>
+            <article>
+              <div class="atlas-entry-head">
+                <div>
+                  <p class="atlas-pattern">Conflicting authoritative sources</p>
+                  <h3>Authority collision</h3>
+                </div>
+                <span class="atlas-verdict atlas-verdict--unresolved">UNRESOLVED</span>
+              </div>
+              <p class="atlas-thesis">Two current first-party sources fit the task but disagree. Ranking one higher does not resolve the underlying authority conflict.</p>
+              <dl class="atlas-facts">
+                <div><dt>Task</dt><dd>Can an Enterprise administrator export twelve months of audit history?</dd></div>
+                <div><dt>Carried context</dt><dd>Admin guide says yes; current governance policy says only 90 days are downloadable.</dd></div>
+                <div><dt>Boundary failure</dt><dd>Source-role conflict, not topical relevance.</dd></div>
+                <div><dt>Operational risk</dt><dd>An automated workflow manufactures certainty by selecting whichever contradictory source happens to rank first.</dd></div>
+                <div><dt>Control point</dt><dd>Preserve both authorities, mark the decision unresolved and route the conflict for adjudication.</dd></div>
+              </dl>
+            </article>
+          </li>
+
+          <li class="atlas-entry" id="unresolved-provenance">
+            <div class="atlas-index" aria-hidden="true">06</div>
+            <article>
+              <div class="atlas-entry-head">
+                <div>
+                  <p class="atlas-pattern">Unresolved provenance</p>
+                  <h3>Unsupported source identity</h3>
+                </div>
+                <span class="atlas-verdict atlas-verdict--unresolved">UNRESOLVED</span>
+              </div>
+              <p class="atlas-thesis">The statement may be correct, but the workflow cannot establish where it came from, what authority it carries or whether it was transformed after collection.</p>
+              <dl class="atlas-facts">
+                <div><dt>Task</dt><dd>Use an internal answer to approve a refund exception.</dd></div>
+                <div><dt>Carried context</dt><dd>A copied paragraph in a shared note states the exception is allowed, with no source reference or effective date.</dd></div>
+                <div><dt>Boundary failure</dt><dd>Provenance and authority.</dd></div>
+                <div><dt>Operational risk</dt><dd>The workflow can repeat information it cannot defend or trace when challenged.</dd></div>
+                <div><dt>Control point</dt><dd>Require attributable evidence for claims that cross a defined reliance threshold; otherwise hold or escalate.</dd></div>
+              </dl>
+            </article>
+          </li>
+
+          <li class="atlas-entry" id="expired-applicability">
+            <div class="atlas-index" aria-hidden="true">07</div>
+            <article>
+              <div class="atlas-entry-head">
+                <div>
+                  <p class="atlas-pattern">Previously valid · no longer applicable</p>
+                  <h3>Temporal applicability expiry</h3>
+                </div>
+                <span class="atlas-verdict atlas-verdict--changed">CHANGED</span>
+              </div>
+              <p class="atlas-thesis">The context remains historically accurate, but its applicability window has ended even though the underlying document has not been deleted.</p>
+              <dl class="atlas-facts">
+                <div><dt>Task</dt><dd>Apply the discount available to a purchase made today.</dd></div>
+                <div><dt>Carried context</dt><dd>A campaign page accurately states a 20% discount, valid through the previous month.</dd></div>
+                <div><dt>Boundary failure</dt><dd>Effective-date window.</dd></div>
+                <div><dt>Operational risk</dt><dd>The workflow treats historical truth as current permission.</dd></div>
+                <div><dt>Control point</dt><dd>Represent effective-from/effective-until boundaries separately from simple document freshness.</dd></div>
+              </dl>
+            </article>
+          </li>
+
+          <li class="atlas-entry" id="autonomy-boundary">
+            <div class="atlas-index" aria-hidden="true">08</div>
+            <article>
+              <div class="atlas-entry-head">
+                <div>
+                  <p class="atlas-pattern">Acceptable for review · inappropriate for autonomous action</p>
+                  <h3>Reliance-mode mismatch</h3>
+                </div>
+                <span class="atlas-verdict atlas-verdict--review">REVIEW</span>
+              </div>
+              <p class="atlas-thesis">Context can be useful enough to show a human while still falling short of the evidence threshold required for an automated consequential action.</p>
+              <dl class="atlas-facts">
+                <div><dt>Task</dt><dd>Automatically suspend an account based on a policy exception.</dd></div>
+                <div><dt>Carried context</dt><dd>A current internal FAQ strongly suggests suspension, but the authoritative enforcement policy is ambiguous on this edge case.</dd></div>
+                <div><dt>Boundary failure</dt><dd>Reliance mode and evidence threshold.</dd></div>
+                <div><dt>Operational risk</dt><dd>A model turns advisory context into an irreversible action without the evidentiary support that action requires.</dd></div>
+                <div><dt>Control point</dt><dd>Separate human-review thresholds from autonomous-action thresholds and escalate when the stronger threshold is not met.</dd></div>
+              </dl>
+            </article>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="wrap">
+        <div class="head">
+          <div>
+            <p class="eyebrow">What the atlas changes</p>
+            <h2>“Is this relevant?” becomes a much smaller question.</h2>
+          </div>
+          <p class="sub">The stronger question is whether the supported context is appropriate for this exact task, at this exact point in time, under the reliance threshold the workflow is about to cross.</p>
+        </div>
+        <div class="rows">
+          <div class="row"><h3>Identity</h3><p>Is the evidence about the same product, entity, policy or capability?</p></div>
+          <div class="row"><h3>Applicability</h3><p>Does it fit the exact plan, version, geography, customer state and effective period?</p></div>
+          <div class="row"><h3>Authority</h3><p>Can the workflow identify the source role, provenance and any unresolved conflict?</p></div>
+          <div class="row"><h3>Reliance threshold</h3><p>Is the evidence strong enough for the action being taken, or only strong enough to put in front of a human reviewer?</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band band--dark">
+      <div class="wrap atlas-commercial">
+        <div>
+          <p class="eyebrow">From taxonomy to evidence</p>
+          <h2>Find which of these failure classes actually exist in one real workflow.</h2>
+          <p class="sub">A FreshContext Context Integrity Assessment examines one defined AI, RAG, agent, support, retrieval or knowledge workflow using agreed, authorized sources and human-reviewed findings.</p>
+        </div>
+        <div class="atlas-offer">
+          <p class="atlas-price">US$25,000 fixed</p>
+          <p>One workflow. Defined scope. Evidence trail. Failure-mode register. Remediation priorities. Integration/control-point recommendation. Executive readout.</p>
+          <div class="actions">
+            <a class="btn btn--large" href="/contact#audit">Request an assessment</a>
+            <a class="btn btn--ghost btn--large" href="/pricing">See scope and terms</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-inner">
+        <div>
+          <b>FreshContext</b>
+          <span class="sub">Context integrity for AI-assisted workflows before downstream reliance.</span>
+        </div>
+        <nav aria-label="Footer">
+          <a href="/proof">Proof</a>
+          <a href="/failure-atlas">Failure Atlas</a>
+          <a href="/how-it-works">How it works</a>
+          <a href="/pricing">Pricing</a>
+          <a href="/contact">Contact</a>
+          <a href="/terms">Terms</a>
+          <a href="/privacy">Privacy</a>
+          <a href="/security">Security</a>
+        </nav>
+      </div>
+      <p class="footer-legal">Immanuel Gabriel, trading as FreshContext · Tsumeb, Namibia · <a href="mailto:immanuel@freshcontext.dev">immanuel@freshcontext.dev</a></p>
+    </div>
+  </footer>
+
+  <script src="/site.js"></script>
+</body>
+</html>
