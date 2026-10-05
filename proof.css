@@ -70,7 +70,7 @@
 
 .proof-stage {
   display: grid;
-  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.15fr) minmax(260px, 0.8fr);
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.15fr);
   border: 1px solid var(--line);
   border-radius: var(--r);
   overflow: hidden;
@@ -151,6 +151,9 @@
 }
 
 .proof-verdict {
+  margin-top: 18px;
+  padding: 22px;
+  border-radius: var(--r);
   background: var(--graphite);
   color: var(--ink-invert);
 }
