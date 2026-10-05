@@ -83,3 +83,31 @@ test("clean current match can be accepted within its boundary", async ({ page })
   await expect(page.locator("#checks-body .proof-check-state[data-state='FAIL']")).toHaveCount(0);
   await expect(page.locator("#evidence-record")).toContainText("source integrity does not guarantee source truth");
 });
+
+test("proof is self-contained and does not create a new data-exfiltration surface", async ({ page }) => {
+  const externalRequests = [];
+  page.on("request", (request) => {
+    const requestUrl = new URL(request.url());
+    if (requestUrl.protocol !== "data:" && requestUrl.origin !== baseURL) externalRequests.push(request.url());
+  });
+
+  await page.goto(`${baseURL}/proof`);
+  for (const name of [/Wrong geography/, /Conflicting authority/, /Clean match/, /Wrong version/]) {
+    await page.getByRole("button", { name }).click();
+  }
+
+  expect(externalRequests).toEqual([]);
+  await expect(page.locator("form, input, textarea, select")).toHaveCount(0);
+  expect(await page.evaluate(() => ({
+    localStorageItems: localStorage.length,
+    sessionStorageItems: sessionStorage.length,
+    cookie: document.cookie
+  }))).toEqual({ localStorageItems: 0, sessionStorageItems: 0, cookie: "" });
+});
+
+test("scrollable decision record is keyboard reachable", async ({ page }) => {
+  await page.goto(`${baseURL}/proof`);
+  const record = page.locator("pre[aria-label='Decision record JSON']");
+  await record.focus();
+  await expect(record).toBeFocused();
+});
