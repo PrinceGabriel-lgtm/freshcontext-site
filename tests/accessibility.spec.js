@@ -7,6 +7,7 @@ const { extname, isAbsolute, join, normalize, relative } = require("node:path");
 const root = join(__dirname, "..");
 const pages = [
   "/",
+  "/proof",
   "/snapshot",
   "/how-it-works",
   "/pricing",
