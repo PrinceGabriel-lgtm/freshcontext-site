@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Context Integrity Proof — FreshContext</title>
+  <meta name="description" content="Run a public synthetic FreshContext proof and inspect how identity, version, plan, geography, time and provenance change whether context is appropriate to rely on." />
+  <link rel="canonical" href="https://freshcontext.dev/proof" />
+  <meta name="theme-color" content="#0b3325" />
+  <meta property="og:site_name" content="FreshContext" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://freshcontext.dev/proof" />
+  <meta property="og:title" content="Context Integrity Proof — FreshContext" />
+  <meta property="og:description" content="Relevant context can still be wrong for the exact decision. Run the proof." />
+  <meta property="og:image" content="https://freshcontext.dev/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b3325'/%3E%3Cpath d='M15 20h34M15 32h22M15 44h30' stroke='%23ffffff' stroke-width='4.5' stroke-linecap='round'/%3E%3Ccircle cx='43' cy='32' r='5' fill='%237fd8ae'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="/site.css" />
+  <link rel="stylesheet" href="/proof.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="nav">
+    <nav class="nav-inner" aria-label="Primary">
+      <a href="/" class="brand" aria-label="FreshContext home">
+        <span class="brand-mark" aria-hidden="true">FC</span>
+        <span>FreshContext</span>
+      </a>
+      <div class="nav-links">
+        <a href="/proof" aria-current="page">Proof</a>
+        <a href="/how-it-works">How it works</a>
+        <a href="/pricing">Pricing</a>
+        <a href="/contact">Contact</a>
+        <a class="btn btn--small" href="/contact#audit">Request assessment</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="proof-hero">
+      <div class="wrap proof-hero-grid">
+        <div>
+          <p class="eyebrow">Public synthetic proof</p>
+          <h1>Relevant context can still be wrong for the exact decision.</h1>
+          <p class="lede">Run four bounded scenarios and inspect the decision record. The demonstration separates the task, the context supplied to the workflow, applicability checks, provenance and the resulting verdict.</p>
+          <div class="actions mt-l">
+            <a class="btn btn--large" href="#proof-runner">Run the proof</a>
+            <a class="btn btn--ghost btn--large" href="/how-it-works">Read the method</a>
+          </div>
+        </div>
+        <aside class="proof-callout" aria-label="Demonstration boundary">
+          <p class="proof-kicker">What you are looking at</p>
+          <p><strong>A browser-side demonstration using synthetic fixtures.</strong> It is not an audit of any named company, does not access customer systems and does not claim that a production FreshContext service evaluated these fixtures.</p>
+          <p>The point is narrower: show, concretely, why semantic relevance alone is not enough to establish that context is appropriate to rely on.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="band band--tint" id="proof-runner">
+      <div class="wrap">
+        <div class="head">
+          <div>
+            <p class="eyebrow">Interactive proof</p>
+            <h2>Change the boundary. Watch the decision change.</h2>
+          </div>
+          <p class="sub">Each scenario keeps the basic topic relevant while changing a boundary that matters: version, geography, authority conflict or a clean current match.</p>
+        </div>
+
+        <div class="proof-scenarios" role="group" aria-label="Proof scenario">
+          <button class="proof-scenario is-active" type="button" data-scenario="version" aria-pressed="true">
+            <span>01</span>
+            <strong>Wrong version</strong>
+            <small>Relevant answer, superseded release.</small>
+          </button>
+          <button class="proof-scenario" type="button" data-scenario="region" aria-pressed="false">
+            <span>02</span>
+            <strong>Wrong geography</strong>
+            <small>Relevant policy, wrong region.</small>
+          </button>
+          <button class="proof-scenario" type="button" data-scenario="conflict" aria-pressed="false">
+            <span>03</span>
+            <strong>Conflicting authority</strong>
+            <small>Two current sources disagree.</small>
+          </button>
+          <button class="proof-scenario" type="button" data-scenario="current" aria-pressed="false">
+            <span>04</span>
+            <strong>Clean match</strong>
+            <small>Scope, source and time align.</small>
+          </button>
+        </div>
+
+        <div class="proof-stage">
+          <section class="proof-task" aria-labelledby="task-title">
+            <div class="proof-step-label"><span>1</span> Decision being made</div>
+            <h3 id="task-title">Task context</h3>
+            <dl class="proof-facts">
+              <div><dt>Question</dt><dd id="task-question"></dd></div>
+              <div><dt>Product</dt><dd id="task-product"></dd></div>
+              <div><dt>Plan</dt><dd id="task-plan"></dd></div>
+              <div><dt>Version</dt><dd id="task-version"></dd></div>
+              <div><dt>Region</dt><dd id="task-region"></dd></div>
+              <div><dt>Decision date</dt><dd id="task-date"></dd></div>
+            </dl>
+          </section>
+
+          <section class="proof-context" aria-labelledby="context-title">
+            <div class="proof-step-label"><span>2</span> Context supplied</div>
+            <h3 id="context-title">Carried answer</h3>
+            <blockquote id="carried-answer"></blockquote>
+            <div class="proof-source">
+              <p class="proof-source-name" id="source-name"></p>
+              <p id="source-claim"></p>
+              <dl class="proof-source-meta">
+                <div><dt>Published</dt><dd id="source-published"></dd></div>
+                <div><dt>Applies to</dt><dd id="source-scope"></dd></div>
+                <div><dt>Provenance</dt><dd id="source-provenance"></dd></div>
+              </dl>
+            </div>
+          </section>
+        </div>
+
+        <section class="proof-checks" aria-labelledby="checks-title">
+          <div class="proof-step-label"><span>3</span> Boundary checks</div>
+          <h3 id="checks-title">Why the context does or does not fit</h3>
+          <div class="tablewrap">
+            <table>
+              <thead>
+                <tr><th>Boundary</th><th>State</th><th>Reason</th></tr>
+              </thead>
+              <tbody id="checks-body"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="proof-verdict" aria-labelledby="verdict-title">
+          <div class="proof-step-label"><span>4</span> Reliance decision</div>
+          <div class="proof-verdict-line">
+            <h3 id="verdict-title">Verdict</h3>
+            <span class="proof-verdict-state" id="verdict-state" aria-live="polite"></span>
+          </div>
+          <p id="verdict-summary"></p>
+          <p class="proof-next" id="verdict-next"></p>
+        </section>
+
+        <section class="proof-record" aria-labelledby="record-title">
+          <div class="proof-record-head">
+            <div>
+              <div class="proof-step-label"><span>5</span> Reviewable evidence</div>
+              <h3 id="record-title">Decision record</h3>
+            </div>
+            <button class="btn btn--ghost" type="button" id="copy-record">Copy record</button>
+          </div>
+          <pre tabindex="0" aria-label="Decision record JSON"><code id="evidence-record"></code></pre>
+        </section>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="wrap">
+        <div class="head">
+          <div>
+            <p class="eyebrow">What this demonstrates</p>
+            <h2>A retrieval result can remain relevant while failing the boundary required for reliance.</h2>
+          </div>
+          <p class="sub">All four scenarios can retrieve text that appears relevant. The operational question is whether that text belongs to the exact entity, version, plan, geography, time period and source role required by the task.</p>
+        </div>
+        <div class="rows">
+          <div class="row"><h3>Semantic relevance is insufficient</h3><p>A source can discuss exactly the right feature and still be wrong for the release or region in front of the user.</p></div>
+          <div class="row"><h3>Uncertainty must survive</h3><p>When authoritative sources conflict, the defensible output is not an invented winner. The decision should remain unresolved until the conflict is adjudicated.</p></div>
+          <div class="row"><h3>Evidence changes the conversation</h3><p>A reviewable record lets an operator see what was supplied, what boundary failed and why the workflow accepted, held or rejected the context.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band band--dark">
+      <div class="wrap proof-boundary-grid">
+        <div>
+          <p class="eyebrow">Claim boundary</p>
+          <h2>This public proof is deliberately narrower than a commercial assessment.</h2>
+        </div>
+        <div class="proof-boundary-list">
+          <p><strong>It does show:</strong> explicit task scope, context scope, provenance, applicability checks, preserved uncertainty and a reviewable decision record.</p>
+          <p><strong>It does not show:</strong> customer-system access, production deployment, universal compatibility, compliance certification, autonomous remediation or a guarantee that a source is factually true.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="band band--tint">
+      <div class="wrap cta">
+        <div>
+          <h2>Run this discipline against one real workflow.</h2>
+          <p class="sub">The Context Integrity Assessment applies the method to one defined AI, RAG, agent, support, retrieval or knowledge workflow using agreed, authorized sources and human-reviewed findings.</p>
+        </div>
+        <div class="actions">
+          <a class="btn btn--large" href="/contact#audit">Request an assessment — US$25,000</a>
+          <a class="btn btn--ghost btn--large" href="/pricing">See scope and terms</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-inner">
+        <div>
+          <b>FreshContext</b>
+          <span class="sub">Context integrity for AI-assisted workflows before downstream reliance.</span>
+        </div>
+        <nav aria-label="Footer">
+          <a href="/proof">Proof</a>
+          <a href="/how-it-works">How it works</a>
+          <a href="/pricing">Pricing</a>
+          <a href="/contact">Contact</a>
+          <a href="/terms">Terms</a>
+          <a href="/privacy">Privacy</a>
+          <a href="/security">Security</a>
+        </nav>
+      </div>
+      <p class="footer-legal">Immanuel Gabriel, trading as FreshContext · Tsumeb, Namibia · <a href="mailto:immanuel@freshcontext.dev">immanuel@freshcontext.dev</a></p>
+    </div>
+  </footer>
+
+  <script src="/site.js"></script>
+  <script src="/proof.js"></script>
+</body>
+</html>
