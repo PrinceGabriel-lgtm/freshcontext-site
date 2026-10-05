@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Context Integrity Proof — FreshContext</title>
-  <meta name="description" content="Run a public synthetic FreshContext proof and inspect how identity, version, plan, geography, time and provenance change whether context is safe to rely on." />
+  <meta name="description" content="Run a public synthetic FreshContext proof and inspect how identity, version, plan, geography, time and provenance change whether context is appropriate to rely on." />
   <link rel="canonical" href="https://freshcontext.dev/proof" />
   <meta name="theme-color" content="#0b3325" />
   <meta property="og:site_name" content="FreshContext" />
@@ -118,16 +118,6 @@
               </dl>
             </div>
           </section>
-
-          <section class="proof-verdict" aria-labelledby="verdict-title">
-            <div class="proof-step-label"><span>4</span> Reliance decision</div>
-            <div class="proof-verdict-line">
-              <h3 id="verdict-title">Verdict</h3>
-              <span class="proof-verdict-state" id="verdict-state" aria-live="polite"></span>
-            </div>
-            <p id="verdict-summary"></p>
-            <p class="proof-next" id="verdict-next"></p>
-          </section>
         </div>
 
         <section class="proof-checks" aria-labelledby="checks-title">
@@ -143,6 +133,16 @@
           </div>
         </section>
 
+        <section class="proof-verdict" aria-labelledby="verdict-title">
+          <div class="proof-step-label"><span>4</span> Reliance decision</div>
+          <div class="proof-verdict-line">
+            <h3 id="verdict-title">Verdict</h3>
+            <span class="proof-verdict-state" id="verdict-state" aria-live="polite"></span>
+          </div>
+          <p id="verdict-summary"></p>
+          <p class="proof-next" id="verdict-next"></p>
+        </section>
+
         <section class="proof-record" aria-labelledby="record-title">
           <div class="proof-record-head">
             <div>
@@ -151,7 +151,7 @@
             </div>
             <button class="btn btn--ghost" type="button" id="copy-record">Copy record</button>
           </div>
-          <pre><code id="evidence-record"></code></pre>
+          <pre tabindex="0" aria-label="Decision record JSON"><code id="evidence-record"></code></pre>
         </section>
       </div>
     </section>
@@ -160,14 +160,14 @@
       <div class="wrap">
         <div class="head">
           <div>
-            <p class="eyebrow">What this proves</p>
-            <h2>The failure is not retrieval. It is reliance without an applicability check.</h2>
+            <p class="eyebrow">What this demonstrates</p>
+            <h2>A retrieval result can remain relevant while failing the boundary required for reliance.</h2>
           </div>
           <p class="sub">All four scenarios can retrieve text that appears relevant. The operational question is whether that text belongs to the exact entity, version, plan, geography, time period and source role required by the task.</p>
         </div>
         <div class="rows">
           <div class="row"><h3>Semantic relevance is insufficient</h3><p>A source can discuss exactly the right feature and still be wrong for the release or region in front of the user.</p></div>
-          <div class="row"><h3>Uncertainty must survive</h3><p>When authoritative sources conflict, the safe output is not an invented winner. The decision should remain unresolved until the conflict is adjudicated.</p></div>
+          <div class="row"><h3>Uncertainty must survive</h3><p>When authoritative sources conflict, the defensible output is not an invented winner. The decision should remain unresolved until the conflict is adjudicated.</p></div>
           <div class="row"><h3>Evidence changes the conversation</h3><p>A reviewable record lets an operator see what was supplied, what boundary failed and why the workflow accepted, held or rejected the context.</p></div>
         </div>
       </div>
