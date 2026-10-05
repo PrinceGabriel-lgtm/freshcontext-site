@@ -10,6 +10,7 @@
 /legacy.html /legacy 301
 /security.html /security 301
 /proof.html /proof 301
+/failure-atlas.html /failure-atlas 301
 
 # Pages retired in the September 2026 redesign, sent to their nearest replacement
 /services /pricing 301
