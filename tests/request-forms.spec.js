@@ -134,6 +134,29 @@ test("an audit enquiry is sent as service audit", async ({ page }) => {
   expect(seen[0].workflow).toBe("Intercom Fin, about 2,000 conversations a month.");
 });
 
+test("a partner referral reuses audit intake and carries bounded source attribution", async ({ page }) => {
+  const seen = await online(page, "/partners?source=ridgeline", async () => received);
+  await fillContact(page, "p");
+  await page.fill("#p-about", "Zendesk AI deployment where plan-specific policy answers affect customer entitlements.");
+  await page.check("#p-ack");
+  await page.click("#partner-form button[type=submit]");
+  await expect(page.locator("#refer [data-done]")).toBeVisible();
+  expect(seen).toHaveLength(1);
+  expect(seen[0].service).toBe("audit");
+  expect(seen[0].workflow).toBe(
+    "Partner referral source: ridgeline\n\nZendesk AI deployment where plan-specific policy answers affect customer entitlements."
+  );
+});
+
+test("partner source attribution ignores arbitrary query-string content", async ({ page }) => {
+  const seen = await online(page, "/partners?source=%3Cscript%3Ebad%3C%2Fscript%3E", async () => received);
+  await fillContact(page, "p");
+  await page.fill("#p-about", "Intercom workflow with version-specific implementation guidance.");
+  await page.check("#p-ack");
+  await page.click("#partner-form button[type=submit]");
+  expect(seen[0].workflow).toBe("Intercom workflow with version-specific implementation guidance.");
+});
+
 test("with the intake unreachable, the request becomes an email the visitor sends", async ({ page }) => {
   await page.goto(`${baseURL}/snapshot`);
   await fillContact(page, "s");
@@ -144,6 +167,19 @@ test("with the intake unreachable, the request becomes an email the visitor send
   const href = await page.locator("[data-mail]").getAttribute("href");
   expect(href).toContain("mailto:immanuel@freshcontext.dev");
   expect(decodeURIComponent(href)).toContain("https://help.example.com/");
+});
+
+test("partner fallback preserves the partner title and source slug", async ({ page }) => {
+  await page.goto(`${baseURL}/partners?source=bettergrowth`);
+  await fillContact(page, "p");
+  await page.fill("#p-about", "Fin deployment where current subscription policy must match the answer.");
+  await page.check("#p-ack");
+  await page.click("#partner-form button[type=submit]");
+  await expect(page.locator("#refer [data-done-title]")).toHaveText("It couldn't be sent online.");
+  const href = await page.locator("#refer [data-mail]").getAttribute("href");
+  const decoded = decodeURIComponent(href);
+  expect(decoded).toContain("FreshContext Partner referral");
+  expect(decoded).toContain("Partner referral source: bettergrowth");
 });
 
 test("nothing is sent without the acknowledgement or a URL", async ({ page }) => {

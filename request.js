@@ -1,12 +1,16 @@
-/* FreshContext request forms: the free Snapshot request (/snapshot) and the audit
- * enquiry (/contact#audit).
+/* FreshContext request forms: the free Snapshot request (/snapshot), the audit
+ * enquiry (/contact#audit), and the partner referral (/partners).
  *
  * Each form names its service in data-service and posts JSON to the private intake
  * Worker (intake.freshcontext.dev), behind a Cloudflare Turnstile check. The intake
  * accepts these short forms and stores the questions they do not ask as empty
- * answers. If Turnstile or the intake cannot be reached, the page prepares an email
- * instead, which the visitor chooses whether to send: nothing is lost and nothing is
- * sent without them.
+ * answers. Partner referrals deliberately reuse the existing `audit` service contract;
+ * a bounded source slug can be prefixed to the workflow text without widening the
+ * intake API or adding a second data store.
+ *
+ * If Turnstile or the intake cannot be reached, the page prepares an email instead,
+ * which the visitor chooses whether to send: nothing is lost and nothing is sent
+ * without them.
  */
 (function () {
   "use strict";
@@ -34,6 +38,16 @@
     return d.getUTCFullYear() + String(d.getUTCMonth() + 1).padStart(2, "0") + String(d.getUTCDate()).padStart(2, "0");
   }
 
+  function sourceFromQuery(form) {
+    var param = String(form.dataset.sourceParam || "").trim();
+    if (!param) return "";
+    var value = String(new URLSearchParams(window.location.search).get(param) || "").trim().toLowerCase();
+    // Attribution is deliberately a short opaque campaign/partner slug, not arbitrary
+    // query-string content. This keeps the intake record bounded and avoids using the
+    // referral URL as a covert free-text field.
+    return /^[a-z0-9][a-z0-9_-]{0,63}$/.test(value) ? value : "";
+  }
+
   // One Turnstile script for the page, however many forms it has.
   function loadTurnstile() {
     if (turnstileLoaded) return turnstileLoaded;
@@ -50,6 +64,8 @@
 
   function setup(form) {
     var service = form.dataset.service;
+    var title = form.dataset.title || titles[service] || "Enquiry";
+    var source = sourceFromQuery(form);
     var card = form.parentElement;
     var done = card.querySelector("[data-done]");
     var help = form.querySelector("[data-help]");
@@ -69,12 +85,15 @@
     }
 
     // The intake's contract: the Snapshot's URL and note travel together in `workflow`.
+    // Partner referral attribution is carried inside the same bounded workflow field so
+    // no new backend schema, cookie, analytics identifier or third-party tracker is needed.
     function payload() {
       var workflow = field("workflow");
       if (service === "snapshot") {
         workflow = field("url");
         if (field("note")) workflow += "\n\nNote: " + field("note");
       }
+      if (source) workflow = "Partner referral source: " + source + "\n\n" + workflow;
       return {
         service: service,
         company: field("company"),
@@ -99,10 +118,10 @@
       if (mailBody) {
         done.querySelector("[data-done-title]").textContent = "It couldn't be sent online.";
         done.querySelector("[data-done-text]").textContent =
-          "Your " + titles[service].toLowerCase() +
+          "Your " + title.toLowerCase() +
           " is ready as an email: open it, check it, and press send. Nothing has been sent yet.";
         done.querySelector("[data-mail]").href = "mailto:immanuel@freshcontext.dev?subject=" +
-          encodeURIComponent("FreshContext " + titles[service] + " " + ref) + "&body=" + encodeURIComponent(mailBody);
+          encodeURIComponent("FreshContext " + title + " " + ref) + "&body=" + encodeURIComponent(mailBody);
         mail.hidden = false;
       }
       form.hidden = true;
@@ -113,7 +132,7 @@
     function emailDraft() {
       var p = payload();
       return [
-        "FRESHCONTEXT " + titles[service].toUpperCase(),
+        "FRESHCONTEXT " + title.toUpperCase(),
         "Reference: " + reference,
         "",
         "Name: " + p.name,

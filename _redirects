@@ -11,6 +11,11 @@
 /security.html /security 301
 /proof.html /proof 301
 /failure-atlas.html /failure-atlas 301
+/partners.html /partners 301
+
+# First-party partner attribution. The source slug is carried to /partners and then
+# included in the existing bounded intake record; no cookie or third-party tracker.
+/r/* /partners?source=:splat 302
 
 # Pages retired in the September 2026 redesign, sent to their nearest replacement
 /services /pricing 301
