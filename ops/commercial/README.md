@@ -1,85 +1,39 @@
-# FreshContext Commercial Pack Generator
+# FreshContext Commercial Pack Generator — RETIRED
 
-Internal operating tool for turning a qualified FreshContext application into a draft transaction pack in under a minute.
+**Status: RETIRED / DO NOT USE FOR CUSTOMER PAPER.**
 
-The generator is intentionally **not** part of the public website. The `ops/` directory is excluded from Cloudflare static assets.
+This directory contains historical internal tooling from an earlier FreshContext commercial offer. It is excluded from Cloudflare static assets, but exclusion from the website does not make the old commercial assumptions safe to use.
 
-## What it creates
+The prior generator combined a September 2026 service catalog with draft Service Order, invoice, acceptance and cover-email material. FreshContext's current package names, prices, delivery targets and commencement-payment rules have changed, and automatic customer transaction-document issuance remains blocked until a current agreement/order/SOW is approved for external use.
 
-For a qualified application such as `FC-APP-20260921-A1B2C3`, it generates:
+`generate-pack.mjs` therefore **fails closed intentionally**. `catalog.json` is retained only as a machine-readable retirement marker and is not a quoting or contracting authority.
 
-- `00_manifest.json` — machine-readable commercial record
-- `01_service_order.md` — draft Service Order / SOW
-- `02_invoice.md` — draft commencement invoice
-- `03_acceptance_schedule.md` — service-specific acceptance schedule
-- `04_kickoff_checklist.md` — READY_TO_START gate
-- `05_cover_email.txt` — client cover email
-- `06_transaction_pack.html` — printable combined Service Order + Invoice + Acceptance Schedule
+## Why it is disabled
 
-## Example
+The historical tool could create paper that looked current while relying on stale commercial assumptions, including earlier package naming and deposit defaults. Updating prices alone would not make the generated Service Order legally complete. The historical draft deliberately left governing law, tax/VAT treatment, registration details, confidentiality mechanics, warranty/liability terms, disputes and other transaction terms unresolved.
 
-```bash
-node ops/commercial/generate-pack.mjs \
-  --application FC-APP-20260921-A1B2C3 \
-  --service single-workflow \
-  --client "Example Systems (Pty) Ltd" \
-  --client-email "buyer@example.com" \
-  --supplier "Immanuel Gabriel" \
-  --fee 4000 \
-  --currency USD \
-  --scope "Integrate FreshContext into the client support RAG staging workflow."
-```
+That combination creates avoidable contract, authority and litigation risk. The safe boundary is to disable generation rather than silently modernize only the numbers.
 
-Default output:
+## Current operating boundary
 
-```text
-commercial-packs/FC-APP-20260921-A1B2C3/
-```
+- Public commercial references are published at `https://freshcontext.dev/pricing`.
+- A public price/package page is not itself an executed contract.
+- A current customer-facing agreement/order/SOW must be approved before automated transaction-paper issuance is restored.
+- Customer authority, scope, data/source rights, legal/security review and payment terms must be resolved through the current commercial workflow.
+- Proof of payment is not confirmation of cleared funds.
+- Work does not begin until the required signed terms and actual cleared commencement payment are recorded under the approved workflow.
 
-That directory is gitignored and must not be committed.
+## Reintroduction requirements
 
-## Operational sequence
+Do not re-enable this generator by deleting the refusal or merely updating `catalog.json`. A replacement must, at minimum:
 
-1. Application email arrives.
-2. Run the qualification checklist.
-3. Confirm exact scope, fee, contracting party, acceptance owner, and data handling.
-4. Generate the pack.
-5. Review every generated document.
-6. Complete jurisdiction-specific legal/tax fields.
-7. Formally issue the Service Order and invoice.
-8. Obtain required signatures.
-9. Verify commencement payment as **cleared funds**.
-10. Move the matter to `READY_TO_START`.
-11. Begin work.
-12. Test against the acceptance schedule.
-13. Record acceptance, issue final invoice, close out.
+1. consume a versioned approved commercial catalog;
+2. bind the generated artifact to that exact catalog and transaction-template version;
+3. use a current externally approved agreement/order/SOW source;
+4. enforce pricing floors and authorized payment schedules;
+5. fail closed on legal/security/custom-scope exceptions;
+6. preserve immutable content hashes and approval evidence;
+7. distinguish draft preparation from formal issue;
+8. have tests proving stale applications or old service tokens cannot silently adopt current terms.
 
-## State machine
-
-```text
-APPLICATION_RECEIVED
-  -> QUALIFIED
-  -> SCOPE_APPROVED
-  -> CONTRACT_SENT
-  -> SIGNED
-  -> DEPOSIT_PENDING
-  -> DEPOSIT_CLEARED
-  -> READY_TO_START
-  -> IN_PROGRESS
-  -> ACCEPTANCE_PENDING
-  -> ACCEPTED
-  -> FINAL_PAYMENT_DUE
-  -> CLOSED
-```
-
-Alternative states: `CLARIFICATION_REQUIRED`, `DECLINED`, `PAUSED`, `CANCELLED`, `DISPUTED`.
-
-## Safety / legal boundary
-
-This is an operational drafting tool, **not a legal-decision engine**.
-
-It deliberately leaves governing law, tax/VAT treatment, registration details, bank details, warranty/liability terms, confidentiality mechanics, dispute terms, and other jurisdiction-specific terms incomplete for review before formal issue.
-
-Historical FreshContext code already released under MIT remains subject to those historical rights. The generator does not create exclusivity, assignment, or transfer of ownership.
-
-Never put banking credentials, API keys, passwords, regulated records, or sensitive client production data into command-line arguments or committed files.
+Historical FreshContext code already released under the MIT License remains subject to those historical rights. This retirement does not change those grants.
