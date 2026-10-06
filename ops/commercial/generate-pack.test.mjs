@@ -1,146 +1,53 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { mkdtempSync, readFileSync, existsSync } from "node:fs";
+import { mkdtempSync, readFileSync, readdirSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
 
 const generator = path.resolve("ops/commercial/generate-pack.mjs");
+const catalogPath = path.resolve("ops/commercial/catalog.json");
 
-function run(extra = []) {
-  const output = mkdtempSync(path.join(tmpdir(), "freshcontext-pack-"));
-  const args = [
+function attempt(extra = []) {
+  const output = mkdtempSync(path.join(tmpdir(), "freshcontext-retired-pack-"));
+  const result = spawnSync(process.execPath, [
     generator,
     "--application", "FC-APP-20260921-A1B2C3",
-    "--service", "single-workflow",
+    "--service", "assessment",
     "--client", "Example Systems (Pty) Ltd",
-    "--client-email", "buyer@example.com",
-    "--supplier", "Immanuel Gabriel",
-    "--fee", "4000",
-    "--currency", "USD",
-    "--scope", "Integrate FreshContext into the support RAG staging workflow.",
-    "--date", "2026-09-21",
+    "--fee", "25000",
+    "--scope", "Assess one workflow.",
     "--output", output,
     ...extra,
-  ];
-  const result = spawnSync(process.execPath, args, { encoding: "utf8" });
+  ], { encoding: "utf8" });
   return { output, result };
 }
 
-test("generates the complete draft transaction pack", () => {
-  const { output, result } = run();
-  assert.equal(result.status, 0, result.stderr);
-
-  for (const name of [
-    "00_manifest.json",
-    "01_service_order.md",
-    "02_invoice.md",
-    "03_acceptance_schedule.md",
-    "04_kickoff_checklist.md",
-    "05_cover_email.txt",
-    "06_transaction_pack.html",
-  ]) {
-    assert.equal(existsSync(path.join(output, name)), true, name + " missing");
-  }
-
-  const manifest = JSON.parse(readFileSync(path.join(output, "00_manifest.json"), "utf8"));
-  assert.equal(manifest.status, "DRAFT_NOT_EXECUTED");
-  assert.equal(manifest.service_name, "Single-Workflow Integration");
-  assert.equal(manifest.fee, 4000);
-  assert.equal(manifest.deposit_percent, 50);
-  assert.equal(manifest.deposit_amount, 2000);
-  assert.equal(manifest.balance_amount, 2000);
-  assert.equal(manifest.tax_treatment, "TO_BE_CONFIRMED_BEFORE_ISSUE");
-
-  const order = readFileSync(path.join(output, "01_service_order.md"), "utf8");
-  assert.match(order, /DRAFT — NOT EXECUTED/);
-  assert.match(order, /payment receipt is not by itself confirmation of cleared funds/i);
-  assert.match(order, /Historical FreshContext material previously released under the MIT License/i);
-
-  const invoice = readFileSync(path.join(output, "02_invoice.md"), "utf8");
-  assert.match(invoice, /DO NOT PAY UNTIL FORMALLY ISSUED/);
-  assert.match(invoice, /\$2,000\.00/);
-
-  const acceptance = readFileSync(path.join(output, "03_acceptance_schedule.md"), "utf8");
-  assert.match(acceptance, /Weak or unknown dating/);
-  assert.match(acceptance, /does not certify truth/i);
-
-  const html = readFileSync(path.join(output, "06_transaction_pack.html"), "utf8");
-  assert.match(html, /FreshContext Service Order/);
-  assert.match(html, /Example Systems \(Pty\) Ltd/);
-});
-
-test("uses service-specific deposit defaults", () => {
-  const { output, result } = run(["--service", "private-multi", "--fee", "10000"]);
-  assert.equal(result.status, 0, result.stderr);
-  const manifest = JSON.parse(readFileSync(path.join(output, "00_manifest.json"), "utf8"));
-  assert.equal(manifest.deposit_percent, 40);
-  assert.equal(manifest.deposit_amount, 4000);
-});
-
-test("refuses invalid application references", () => {
-  const output = mkdtempSync(path.join(tmpdir(), "freshcontext-pack-invalid-"));
-  const result = spawnSync(process.execPath, [
-    generator,
-    "--application", "FC-123",
-    "--service", "assessment",
-    "--client", "Example",
-    "--fee", "1250",
-    "--scope", "Assess one workflow.",
-    "--output", output,
-  ], { encoding: "utf8" });
-
+test("retired generator fails closed and creates no customer transaction paper", () => {
+  const { output, result } = attempt();
   assert.notEqual(result.status, 0);
-  assert.match(result.stderr, /must match FC-APP-YYYYMMDD-XXXXXX/);
+  assert.match(result.stderr, /RETIRED and intentionally disabled/i);
+  assert.match(result.stderr, /must not generate or issue/i);
+  assert.deepEqual(readdirSync(output), []);
 });
 
-test("escapes user-controlled content in printable HTML", () => {
-  const { output, result } = run(["--client", "<script>alert(1)</script>"]);
-  assert.equal(result.status, 0, result.stderr);
-  const html = readFileSync(path.join(output, "06_transaction_pack.html"), "utf8");
-  assert.doesNotMatch(html, /<script>alert\(1\)<\/script>/);
-  assert.match(html, /&lt;script&gt;alert\(1\)&lt;\/script&gt;/);
+test("arguments cannot bypass the retirement boundary", () => {
+  for (const extra of [
+    ["--deposit", "1"],
+    ["--service", "single-workflow"],
+    ["--service", "private-multi"],
+    ["--service", "build-to-spec"],
+  ]) {
+    const { output, result } = attempt(extra);
+    assert.notEqual(result.status, 0);
+    assert.deepEqual(readdirSync(output), []);
+  }
 });
 
-// A payment must be reconcilable to ONE invoice. The generator already minted
-// FC-INV-<date>-<suffix>-01 — the trailing -01 anticipating milestone and final invoices —
-// but both the invoice markdown and the printable pack told the payer to quote the
-// APPLICATION reference. Every invoice for an engagement shares that, so a second payment
-// could only be matched by amount. These assert the payer is given the invoice reference,
-// and that the upstream references stay on the document for traceability.
-test("the payment reference is the invoice reference, not the application reference", () => {
-  const { output, result } = run();
-  assert.equal(result.status, 0, result.stderr);
-
-  const manifest = JSON.parse(readFileSync(path.join(output, "00_manifest.json"), "utf8"));
-  const invoiceId = manifest.invoice_id;
-  const application = manifest.application_reference;
-  assert.notEqual(invoiceId, application);
-
-  const invoice = readFileSync(path.join(output, "02_invoice.md"), "utf8");
-  const section = invoice.split("## Payment reference")[1];
-  assert.ok(section, "invoice has no Payment reference section");
-
-  const quoted = section
-    .split(String.fromCharCode(10))
-    .map((line) => line.trim())
-    .find((line) => line.startsWith("**"));
-  assert.equal(quoted, "**" + invoiceId + "**", "payer must be given the invoice reference");
-
-  // Upstream references stay on the document, just not as the thing to pay against.
-  assert.ok(section.includes(application), "application reference should remain for traceability");
-  assert.ok(
-    section.includes(manifest.service_order_id),
-    "service order reference should remain for traceability",
-  );
-
-  const printable = readFileSync(path.join(output, "06_transaction_pack.html"), "utf8");
-  const notice = printable.split("Use payment reference")[1];
-  assert.ok(notice, "printable pack has no payment reference notice");
-  const firstSentence = notice.slice(0, 120);
-  assert.ok(firstSentence.includes(invoiceId), "printable pack must quote the invoice reference");
-  assert.ok(
-    !firstSentence.includes(application),
-    "printable pack must not tell the payer to pay against the application reference",
-  );
+test("historical catalog is an explicit non-authoritative retirement marker", () => {
+  const catalog = JSON.parse(readFileSync(catalogPath, "utf8"));
+  assert.equal(catalog.status, "RETIRED_NOT_AUTHORITY");
+  assert.deepEqual(catalog.services, {});
+  assert.match(catalog.warning, /Do not use/i);
+  assert.match(catalog.transaction_document_boundary, /remains disabled/i);
 });
