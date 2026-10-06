@@ -9,6 +9,7 @@ const pages = [
   "/",
   "/proof",
   "/failure-atlas",
+  "/partners",
   "/snapshot",
   "/how-it-works",
   "/pricing",
