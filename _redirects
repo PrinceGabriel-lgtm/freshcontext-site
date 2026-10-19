@@ -1,4 +1,5 @@
 # .html addresses to their clean paths
+/acquisition.html /acquisition 301
 /contact.html /contact 301
 /spec.html /spec 301
 /privacy.html /privacy 301
