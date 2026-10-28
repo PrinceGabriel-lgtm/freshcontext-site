@@ -69,7 +69,7 @@
               <tr><td><strong>Engagement records</strong>: approvals, dates, notes, invoices, deliveries, email log</td><td>To perform the contract, keep accounts, and show what was agreed and delivered</td><td>5 years after the end of the tax year in which the engagement's last invoice was paid, then deleted</td></tr>
               <tr><td><strong>Files you upload</strong> (such as bot exports), with names, sizes and fingerprints</td><td>To perform the audit</td><td>File contents and names are erased 30 days after the engagement closes, or sooner on request. A receipt (fingerprint, size, sender, dates) stays with the engagement record</td></tr>
               <tr><td><strong>Portal sign-in</strong>: your email address and sign-in times</td><td>So only you see your requests, invoices and deliveries</td><td>Sessions last 24 hours. Access is removed once nothing is open or owed</td></tr>
-              <tr><td><strong>Encrypted backups</strong> of the above</td><td>To recover from loss</td><td>Daily copies 35 days, monthly copies about 13 months. A backup copy of an erased file goes when the last backup holding it expires</td></tr>
+              <tr><td><strong>Encrypted backups</strong> of the above, where the recovery service is configured and verified</td><td>To recover from loss</td><td>When enabled: daily copies 35 days, monthly copies about 13 months. A backup copy of an erased file goes when the last backup holding it expires</td></tr>
             </tbody>
           </table>
         </div>
@@ -85,11 +85,11 @@
 
         <h2>Who else processes it, and where</h2>
         <ul>
-          <li><strong>Cloudflare, Inc.</strong> hosts this website, the request service, the console, the customer portal and the databases. It runs portal sign-in (Cloudflare Access), sends our email, protects forms from abuse (Turnstile) and stores the encrypted backups. The request database and backups are in Cloudflare's eastern United States region. Engagement records are in a Cloudflare data centre outside Namibia (Cloudflare does not offer this storage in Africa). Requests pass through Cloudflare's global network.</li>
+          <li><strong>Cloudflare, Inc.</strong> hosts this website, the request service, the console, the customer portal and the databases. It runs portal sign-in (Cloudflare Access), sends our email and protects forms from abuse (Turnstile). The request database is in Cloudflare's eastern United States region. Cloudflare can also store encrypted backups when the recovery service is enabled; backup availability and storage location must be confirmed for the engagement. Engagement records are in a Cloudflare data centre outside Namibia (Cloudflare does not offer this storage in Africa). Requests pass through Cloudflare's global network.</li>
           <li><strong>Google</strong> provides the operators' sign-in to our internal console. Email you send us may be kept in the founder's Google mailbox.</li>
           <li><strong>GitHub</strong> stores our source code only, never customer data.</li>
         </ul>
-        <p>Backups are encrypted with a key held only by FreshContext, so Cloudflare cannot read them.</p>
+        <p>Hosted backups are not available until storage, encryption keys and recovery checks have been configured and verified. Where this recovery service is enabled, copies are encrypted before storage with a key controlled by FreshContext. Do not assume that hosting an engagement record also establishes a working backup.</p>
 
         <h2>Cookies</h2>
         <p>This website sets no cookies of its own and runs no analytics. The Turnstile check on our forms is run by Cloudflare to keep automated submissions out, under Cloudflare's own privacy policy.</p>
