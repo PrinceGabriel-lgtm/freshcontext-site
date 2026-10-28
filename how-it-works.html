@@ -3,22 +3,22 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>How the Stale Answer Audit works | FreshContext</title>
-  <meta name="description" content="The method: rule-based checks against live sources, a person on every finding, and unclear never counted as current." />
+  <title>How context integrity works | FreshContext</title>
+  <meta name="description" content="Define the decision, connect permitted evidence, evaluate applicability and time, review exceptions, and reassess affected work when its supporting conditions change." />
   <link rel="canonical" href="https://freshcontext.dev/how-it-works" />
   <meta name="theme-color" content="#0b3325" />
   <meta property="og:site_name" content="FreshContext" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://freshcontext.dev/how-it-works" />
-  <meta property="og:title" content="How the Stale Answer Audit works | FreshContext" />
-  <meta property="og:description" content="The method: rule-based checks against live sources, a person on every finding, and unclear never counted as current." />
+  <meta property="og:title" content="How context integrity works | FreshContext" />
+  <meta property="og:description" content="Define the decision, connect permitted evidence, evaluate applicability and time, review exceptions, and reassess affected work when its supporting conditions change." />
   <meta property="og:image" content="https://freshcontext.dev/og.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="FreshContext: check whether your support bot's answers still match your sources" />
+  <meta property="og:image:alt" content="FreshContext: context integrity before downstream reliance" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="How the Stale Answer Audit works | FreshContext" />
-  <meta name="twitter:description" content="The method: rule-based checks against live sources, a person on every finding, and unclear never counted as current." />
+  <meta name="twitter:title" content="How context integrity works | FreshContext" />
+  <meta name="twitter:description" content="Define the decision, connect permitted evidence, evaluate applicability and time, review exceptions, and reassess affected work when its supporting conditions change." />
   <meta name="twitter:image" content="https://freshcontext.dev/og.png" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b3325'/%3E%3Cpath d='M15 20h34M15 32h22M15 44h30' stroke='%23ffffff' stroke-width='4.5' stroke-linecap='round'/%3E%3Ccircle cx='43' cy='32' r='5' fill='%237fd8ae'/%3E%3C/svg%3E" />
   <link rel="stylesheet" href="/site.css" />
@@ -33,11 +33,13 @@
         <span>FreshContext</span>
       </a>
       <div class="nav-links">
-        <a href="/how-it-works" aria-current="page">How it works</a>
+        <a href="/proof">Proof</a>
+        <a href="/failure-atlas">Failure Atlas</a>
+        <a href="/how-it-works">How it works</a>
         <a href="/pricing">Pricing</a>
         <a href="/legacy">Legacy</a>
         <a href="/contact">Contact</a>
-        <a class="btn btn--small" href="/snapshot">Free Snapshot</a>
+        <a class="btn btn--small" href="/contact#audit">Request assessment</a>
       </div>
     </nav>
   </header>
@@ -45,86 +47,67 @@
   <main id="main">
     <section class="band page-hd">
       <div class="wrap">
-        <p class="eyebrow">How it works</p>
-        <h1>From an answer to the evidence behind it.</h1>
-        <p class="lede">A fixed method, the same for every customer: rules check what can be checked, a person checks every finding, and anything we can't settle is reported as unsettled.</p>
+        <p class="eyebrow">The method</p>
+        <h1>Keep decisions connected to their evidence.</h1>
+        <p class="lede">FreshContext assessments start with a defined workflow, its sources and the decision being supported. Integrations add bounded checks at the point of reliance, with explicit responsibility for unresolved evidence and later changes.</p>
+        <div class="actions mt-l"><a class="btn btn--large" href="/contact#audit">Discuss your workflow</a><a class="btn btn--ghost btn--large" href="/proof">Run the public proof</a></div>
       </div>
     </section>
-
-    <section class="band flush-top">
+    <section class="band band--tint">
       <div class="wrap">
         <ol class="steps">
-          <li><h2>Agree the scope</h2><p>A short Order names the bot, the answer sample (up to 200 or 500), the sources and the deliverables. Public sources are enough to start; read access to private ones is optional.</p></li>
-          <li><h2>Send the answers</h2><p>An export of recent questions and answers, with the source link each answer used where you have it, through a private upload in your own portal. Never through the public Snapshot form.</p></li>
-          <li><h2>Check against the live sources</h2><p>We extract the checkable claims in each answer (prices, percentages, versions, dates, plan names and links) and compare them with a fresh, logged read of the source. Each read records what we fetched and when.</p></li>
-          <li><h2>A person reviews every finding</h2><p>Every changed, gone or unclear item is opened and checked by hand before it goes in the report. Pages we couldn't read, and claims no rule could settle, are listed as exactly that.</p></li>
-          <li><h2>Walk through the report</h2><p>A one-hour walkthrough with your team, and one round of corrections. Delivered within 10 business days of receiving both the deposit and the agreed inputs.</p></li>
+          <li><h2>Define the decision and its scope</h2><p>Agree the task, intended use, relevant entity or version, time period and permitted sources. The workflow owner identifies the applicable policy and the people who can approve it.</p></li>
+          <li><h2>Connect permitted evidence</h2><p>Use the agreed source access, exports or captures. Preserve what was observed, where it came from and when it was read. A failed read, missing field or incomplete source set stays visible.</p></li>
+          <li><h2>Evaluate the supported context</h2><p>Check identity, applicability, time, provenance and the configured source and policy boundaries. Relevance alone does not settle whether an item supports this particular use.</p></li>
+          <li><h2>Review findings and unresolved work</h2><p>The assessment includes human-reviewed findings and evidence. In a configured workflow, an unresolved item can be assigned to a named owner with the input needed to reassess it. Recording a response does not itself grant approval.</p></li>
+          <li><h2>Integrate an accepted control</h2><p>Where the assessment justifies implementation, agree the source connections, application boundary, acceptance checks and operating responsibilities. The receiving application enforces its own action permissions.</p></li>
+          <li><h2>Reassess affected work</h2><p>Where configured, declared dependencies link evidence, policy and permissions to retained work. Source checks or connected change events can select affected items for reassessment or review while preserving the earlier decision.</p></li>
         </ol>
       </div>
     </section>
-
-    <section class="band band--tint">
+    <section class="band">
       <div class="wrap">
-        <div class="head">
-          <div><p class="eyebrow">What you receive</p><h2>Findings you can check yourself.</h2></div>
-          <p class="sub">Every number in the report can be traced to a page, a passage and a time.</p>
+        <div class="head"><div><p class="eyebrow">Time and purpose</p><h2>A recent observation can still be wrong for this use.</h2></div><p class="sub">FreshContext keeps the period a statement applies to separate from when it was observed and when someone proposes to rely on it.</p></div>
+        <div class="cols cols--3">
+          <div class="point"><h3>When it applies</h3><p>A policy can take effect next month. A quote can expire today. An older planning assumption can still belong to the scenario that approved it.</p></div>
+          <div class="point"><h3>When it was observed</h3><p>Reading or retrieving a record again does not change its effective date, renew its approval or turn an estimate into an observed fact.</p></div>
+          <div class="point"><h3>When it is used</h3><p>A historical decision can explain earlier work. Current use still depends on the applicable source state, scope, permission and time conditions.</p></div>
         </div>
+      </div>
+    </section>
+    <section class="band band--tint" id="change-review">
+      <div class="wrap">
+        <div class="head"><div><p class="eyebrow">Change and review</p><h2>A document can stay unchanged while its support changes.</h2></div><p class="sub">A release-review workflow is one bounded example: documentation depends on an API contract, so a code change can require renewed review even when the document text stays the same.</p></div>
         <div class="rows">
-          <div class="row"><h3>Stale answer rate</h3><p>How many of the sampled answers rest on information that has changed, gone, or can't be verified, each counted separately.</p></div>
-          <div class="row"><h3>Evidence per finding</h3><p>The question, the answer, the claim at issue, what the live source says today (quoted), and the link.</p></div>
-          <div class="row"><h3>Source register</h3><p>Every source the bot relies on, its status (current, changed, gone or unclear), and a &ldquo;check again on&rdquo; date for each.</p></div>
-          <div class="row"><h3>Dead and redirected links</h3><p>Links inside the bot's answers that fail or land somewhere other than the page they name.</p></div>
-          <div class="row"><h3>Walkthrough</h3><p>One hour with your team, and one round of corrections to the report.</p></div>
+          <div class="row"><h3>Capture the dependency</h3><p>Record which source and configuration a work item relies on. These are declared relationships; the system does not infer perfect lineage from arbitrary prose.</p></div>
+          <div class="row"><h3>Identify affected work</h3><p>A source check or supplied event selects items whose declared dependencies changed. Polling can miss intermediate edits; it is not continuous change-history proof.</p></div>
+          <div class="row"><h3>Give review an owner</h3><p>Keep the reason, required input and responsible person with the item. A matching text fragment does not establish that changed code still behaves correctly.</p></div>
+          <div class="row"><h3>Preserve earlier evidence</h3><p>A later assessment creates a new version. The earlier record remains available as historical evidence under the configured retention and access rules.</p></div>
         </div>
+        <p class="note mt-l">The private local release-review workflow has been exercised with real source files and controlled change cases. Independent customer outcomes and maintenance savings have not yet been established.</p>
       </div>
     </section>
-
     <section class="band">
-      <div class="wrap cols cols--2 split">
-        <div><p class="eyebrow">The four verdicts</p><h2>What each status means.</h2></div>
-        <div class="verdicts">
-          <p><span class="verdict verdict--current">Current</span> The live source states the same value the answer gave.</p>
-          <p><span class="verdict verdict--changed">Changed</span> The live source states a different value. We quote it.</p>
-          <p><span class="verdict verdict--gone">Gone</span> The page no longer exists, or now lands somewhere else.</p>
-          <p><span class="verdict verdict--unclear">Unclear</span> We read the page, but it doesn't settle the claim. Never counted as current.</p>
+      <div class="wrap">
+        <div class="head"><div><p class="eyebrow">Delivery</p><h2>Choose the boundary before choosing the deployment.</h2></div><p class="sub">Assessment, private integration and hosted operation have different acceptance requirements.</p></div>
+        <div class="rows">
+          <div class="row"><h3>Human-reviewed assessment</h3><p>Receive scoped findings, evidence, unresolved issues, remediation priorities and a readout. Agree the sample and deliverables before work begins. See <a href="/pricing">assessment scope and terms</a>.</p></div>
+          <div class="row"><h3>Private integration</h3><p>A private Node SDK and local operator tools support bounded integrations and pilots. Source access, configuration and permissions belong to the integrating host; library functions are not all hosted API endpoints.</p></div>
+          <div class="row"><h3>Hosted operation</h3><p>Source connections, authentication, storage, recovery and live acceptance are qualified for the agreed environment. The local document workflow is not a public hosted verification service.</p></div>
         </div>
       </div>
     </section>
-
-    <section class="band band--tint" id="snapshot-method">
-      <div class="wrap cols cols--2 split">
-        <div><p class="eyebrow">The free Snapshot</p><h2>How we read your help centre.</h2></div>
-        <div class="stack">
-          <p>We start from the public URL you send and read at most 150 pages, one per second, obeying your robots.txt. If your site refuses our reader, we stop and tell you.</p>
-          <p>We look for broken links, links that redirect to the home page, retired pages still being linked to, and price or version contradictions where two pages state them plainly. A person checks each one; you get at most 10.</p>
-          <p>Some help centres build their pages with JavaScript in the browser. Our reader can't see those pages yet, and if yours is one of them we'll say so rather than send you an empty report.</p>
-          <p class="note"><strong>What a Snapshot is not:</strong> it reads public pages only, so it can't show what your bot actually said. That is what the audit is for.</p>
+    <section class="band band--dark">
+      <div class="wrap"><div class="head"><div><p class="eyebrow">Evidence boundaries</p><h2>Supported results and unresolved questions stay distinct.</h2></div></div>
+        <div class="rules">
+          <div><h3>Coverage is declared</h3><p>A checked field or sentence does not approve a whole answer or document. Unsupported requests remain outside the tested scope.</p></div>
+          <div><h3>Signatures protect attribution</h3><p>A signed receipt can protect integrity and identify its issuer. It does not make the source factually correct.</p></div>
+          <div><h3>Review does not grant action</h3><p>Evidence assessment, human approval and permission to execute a business action remain separate responsibilities.</p></div>
+          <div><h3>Proofs have a scope</h3><p>The <a href="/proof">public proof</a> and <a href="/failure-atlas">Failure Atlas</a> use labelled synthetic cases. They are demonstrations, not customer accuracy or savings studies.</p></div>
         </div>
       </div>
     </section>
-
-    <section class="band">
-      <div class="wrap cols cols--2 split">
-        <div><p class="eyebrow">Limits, stated plainly</p><h2>What the result means, and doesn't.</h2></div>
-        <ul class="plain-list">
-          <li>It covers the agreed sample and sources, at the times we read them.</li>
-          <li>It checks claims our rules can extract: prices, percentages, versions, dates, plan names and links. It doesn't judge tone, reasoning or advice.</li>
-          <li>It does not certify accuracy or compliance, and it is not legal or regulatory advice.</li>
-          <li>It doesn't change your bot or your content. You decide what to fix.</li>
-          <li>A page we couldn't read is not evidence that its facts are wrong.</li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="band band--tint">
-      <div class="wrap cta">
-        <div><h2>Ready to see it on your own pages?</h2><p class="sub">Start with the free Snapshot, or tell us about your bot.</p></div>
-        <div class="actions">
-          <a class="btn btn--large" href="/snapshot">Request a free Snapshot</a>
-          <a class="btn btn--ghost btn--large" href="/contact#audit">Ask about an audit</a>
-        </div>
-      </div>
-    </section>
+    <section class="band band--tint"><div class="wrap cta"><div><h2>What changes would make your current work need another look?</h2><p class="sub">Tell us the workflow, its sources and the consequence of relying on the wrong context.</p></div><div class="actions"><a class="btn btn--large" href="/contact#audit">Request an assessment</a><a class="btn btn--ghost btn--large" href="/pricing">See scope and pricing</a></div></div></section>
   </main>
 
   <footer class="footer">
@@ -132,10 +115,11 @@
       <div class="footer-inner">
         <div>
           <b>FreshContext</b>
-          <span class="sub">Checks whether your support bot's answers still match the sources they came from.</span>
+          <span class="sub">Context integrity for AI-assisted workflows before downstream reliance.</span>
         </div>
         <nav aria-label="Footer">
-          <a href="/snapshot">Free Snapshot</a>
+          <a href="/proof">Proof</a>
+          <a href="/failure-atlas">Failure Atlas</a>
           <a href="/how-it-works">How it works</a>
           <a href="/pricing">Pricing</a>
           <a href="/contact">Contact</a>

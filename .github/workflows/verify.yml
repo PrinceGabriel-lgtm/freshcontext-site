@@ -77,7 +77,8 @@ concurrency:
 jobs:
   check:
     name: HTML and accessibility
-    runs-on: ubuntu-latest
+    # Keep the runner compatible with the locked browser toolchain.
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -151,7 +152,7 @@ jobs:
       && github.ref == 'refs/heads/main'
       && github.repository == 'PrinceGabriel-lgtm/freshcontext-site'
       && vars.SITE_DEPLOY_FROM_ACTIONS == 'true'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     environment: production
     concurrency:
       group: deploy-site-production

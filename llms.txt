@@ -1,17 +1,20 @@
 # FreshContext
 
-> Checks whether a company's support bot answers still match the live sources they came from.
+> Context integrity for AI-assisted workflows before downstream reliance.
 
 Canonical: https://freshcontext.dev/
-Free Help-centre Snapshot: https://freshcontext.dev/snapshot
-How the audit works: https://freshcontext.dev/how-it-works
-Pricing: https://freshcontext.dev/pricing
-Contact: https://freshcontext.dev/contact
-Legacy open-source package: https://freshcontext.dev/legacy
-Specification (legacy): https://freshcontext.dev/spec
+Method and delivery boundaries: https://freshcontext.dev/how-it-works
+Scope and pricing: https://freshcontext.dev/pricing
+Commercial enquiry: https://freshcontext.dev/contact
+Public synthetic proof: https://freshcontext.dev/proof
+Synthetic Failure Atlas: https://freshcontext.dev/failure-atlas
+Historical open-source package: https://freshcontext.dev/legacy
+Historical specification: https://freshcontext.dev/spec
 
-FreshContext sells the Stale Answer Audit: a fixed-price service that checks up to 200 (or 500) of a support bot's real answers against the live pages they rely on (prices, versions, dates, plan names, links). Each finding is checked by a person and carries the source passage and the time it was read. A claim the source cannot settle is reported as unclear, never as current. Monitoring re-checks the same sources monthly after an audit.
+FreshContext evaluates supported context against explicit identity, applicability, time, provenance, source and policy boundaries for a defined decision point. Human-reviewed Context Integrity Assessments and scoped integrations are offered under agreed terms. Current scope and prices are maintained on the pricing page.
 
-The free Help-centre Snapshot reads a company's public help centre (at most 150 pages, obeying robots.txt) and reports up to 10 person-checked issues such as broken links, retired pages and plain contradictions.
+Where configured, declared dependencies connect retained work to evidence, policy and permissions. Source checks or connected change events can select affected items for reassessment and named review. Later versions preserve earlier decisions as historical evidence; historical replay is not current-use permission.
 
-FreshContext does not certify accuracy or compliance, and is not legal advice. The earlier open-source package, freshcontext-mcp, is MIT-licensed and frozen.
+A private Node SDK and local operator tools support bounded integrations and pilots. Library functions are not all hosted API endpoints. The local document workflow is not a public hosted verification service. Deployment acceptance is specific to the agreed host and source connections.
+
+The public proof and Failure Atlas use labelled synthetic cases. They are not independent customer validation or measured savings. FreshContext does not certify truth, compliance or model safety. Signed records protect integrity and attribution, not source truth. The earlier MIT-licensed open-source release remains separate from the private platform.
