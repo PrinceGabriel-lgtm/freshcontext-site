@@ -6,9 +6,9 @@ Production:
 https://freshcontext.dev/
 
 Key pages:
-- / (the Stale Answer Audit)
+- / (Context Integrity Assessments and scoped integrations)
 - /snapshot (free Help-centre Snapshot request form)
-- /how-it-works, /pricing, /contact (audit enquiry form)
+- /how-it-works, /pricing, /contact (assessment enquiry form; existing intake service identifier remains audit)
 - /legacy (the frozen open-source package), /spec
 - /privacy, /terms, /accessibility
 
